@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axiosInstance from './axiosInstance';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'; 
@@ -21,7 +22,7 @@ export const callApi = async (
       headers: { ...customHeaders },
     });
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     if (error.response) {
       return Promise.reject({ ...error.response.data, status: error.response.status });
     }

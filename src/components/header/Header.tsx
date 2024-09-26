@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import { Layout, Tooltip } from "antd";
 import Image from "next/image";
@@ -20,14 +22,14 @@ const AppHeader = () => {
   const { i18n } = useTranslation();
   const [cookies, setCookie] = useCookies([I18nCookieName]);
 
-  const handleLanguageChange = (lang) => {
+  const handleLanguageChange = (lang: any) => {
     i18n.changeLanguage(lang);
     setCookie(I18nCookieName, lang, { path: '/' });
     setShowLanguages(false);
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (
         languagesRef.current &&
         !languagesRef.current.contains(event.target) &&

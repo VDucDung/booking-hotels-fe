@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
@@ -108,7 +109,7 @@ export default function Register() {
           toast.error(result.payload.message);
         }
       })
-      .catch((err) => {
+      .catch((err:any) => {
         toast.error(err);
       });
   }, [dispatch]);

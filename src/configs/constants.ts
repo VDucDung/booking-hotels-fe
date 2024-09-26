@@ -1,4 +1,3 @@
-import { register } from 'module';
 import {
   enumCashbackType,
   enumDashboardFilterTime,

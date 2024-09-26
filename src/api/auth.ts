@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import { callApi } from './apiUtils';
@@ -28,7 +29,7 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
         localStorage.setItem('user', JSON.stringify(res.data.user));
       }
       return res;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue({ ...error });
     }
   }
@@ -42,9 +43,9 @@ export const registerUser = createAsyncThunk<ApiResponse, UserCredentials>(
       const customHeaders = {
         'accept-language': `${Cookies.get('lang')}`,
       };
-      const res = await callApi('post', `/auth/register`, null, userCredentials, customHeaders);
+      const res = await callApi('POST', `/auth/register`, null, userCredentials, customHeaders);
       return res;
-    } catch (error) {
+    } catch (error:any) {
       return rejectWithValue({ ...error });
     }
   }

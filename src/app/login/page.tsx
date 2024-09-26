@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useCallback, useEffect, useMemo, useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
@@ -122,7 +123,7 @@ export default function Login() {
           toast.error(result.payload.message);
         }
       })
-      .catch((err) => {
+      .catch((err:any) => {
         toast.error(err);
       });
   }, [dispatch]);

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createInstance } from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { headers } from 'next/headers';
