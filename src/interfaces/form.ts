@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IHandleChange {
   (e: React.ChangeEvent<any>): void;
   <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any>

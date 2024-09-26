@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EPlanViewType, enumNavKey } from '@/configs'
 import { AxiosError } from 'axios'
 

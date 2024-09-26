@@ -1,7 +1,5 @@
 import { IUserDetail } from ".";
 import { IGetParams } from "./app";
-import { IPriorityDetail } from "./priority-management";
-import { IStatusDetail } from "./status-management";
 import { ITrackerDetail } from "./tracker-management";
 
 export interface IFetchIssuesParams extends IGetParams {
@@ -29,9 +27,7 @@ export interface IIssueDetail {
   name: string;
   tracker: ITrackerDetail;
   trackerId: number;
-  status: IStatusDetail;
   statusId: number;
-  priority: IPriorityDetail;
   priorityId: number;
   assigner: IUserDetail;
   assignId: number;

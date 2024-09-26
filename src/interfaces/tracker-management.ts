@@ -1,4 +1,3 @@
-import { IUserDetail } from '.'
 import { IGetParams } from './app'
 
 export interface IFetchTrackersParams extends IGetParams {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IGetParams } from ".";
 
 export interface IFetchNotificationsParams extends IGetParams {
