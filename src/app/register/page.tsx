@@ -19,7 +19,6 @@ export default function Register() {
   const router = useRouter();
 
   const loading = useAppSelector((state: any) => state.auth.loading);
-  const error = useAppSelector((state: any) => state.auth.error);
 
   const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
   const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);

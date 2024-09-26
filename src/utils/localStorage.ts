@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const getLocalStorageItem = <T>(itemName: string): T | null => {
   try {
     const item = JSON.parse(localStorage.getItem(itemName) as string);
