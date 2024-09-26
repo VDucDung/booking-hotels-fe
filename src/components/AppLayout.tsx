@@ -7,7 +7,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <AppHeader />
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-hidden h-screen">
         {children}
       </main>
       <AppFooter />

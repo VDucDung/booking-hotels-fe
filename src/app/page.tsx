@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <section>
       <Banner/>
-      <h1 className="h-screen">Home</h1>
+      <h1 >home</h1>
     </section>
   );
 }
