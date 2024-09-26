@@ -1,0 +1,46 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loginWithGoogle } from '@/api/loginWithGoogleService';
+
+interface LoginWithGoogleState {
+  loading: boolean;
+  user: any | null; 
+  error: string | null;
+  isLogin: boolean | null;
+}
+
+const initialState: LoginWithGoogleState = {
+  loading: false,
+  user: null,
+  error: null,
+  isLogin: null,
+};
+
+const loginWithGoogleSlice = createSlice({
+  name: 'loginWithGoogle',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginWithGoogle.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.user = null;
+        state.isLogin = null;
+      })
+      .addCase(loginWithGoogle.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+        state.isLogin = true;
+      })
+      .addCase(loginWithGoogle.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.error.message ?? 'Something went wrong';
+        state.isLogin = null;
+      });
+  },
+});
+
+export default loginWithGoogleSlice.reducer;
