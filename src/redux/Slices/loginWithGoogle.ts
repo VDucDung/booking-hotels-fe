@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loginWithGoogle } from '@/api/loginWithGoogleService';
+import { LoginWithGoogleState } from '@/interfaces';
 
-interface LoginWithGoogleState {
-  loading: boolean;
-  user: any | null; 
-  error: string | null;
-  isLogin: boolean | null;
-}
 
 const initialState: LoginWithGoogleState = {
   loading: false,
@@ -34,7 +29,7 @@ const loginWithGoogleSlice = createSlice({
         state.error = null;
         state.isLogin = true;
       })
-      .addCase(loginWithGoogle.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(loginWithGoogle.rejected, (state, action: any) => {
         state.loading = false;
         state.user = null;
         state.error = action.error.message ?? 'Something went wrong';

@@ -6,12 +6,12 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { Oval } from '@agney/react-loading';
 import { useRouter } from "next/navigation";
-import { registerUser } from '@/api/authService';
 import { statistical } from '@/api/statisticalService';
 import { EmailIcon, PasswordIcon, UserIcon } from '@/assets/icons';
 import AppButton from '@/components/button/AppButton';
 import { useClientTranslation } from '@/i18n/client';
 import { useAppSelector } from '@/redux';
+import { registerUser } from '@/api/authService';
 
 export default function Register() {
   const { t } = useClientTranslation('Common');
@@ -78,7 +78,7 @@ export default function Register() {
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ fullname, email, password })).then((result: any) => {
+    dispatch(registerUser({ fullname, email, password }) as any).then((result: any) => {
       if (result) {
         setTimeout(() => {
           router.push('/login');
@@ -102,7 +102,7 @@ export default function Register() {
   }, [password, passwordRegex, email, emailRegex, fullname]);
 
   useEffect(() => {
-    dispatch(statistical())
+    dispatch(statistical() as any)
       .then((result: any) => {
         if (result.payload.code !== 200) {
           toast.error(result.payload.message);
@@ -180,12 +180,11 @@ export default function Register() {
     </div>
 
     <AppButton
-      type="submit"
       className={`w-full bg-blue-600 text-white py-2 rounded-lg ${submit || loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
       disabled={submit || loading}
-      icon={loading && <Oval width="20" color="#fff" />}
+      leftIcon={loading && <Oval width="20" color="#fff" />}
     >
-      {t('button.btn07')}
+      {t('button.btn06')}
     </AppButton>
   </form>
 

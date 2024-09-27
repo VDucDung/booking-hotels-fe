@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpMethod } from '@/type/httpMethodt.js';
 import axiosInstance from './axiosInstance';
-
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'; 
 
 interface CustomHeaders {
   [key: string]: string; 
@@ -22,10 +21,9 @@ export const callApi = async (
       headers: { ...customHeaders },
     });
     return response.data;
-  } catch (error: any) {
-    if (error.response) {
-      return Promise.reject({ ...error.response.data, status: error.response.status });
+  } catch (error) {
+    if (error) {
+      return Promise.reject({ ...error });
     }
-    return Promise.reject({ message: 'Network error', code: 0 });
   }
 };

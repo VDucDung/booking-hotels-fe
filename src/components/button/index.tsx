@@ -1,1 +1,1 @@
-export * from './AppButton.js'
+export * from './AppButton';

@@ -12,6 +12,7 @@
     "@agney/react-loading": "^0.1.2",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.2.7",
+    "@types/axios": "^0.14.0",
     "antd": "^5.21.0",
     "axios": "^1.7.7",
     "i18next": "^23.15.1",

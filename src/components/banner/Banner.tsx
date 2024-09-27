@@ -16,15 +16,16 @@ const Banner = () => {
     <div className='w-[200px] space-y-4'>
       <div>
         <div>{t('header.na07')}</div>
-        <InputNumber min={1} max={10} value={adults} onChange={setAdults} className='w-full'/>
+        <InputNumber min={1} max={10} value={adults} onChange={(value) => setAdults(value ?? 0)} className='w-full'/>
       </div>
       <div>
         <div>{t('header.na08')}</div>
-        <InputNumber min={0} max={10} value={children} onChange={setChildren} className='w-full'/>
+        <InputNumber min={1} max={10} value={adults} onChange={(value) => setChildren(value ?? 0)} className='w-full'/>
       </div>
       <div>
         <div>{t('header.na09')}</div>
-        <InputNumber min={1} max={10} value={rooms} onChange={setRooms} className='w-full'/>
+        <InputNumber min={1} max={10} value={adults} onChange={(value) => setRooms(value ?? 0)} className='w-full'/>
+
       </div>
       <Button type="primary" onClick={() => console.log('Confirmed')} className='w-full'>Confirm</Button>
     </div>

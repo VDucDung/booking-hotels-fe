@@ -1,53 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { callApi } from './apiUtils';
 import Cookies from 'js-cookie';
+import { callApi } from './apiUtils';
+import { ApiResponse, UserCredentials } from '@/interfaces';
 
-interface UserCredentials {
-  username: string; 
-  password: string;
-}
-
-interface AuthResponse {
-  code: number;
-  data: {
-    accessToken: string;
-    refreshToken: string;
-    user: any; 
-  };
-}
-
-export const loginUser = createAsyncThunk<AuthResponse, UserCredentials, { rejectValue: any }>(
+export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
   'auth/login',
   async (userCredentials, { rejectWithValue }) => {
     try {
       const customHeaders = {
         'accept-language': `${Cookies.get('lang')}`,
       };
-      const res: AuthResponse = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
+      const res = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
       if (res.code === 200) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(res.data.user));
       }
       return res;
-    } catch (error:any) {
-      return rejectWithValue({ ...error });
+    } catch (error) {
+      if (error) {
+        return rejectWithValue({ ...error });
+      }
     }
   }
 );
 
-export const registerUser = createAsyncThunk<AuthResponse, UserCredentials, { rejectValue: any }>(
+export const registerUser = createAsyncThunk<ApiResponse, UserCredentials>(
   'auth/register',
   async (userCredentials, { rejectWithValue }) => {
     try {
       const customHeaders = {
         'accept-language': `${Cookies.get('lang')}`,
       };
-      const res: AuthResponse = await callApi('POST', `/auth/register`, null, userCredentials, customHeaders);
+      const res = await callApi('POST', `/auth/register`, null, userCredentials, customHeaders);
       return res;
-    } catch (error:any) {
-      return rejectWithValue({ ...error });
+    } catch (error) {
+      if(error) {
+        return rejectWithValue({ ...error });
+      }
     }
   }
 );

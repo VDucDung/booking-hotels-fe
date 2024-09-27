@@ -16,8 +16,8 @@ const { Header } = Layout;
 
 const AppHeader = () => {
   const { t } = useClientTranslation('Common');
-  const languagesRef = useRef(null);  
-  const buttonRef = useRef(null);    
+  const languagesRef = useRef<HTMLUListElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showLanguages, setShowLanguages] = useState(false);
   const { i18n } = useTranslation();
   const [cookies, setCookie] = useCookies([I18nCookieName]);

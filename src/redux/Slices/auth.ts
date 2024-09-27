@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { clearError, loginUser, registerUser } from '@/api/auth';
+import { clearError, loginUser, registerUser } from '@/api/authService';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     loading: false,
     user: getLocalStorageItem('user') || null,
-    error: null,
+    error: null as string | null,
     isLogin: getLocalStorageItem('user') ? true : null,
     status: null,
     secretKey: '',
     message: '',
     isUpdate: false,
+    secretStatus: null,
   },
 
   reducers: {
@@ -22,8 +24,6 @@ const authSlice = createSlice({
       state.secretStatus = null;
     },
   },
-
-  // update secret key
 
   extraReducers: (builder) => {
     builder
@@ -41,7 +41,7 @@ const authSlice = createSlice({
         state.error = null;
         state.isLogin = action.payload.code === 200 ? true : false;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action: any) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload.message;
@@ -64,7 +64,7 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
-        state.error = action.error.message;
+        state.error = action.error.message ? action.error.message : null;
         state.isLogin = null;
       })
       .addCase(clearError.fulfilled, (state) => {

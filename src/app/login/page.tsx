@@ -10,7 +10,7 @@ import { EmailIcon, GoogleIcon, PasswordIcon } from "@/assets/icons";
 import { useAppSelector } from "@/redux/store";
 import { routes } from "@/configs";
 import AppButton from "@/components/button/AppButton";
-import { loginUser } from "@/api/auth";
+import { loginUser } from "@/api/authService";
 import { loginWithGoogle } from "@/api/loginWithGoogleService";
 import { useRouter } from "next/navigation";
 import { statistical } from "@/api/statisticalService";
@@ -85,8 +85,7 @@ export default function Login() {
     }
 
 
-    dispatch(loginUser(loginForm)).then((result: any) => {
-      console.log(result);
+    dispatch(loginUser(loginForm) as any).then((result: any) => {
       if (result.payload.code === 200) {
         toast.success(t("login.notify01"));
         router.push("/");
@@ -98,7 +97,7 @@ export default function Login() {
 
   const loginWithGoogleHandler = useGoogleLogin({
     onSuccess: async (response) => {
-      dispatch(loginWithGoogle(response)).then((result: any) => {
+      dispatch(loginWithGoogle(response) as any).then((result: any) => {
         console.log(result)
         if (result.payload.status === 200) {
           localStorage.setItem("accessToken", result.payload.access_token);
@@ -117,7 +116,7 @@ export default function Login() {
   }, [loginForm.email, loginForm.password]);
 
   useEffect(() => {
-    dispatch(statistical())
+    dispatch(statistical() as any)
       .then((result: any) => {
         if (result.payload.code !== 200) {
           toast.error(result.payload.message);
@@ -177,7 +176,7 @@ export default function Login() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <AppButton primary auth disabled={submit || loading} type="submit" leftIcon={loading && <Oval width="20" color="#fff" />} className="py-2 rounded-full">
+          <AppButton primary auth disabled={submit || loading} leftIcon={loading && <Oval width="20" color="#fff" />} className="py-2 rounded-full">
             {t("button.btn04")}
           </AppButton>
           <AppButton onClick={() => loginWithGoogleHandler()} authGoogle leftIcon={<GoogleIcon className={"w-6 h-6"} />} className="py-2 rounded-full flex justify-center">
