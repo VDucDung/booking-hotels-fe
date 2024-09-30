@@ -1,20 +1,22 @@
-
-import { Hotel } from '@/interfaces';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { callApi } from './apiUtils';
-import Cookies from 'js-cookie';
+import { GetHotelsResponse } from '@/interfaces';
 
-export const getHotels = createAsyncThunk<Hotel[], void>(
-  'hotels',
-  async () => {
-    try{
-      const customHeaders = {
-        'accept-language': `${Cookies.get('lang')}`,
-      };
-      const res = await callApi('POST', `/hotels`, customHeaders);
-      return res;
-    }catch(err) {
-      throw err;
+export const getHotels = createAsyncThunk<GetHotelsResponse, void>(
+  'hotels/getHotels',
+  async (_, { rejectWithValue }) => {
+    try {
+
+    const res = await callApi('GET', `/hotels`);
+    if (res.data) {
+      return res as GetHotelsResponse;
+    } else {
+      return rejectWithValue('Failed to fetch hotels');
+    }
+      
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch hotels');
     }
   }
 );
