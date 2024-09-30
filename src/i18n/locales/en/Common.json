@@ -102,5 +102,46 @@
     "heading": "Recover password",
     "desc01": "Send a forgotten password verification code via email.",
     "desc02": "You remembered the password"
+  },
+  "user-options": {
+    "op01": "Profile page",
+    "op02": "Log Out"
+  },
+  "profile": {
+    "registered": "Registration: ",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phoneNumber": "Phone Number",
+    "msv": "Student ID",
+    "birthDay": "Date of Birth",
+    "gender": {
+      "title": "Gender",
+      "male": "Male",
+      "female": "Female"
+    },
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "navTitle01": "Account Management",
+    "navTitle02": "Customer Support",
+    "navTitle03": "Purchase & Top-Up Orders",
+    "nav01": "Personal Information",
+    "nav02": "Change Password",
+    "nav03": "Help",
+    "nav04": "Terms of Use",
+    "nav05": "Two-Factor Authentication",
+    "nav06": "Purchase Order",
+    "nav07": "Top-Up",
+    "btn-update": "Update",
+    "btn-cancel": "Cancel",
+    "btn-edit": "Edit",
+    "btn-select-img": "Select Image",
+    "toast": {
+      "noChanged": "No changes have been made.",
+      "noExactly": "Please check the information again and enter in the correct format.",
+      "successed": "Update successful.",
+      "error": "Update failed.",
+      "noExactlyPasswords": "Incorrect old password"
+    }
   }
 }

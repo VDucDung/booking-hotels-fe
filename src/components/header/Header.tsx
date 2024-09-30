@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
@@ -5,22 +6,36 @@ import { Layout, Tooltip } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { useClientTranslation } from '@/i18n/client';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCookies } from 'react-cookie';
 import { I18nCookieName } from "@/i18n/configs";
 import images from "@/assets/images";
-import { HertIcon } from "@/assets/icons";
+import { HertIcon, LogOutIcon, UserIcon } from "@/assets/icons";
+import { getLocalStorageItem } from "@/utils";
+import { useAppSelector } from "@/redux";
+import { toast } from 'react-toastify';
 
 const { Header } = Layout;
 
 const AppHeader = () => {
   const { t } = useClientTranslation('Common');
+  let userInfo: any = JSON.parse(JSON.stringify(getLocalStorageItem('user') || '{}'));
   const languagesRef = useRef<HTMLUListElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showLanguages, setShowLanguages] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const [avatar, setAvatar] = useState(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
   const { i18n } = useTranslation();
   const [cookies, setCookie] = useCookies([I18nCookieName]);
+
+  const auth = useAppSelector((state) => state.auth.isLogin);
+  const [token, setToken] = useState(null);
+
+  const userData = useAppSelector((state) => state.auth);
+  const userOptionsRef = useRef<HTMLUListElement | null>(null);
+  const avatarRef = useRef<HTMLImageElement | null>(null);
+  const [showUserOptions, setShowUserOptions] = useState(false);
 
   const handleLanguageChange = (lang: any) => {
     i18n.changeLanguage(lang);
@@ -28,6 +43,33 @@ const AppHeader = () => {
     setShowLanguages(false);
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
+    setShowUserOptions(false);
+
+    localStorage.setItem('showToast', 'true');
+    window.location.href = '/';
+  };
+
+  const handleClickOutsideUserOptions = useCallback((event: any) => {
+    if (
+      userOptionsRef.current &&
+      !userOptionsRef.current.contains(event.target) &&
+      avatarRef.current && !avatarRef.current.contains(event.target)
+    ) {
+      setShowUserOptions(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedToken: any = localStorage.getItem('accessToken');
+      setToken(storedToken);
+    }
+  }, []);
+  
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (
@@ -46,6 +88,45 @@ const AppHeader = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+    useEffect(() => {
+      const showToast = localStorage.getItem('showToast');
+      if (showToast === 'true') {
+        toast.success(t('login.notify02'));
+        const deleteToast = setTimeout(() => {
+          localStorage.removeItem('showToast');
+        }, 100);
+        return () => clearTimeout(deleteToast);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+      if (userData.isUpdate) {
+        setAvatar(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
+      }
+  
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData.user]);
+
+  useEffect(() => {
+    if (auth || token) {
+      setIsLogin(true);
+      setAvatar(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
+    } else {
+      setIsLogin(false);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth, token]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutsideUserOptions);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutsideUserOptions);
+    };
+  }, [handleClickOutsideUserOptions]);
 
   return (
   <Header className=" bg-[#00ba51] h-[115px] pt-[8px] relative px-[230px]">
@@ -67,9 +148,51 @@ const AppHeader = () => {
           <div className="flex items-center">
             <Link href={'/'} className="px-[12px] text-[16px] font-medium hover:bg-[#00BA00] hover:text-white">{t('header.na01')}</Link>
           </div>
-          <div className="flex items-center ">
-            <Link href={'/login'} className="px-[12px] text-[16px] font-medium bg-[#fff] text-[#00BA00] hover:text-[#00BA00] hover:opacity-90 border border-white rounded-lg">{t('header.na02')}</Link>
-          </div>
+            {/* Login/Logout */}
+            <div className="flex items-center">
+              {!isLogin ? (
+                <Link href="/login" className="px-3 text-lg font-medium bg-white text-[#00BA00] hover:text-[#00BA00]  hover:opacity-90 border border-white rounded-lg">
+                  {t('header.na02')}
+                </Link>
+              ) : (
+                <div className="relative ml-3">
+                  <Image
+                    ref={avatarRef}
+                    onClick={() => setShowUserOptions((prev) => !prev)}
+                    className="w-10 h-10 rounded-full cursor-pointer hover:bg-[#00BA00] transition-colors duration-300"
+                    src={avatar}
+                    width={40}
+                    height={40}
+                    alt="avatar"
+                  />
+                  {showUserOptions && (
+                    <ul
+                      ref={userOptionsRef}
+                      className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-[#00BA00] z-[999]"
+                    >
+                      <li
+                        className="flex items-center p-2 text-[#000] hover:bg-gray-100  cursor-pointer hover:rounded-t-lg"
+                        onClick={() => {
+                          setShowUserOptions(false);
+                        }}
+                      >
+                        <Link href="/auth/profile" className="flex items-center w-full hover:text-[#000]" >
+                          <UserIcon className="w-6 h-6 mr-2 " />
+                          <span>{t('user-options.op01')}</span>
+                        </Link>
+                      </li>
+                      <li
+                        className="flex items-center p-2 text-[#000] hover:bg-gray-100 hover:text-[#000] cursor-pointer hover:rounded-b-lg"
+                        onClick={handleLogOut}
+                      >
+                        <LogOutIcon className="w-6 h-6 mr-2 fill-slate-400" />
+                        <span>{t('user-options.op02')}</span>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              )}
+            </div>
           <div className="pl-[12px] relative flex items-center ">
             <button
               ref={buttonRef}
@@ -87,11 +210,11 @@ const AppHeader = () => {
             {showLanguages && (
               <ul
                 ref={languagesRef}
-                className="absolute z-99 right-0 mt-2 w-[170px] bg-white shadow-lg rounded-lg border border-gray-200 top-[43px] text-gray-600 z-50"
+                className="absolute right-0 mt-2 w-[170px] bg-white shadow-lg rounded-lg border border-gray-200 top-[43px] text-gray-600 z-[999]"
               >
                 <li
                   onClick={() => handleLanguageChange('vi')}
-                  className="cursor-pointer flex items-center p-3 hover:bg-gray-100 hover:rounded-t-lg transition-colors duration-200"
+                  className="cursor-pointer flex items-center p-2 hover:bg-gray-100 hover:rounded-t-lg transition-colors duration-200"
                 >
                   <Image
                     loading="lazy"
@@ -103,7 +226,7 @@ const AppHeader = () => {
                 </li>
                 <li
                   onClick={() => handleLanguageChange('en')}
-                  className="cursor-pointer flex items-center p-3 hover:bg-gray-100 hover:rounded-b-lg transition-colors duration-200"
+                  className="cursor-pointer flex items-center p-2 hover:bg-gray-100 hover:rounded-b-lg transition-colors duration-200"
                 >
                   <Image
                     loading="lazy"

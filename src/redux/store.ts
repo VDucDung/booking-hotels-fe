@@ -8,7 +8,7 @@ import { RootState } from './Slices';
 const persistConfig = {
   key: 'root',
   storage: sessionStorage, 
-  whitelist: ['app', 'auth', 'user'],  
+  whitelist: ['auth', 'user'],  
   blacklist: ['toast'],  
 };
 

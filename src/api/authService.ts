@@ -11,22 +11,25 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
       const customHeaders = {
         'accept-language': `${Cookies.get('lang')}`,
       };
-      const res = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
-      if (res.code === 200) {
+      const res: ApiResponse = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
+      if (res.statusCode === 201) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(res.data.user));
       }
-      return res;
+      return res; 
     } catch (error) {
       if (error) {
-        return rejectWithValue({ ...error });
+        return rejectWithValue({ ...error }); 
+      } else {
+        throw new Error('An unknown error occurred');
       }
     }
   }
 );
 
-export const registerUser = createAsyncThunk<ApiResponse, UserCredentials>(
+
+export const registerUser = createAsyncThunk<any, UserCredentials>(
   'auth/register',
   async (userCredentials, { rejectWithValue }) => {
     try {

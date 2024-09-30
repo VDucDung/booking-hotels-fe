@@ -6,9 +6,10 @@ export interface UserCredentials {
 }
 
 export interface ApiResponse {
-  code: number;
+  statusCode: number;
   data?: any;
   message?: string;
+  url?: string;
 }
 
 export interface GoogleLoginResponse {
@@ -17,7 +18,7 @@ export interface GoogleLoginResponse {
 
 export interface UserInfoResponse {
   status: number;
-  access_token: string;
+  accessToken: string;
   data: any; 
 }
 

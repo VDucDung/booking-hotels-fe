@@ -79,5 +79,46 @@
     "heading": "Khôi phục mật khẩu",
     "desc01": "Gửi mã xác nhận quên mật khẩu qua email.",
     "desc02": "Bạn đã nhớ mật khẩu"
+  },
+  "user-options": {
+    "op01": "Trang cá nhân",
+    "op02": "Đăng xuất"
+  },
+  "profile": {
+    "registered": "Đăng ký: ",
+    "fullName": "Họ tên",
+    "email": "Email",
+    "phoneNumber": "Số điện thoại",
+    "msv": "Mã sinh viên",
+    "birthDay": "Ngày sinh",
+    "gender": {
+      "title": "Giới tính",
+      "male": "Nam",
+      "female": "Nữ"
+    },
+    "oldPassword": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu mới",
+    "navTitle01": "Quản lý tài khoản",
+    "navTitle02": "Hỗ trợ khác hàng",
+    "navTitle03": "Đơn mua & Nạp tiền",
+    "nav01": "Thông tin cá nhân",
+    "nav02": "Đổi mật khẩu",
+    "nav03": "Trợ giúp",
+    "nav04": "Điều khoản sử dụng",
+    "nav05": "Bảo mật 2 lớp",
+    "nav06": "Đơn mua",
+    "nav07": "Nạp tiền",
+    "btn-update": "Cập Nhật",
+    "btn-cancel": "Hủy",
+    "btn-edit": "Chỉnh sửa",
+    "btn-select-img": "Chọn ảnh",
+    "toast": {
+      "noChanged": "Không có thay đổi nào được thực hiện.",
+      "noExactly": "Vui lòng kiểm tra lại thông tin và nhập đúng định dạng.",
+      "successed": "Cập nhật thành công.",
+      "error": "Cập nhật thất bại.",
+      "noExactlyPasswords": "Mật khẩu cũ không chính xác"
+    }
   }
 }

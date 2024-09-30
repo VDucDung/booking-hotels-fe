@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { statistical } from "@/api/statisticalService";
 import { useClientTranslation } from "@/i18n/client";
 
+
 interface LoginForm {
   email: string;
   password: string;
@@ -84,9 +85,8 @@ export default function Login() {
       return;
     }
 
-
     dispatch(loginUser(loginForm) as any).then((result: any) => {
-      if (result.payload.code === 200) {
+      if (result.payload.statusCode === 201) {
         toast.success(t("login.notify01"));
         router.push("/");
       } else {
@@ -96,11 +96,12 @@ export default function Login() {
   };
 
   const loginWithGoogleHandler = useGoogleLogin({
-    onSuccess: async (response) => {
-      dispatch(loginWithGoogle(response) as any).then((result: any) => {
-        console.log(result)
-        if (result.payload.status === 200) {
-          localStorage.setItem("accessToken", result.payload.access_token);
+    onSuccess: async (response: any) => {
+      const access_token = response.access_token;
+      dispatch(loginWithGoogle({ access_token }) as any).then((result: any) => {
+        if (result.payload.accessToken) {
+          localStorage.setItem("accessToken", result.payload.accessToken);
+          localStorage.setItem("user", JSON.stringify(result.payload.data));
           toast.success(t("login.notify01"));
           router.push("/");
         } else {
@@ -160,7 +161,7 @@ export default function Login() {
               placeholder={t("form.tp02")}
               className="w-full p-4 text-base border rounded-lg focus:outline-none"
             />
-            <PasswordIcon className={`absolute right-4 ${errors.password ? "text-red-500" : ""}`} />
+            <PasswordIcon className={`absolute right-4 fill-white text-[#94a3b8] ${errors.password ? "text-red-500" : ""}`} />
           </div>
           <p className="mt-1 text-red-500 text-sm">{errors.password}</p>
         </div>

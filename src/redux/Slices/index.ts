@@ -2,12 +2,15 @@ import { Action, Reducer } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 
 import authReducer from './auth'
+import hotelReducer from './hotel'
 
 export * from './auth'
+export * from './hotel'
 
 
 const productReducer = combineReducers({
   auth: authReducer,
+  hotels: hotelReducer,
 })
   
 export type RootState = ReturnType<typeof productReducer>

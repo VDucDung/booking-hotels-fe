@@ -20,11 +20,11 @@ const Banner = () => {
       </div>
       <div>
         <div>{t('header.na08')}</div>
-        <InputNumber min={1} max={10} value={adults} onChange={(value) => setChildren(value ?? 0)} className='w-full'/>
+        <InputNumber min={1} max={10} value={children} onChange={(value) => setChildren(value ?? 0)} className='w-full'/>
       </div>
       <div>
         <div>{t('header.na09')}</div>
-        <InputNumber min={1} max={10} value={adults} onChange={(value) => setRooms(value ?? 0)} className='w-full'/>
+        <InputNumber min={1} max={10} value={rooms} onChange={(value) => setRooms(value ?? 0)} className='w-full'/>
 
       </div>
       <Button type="primary" onClick={() => console.log('Confirmed')} className='w-full'>Confirm</Button>
