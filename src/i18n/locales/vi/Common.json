@@ -1,4 +1,18 @@
 {
+  "pageTitle": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "product": "Sản phẩm",
+    "other": "Khác",
+    "signIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "test": "TEST",
+    "cart": "Giỏ hàng",
+    "search": "Tìm kiếm",
+    "checkout": "Thanh toán",
+    "profile": "Trang cá nhân"
+  },
   "header": {
     "na01": "Đăng chỗ nghỉ của Quý vị",
     "na02": "Đăng nhập/Đăng kí",
@@ -64,7 +78,9 @@
     "btn13": "Tìm hiểu thêm",
     "btn14": "Gửi",
     "btn15": "Hoàn thành",
-    "btn16": "Xóa"
+    "btn16": "Xóa",
+    "btn17": "Lưu Thông Tin",
+    "btn18": "Hủy"
   },
   "form": {
     "tp01": "Email",
@@ -82,23 +98,19 @@
   },
   "user-options": {
     "op01": "Trang cá nhân",
-    "op02": "Đăng xuất"
+    "op02": "Vé của tôi",
+    "op03": "Đăng xuất"
   },
   "profile": {
     "registered": "Đăng ký: ",
-    "fullName": "Họ tên",
-    "email": "Email",
-    "phoneNumber": "Số điện thoại",
-    "msv": "Mã sinh viên",
-    "birthDay": "Ngày sinh",
-    "gender": {
-      "title": "Giới tính",
-      "male": "Nam",
-      "female": "Nữ"
-    },
-    "oldPassword": "Mật khẩu cũ",
-    "newPassword": "Mật khẩu mới",
-    "confirmPassword": "Xác nhận mật khẩu mới",
+    "fullName": "Họ tên:",
+    "email": "Email:",
+    "phoneNumber": "Số điện thoại:",
+    "birthDay": "Ngày sinh:",
+    "oldPassword": "Mật khẩu cũ:",
+    "newPassword": "Mật khẩu mới:",
+    "confirmPassword": "Xác nhận mật khẩu mới:",
+    "info": "Thông tin tài khoản",
     "navTitle01": "Quản lý tài khoản",
     "navTitle02": "Hỗ trợ khác hàng",
     "navTitle03": "Đơn mua & Nạp tiền",

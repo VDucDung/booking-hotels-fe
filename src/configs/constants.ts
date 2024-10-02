@@ -367,3 +367,41 @@ export const REGEX_EMAIL =
   /^[a-zA-Z0-9._%+-]+@(?!.*\.\.)[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export const ROLE_DEFAULT_ID = 2
+
+
+export const PATH = {
+  HOME: "/",
+  ABOUT: "/about",
+  AUTH: "/auth",
+  LOGIN: "/auth/login",
+  SIGN_UP: "/auth/sign-up",
+  FORGOT_PASSWORD: "/forgot-password",
+  CART: "/cart",
+  TEST: "/test",
+  PRODUCTS: "/products",
+  PRODUCT_DETAIL: "/product/:productId",
+  PROFILE: "/profile",
+  PROFILE_EDIT: "/profile",
+  VIEWED_PRODUCTS: "profile/viewed-products",
+  CHANGE_PASSWORD: "/profile/ChangePassword",
+  FAVORITE: "/profile/favorites",
+  ORDER: "profile/order",
+  CHECKOUT: "/checkout",
+  OTHER: "/other",
+  CONTACT: "/contact",
+};
+
+export const PAGE_TITLE = {
+  HOME: "pageTitle.home",
+  ABOUT: "pageTitle.about",
+  SIGN_UP: "pageTitle.signUp",
+  LOGIN: "pageTitle.signIn",
+  TEST: "pageTitle.test",
+  PRODUCT: "pageTitle.product",
+  CART: "pageTitle.cart",
+  OTHER: "pageTitle.other",
+  CONTACT: "pageTitle.contact",
+  CHECKOUT: "pageTitle.checkout",
+  PRODUCT_DETAIL: "pathTitle.productDetail",
+  PROFILE: "pageTitle.profile",
+};

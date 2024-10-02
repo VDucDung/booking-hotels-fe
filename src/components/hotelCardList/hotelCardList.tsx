@@ -6,7 +6,7 @@ import { HotelCardListProps } from '@/interfaces';
 
 const HotelCardList: React.FC<HotelCardListProps> = ({ hotels }) => {
   return (
-    <Row gutter={[16, 16]} className='container overflow-y-hidden' style={{margin: '80px auto', padding:'0'}}>
+    <Row gutter={[16, 16]} className='container' style={{margin: '80px auto', padding:'0'}}>
       {hotels?.length ? (
         hotels.map((hotel) => (
           <Col key={hotel.id} xs={24} sm={12} md={8} lg={6} style={{margin: '0', padding:'0'}}>

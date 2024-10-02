@@ -3,14 +3,17 @@ import { combineReducers } from 'redux'
 
 import authReducer from './auth'
 import hotelReducer from './hotel'
+import userReducer from './user'
 
 export * from './auth'
 export * from './hotel'
+export * from './user'
 
 
 const productReducer = combineReducers({
   auth: authReducer,
   hotels: hotelReducer,
+  users: userReducer
 })
   
 export type RootState = ReturnType<typeof productReducer>

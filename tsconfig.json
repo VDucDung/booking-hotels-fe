@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/assets/icons/Icons.js", "src/api/axiosInstance.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/assets/icons/Icons.js", "src/api/axiosInstance.ts", "src/components/icon/index.tsx"],
   "exclude": ["node_modules"]
 }

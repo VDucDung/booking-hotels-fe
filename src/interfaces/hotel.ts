@@ -1,3 +1,5 @@
+import { DetailResult } from "./detailResult";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Hotel {
   id: number;
@@ -28,13 +30,7 @@ export interface HotelCardListProps {
   hotels: Hotel[];
 }
 
-export interface DetailResult {
-  limit: number;
-  totalResult: number;
-  totalPage: number;
-  currentPage: number;
-  currentResult: number;
-}
+
 
 export interface GetHotelsResponse {
   data: {

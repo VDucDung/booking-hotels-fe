@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const getLocalStorageItem = <T>(itemName: string): T | null => {
+  if (typeof window === 'undefined') return null;
   try {
-    const item = JSON.parse(localStorage.getItem(itemName) as string);
-    return item as T;
+    const item = localStorage.getItem(itemName);
+    if (!item) return null;
+    return JSON.parse(item) as T;
   } catch (error) {
-    console.error(`Lỗi khi lấy thông tin từ localStorage cho item ${itemName}:`, error);
+    console.error(`Error getting item ${itemName} from localStorage:`, error);
     return null;
   }
 };

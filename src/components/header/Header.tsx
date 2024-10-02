@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useCookies } from 'react-cookie';
 import { I18nCookieName } from "@/i18n/configs";
 import images from "@/assets/images";
-import { HertIcon, LogOutIcon, UserIcon } from "@/assets/icons";
+import { CheckIcon, CoinIcon, CopyIcon, HertIcon, HomeIcon, LogOutIcon, UserIcon } from "@/assets/icons";
 import { getLocalStorageItem } from "@/utils";
 import { useAppSelector } from "@/redux";
 import { toast } from 'react-toastify';
@@ -176,9 +176,20 @@ const AppHeader = () => {
                           setShowUserOptions(false);
                         }}
                       >
-                        <Link href="/auth/profile" className="flex items-center w-full hover:text-[#000]" >
+                        <Link href="/profile" className="flex items-center w-full hover:text-[#000]" >
                           <UserIcon className="w-6 h-6 mr-2 " />
                           <span>{t('user-options.op01')}</span>
+                        </Link>
+                      </li>
+                      <li
+                        className="flex items-center p-2 text-[#000] hover:bg-gray-100  cursor-pointer hover:rounded-t-lg"
+                        onClick={() => {
+                          setShowUserOptions(false);
+                        }}
+                      >
+                        <Link href="/profile" className="flex items-center w-full hover:text-[#000]" >
+                          <HomeIcon className="mr-2 w-6 h-6 fill-slate-400" />
+                          <span>{t('user-options.op02')}</span>
                         </Link>
                       </li>
                       <li
@@ -186,7 +197,7 @@ const AppHeader = () => {
                         onClick={handleLogOut}
                       >
                         <LogOutIcon className="w-6 h-6 mr-2 fill-slate-400" />
-                        <span>{t('user-options.op02')}</span>
+                        <span>{t('user-options.op03')}</span>
                       </li>
                     </ul>
                   )}

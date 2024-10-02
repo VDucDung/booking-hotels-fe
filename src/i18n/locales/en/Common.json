@@ -1,4 +1,16 @@
 {
+  "pageTitle": {
+    "home": "Home",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "product": "Products",
+    "other": "Other",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "test": "Test",
+    "search": "Search",
+    "profile": "Profile"
+  },
   "header": {
     "na01": "List your property",
     "na02": "Login/Register",
@@ -87,7 +99,9 @@
     "btn13": "Learn more",
     "btn14": "Send",
     "btn15": "Complete",
-    "btn16": "Delete"
+    "btn16": "Delete",
+    "btn17": "Save changes",
+    "btn18": "Cancel"
   },
   "form": {
     "tp01": "Email",
@@ -105,23 +119,19 @@
   },
   "user-options": {
     "op01": "Profile page",
-    "op02": "Log Out"
+    "op02": "My booking",
+    "op03": "Log Out"
   },
   "profile": {
-    "registered": "Registration: ",
-    "fullName": "Full Name",
-    "email": "Email",
-    "phoneNumber": "Phone Number",
-    "msv": "Student ID",
-    "birthDay": "Date of Birth",
-    "gender": {
-      "title": "Gender",
-      "male": "Male",
-      "female": "Female"
-    },
+    "registered": "Registration:",
+    "fullName": "Full Name:",
+    "email": "Email:",
+    "phoneNumber": "Phone Number:",
+    "birthDay": "Date of Birth:",
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm New Password",
+    "info": "Account Information",
     "navTitle01": "Account Management",
     "navTitle02": "Customer Support",
     "navTitle03": "Purchase & Top-Up Orders",

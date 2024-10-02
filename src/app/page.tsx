@@ -4,9 +4,9 @@ import { Spin, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getHotels } from '@/api/hotelService';
 import { AppDispatch, useAppSelector } from '@/redux';
-import Banner from "@/components/banner/Banner";
 import HotelCardList from "@/components/hotelCardList/hotelCardList";
 import HotelCard from '@/components/hotelCard/HotelCard';
+import Banner from '@/components/banner/Banner';
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
