@@ -8,7 +8,7 @@ const initialState: LoginWithGoogleState = {
   loading: false,
   user: null,
   error: null,
-  isLogin: null,
+  isLogin: false,
 };
 
 const loginWithGoogleSlice = createSlice({
@@ -21,7 +21,7 @@ const loginWithGoogleSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.user = null;
-        state.isLogin = null;
+        state.isLogin = false;
       })
       .addCase(loginWithGoogle.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
@@ -33,7 +33,7 @@ const loginWithGoogleSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.error = action.error.message ?? 'Something went wrong';
-        state.isLogin = null;
+        state.isLogin = false;
       });
   },
 });

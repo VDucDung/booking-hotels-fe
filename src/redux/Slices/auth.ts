@@ -10,7 +10,7 @@ const authSlice = createSlice({
     loading: false,
     user: (getLocalStorageItem('user') || null) as any,
     error: null as string | null,
-    isLogin: getLocalStorageItem('user') ? true : null,
+    isLogin: false,
     status: null,
     secretKey: '',
     message: '',
@@ -23,6 +23,12 @@ const authSlice = createSlice({
       state.status = null;
       state.secretStatus = null;
     },
+    logout: (state) => {
+      state.user = null;
+      state.isLogin = false;
+      state.error = null;
+      state.message = '';
+    },
   },
 
   extraReducers: (builder) => {
@@ -33,19 +39,19 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.user = null;
-        state.isLogin = null;
+        state.isLogin = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.statusCode === 200 ? action.payload.data.user : null;
         state.error = null;
-        state.isLogin = action.payload.statusCode === 200 ? true : false;
+        state.isLogin = true;
       })
       .addCase(loginUser.rejected, (state, action: any) => {
         state.loading = false;
         state.user = null;
         state.error = action.payload.message;
-        state.isLogin = null;
+        state.isLogin = false;
       })
 
       // register
@@ -53,25 +59,25 @@ const authSlice = createSlice({
         state.loading = true;
         state.user = null;
         state.error = null;
-        state.isLogin = null;
+        state.isLogin = false;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.error = null;
-        state.isLogin = null;
+        state.isLogin = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.error.message ? action.error.message : null;
-        state.isLogin = null;
+        state.isLogin = false;
       })
       .addCase(clearError.fulfilled, (state) => {
         state.error = null;
       });
   },
 });
+export const { reFreshStatus, logout } = authSlice.actions;
 
-export const { reFreshStatus } = authSlice.actions;
 export default authSlice.reducer;

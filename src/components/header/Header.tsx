@@ -13,8 +13,9 @@ import { I18nCookieName } from "@/i18n/configs";
 import images from "@/assets/images";
 import { CheckIcon, CoinIcon, CopyIcon, HertIcon, HomeIcon, LogOutIcon, UserIcon } from "@/assets/icons";
 import { getLocalStorageItem } from "@/utils";
-import { useAppSelector } from "@/redux";
+import { logout, useAppSelector } from "@/redux";
 import { toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
 
 const { Header } = Layout;
 
@@ -25,9 +26,10 @@ const AppHeader = () => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showLanguages, setShowLanguages] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [avatar, setAvatar] = useState(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
+  const [avatar, setAvatar] = useState(userInfo?.avatar || userInfo?.picture);
   const { i18n } = useTranslation();
   const [cookies, setCookie] = useCookies([I18nCookieName]);
+  const dispatch = useDispatch();
 
   const auth = useAppSelector((state) => state.auth.isLogin);
   const [token, setToken] = useState(null);
@@ -50,6 +52,9 @@ const AppHeader = () => {
     setShowUserOptions(false);
 
     localStorage.setItem('showToast', 'true');
+
+    dispatch(logout());
+
     window.location.href = '/';
   };
 
@@ -103,7 +108,7 @@ const AppHeader = () => {
 
     useEffect(() => {
       if (userData.isUpdate) {
-        setAvatar(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
+        setAvatar(userInfo?.avatar || userInfo?.picture);
       }
   
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,7 +117,7 @@ const AppHeader = () => {
   useEffect(() => {
     if (auth || token) {
       setIsLogin(true);
-      setAvatar(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
+      setAvatar(userInfo?.avatar || userInfo?.picture );
     } else {
       setIsLogin(false);
     }
