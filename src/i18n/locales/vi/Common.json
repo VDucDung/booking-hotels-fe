@@ -132,5 +132,14 @@
       "error": "Cập nhật thất bại.",
       "noExactlyPasswords": "Mật khẩu cũ không chính xác"
     }
+  },
+  "reqquired": {
+    "err01": "Fullname là bắt buộc.",
+    "err02": "Email là bắt buộc.",
+    "err03": "Email is invalid."
+  },
+  "toast": {
+    "successUpdate": "Cập nhập thành công",
+    "errorUpdate": "Cập nhập thất bại"
   }
 }

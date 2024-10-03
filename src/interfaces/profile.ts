@@ -1,6 +1,3 @@
 export interface ProfileFormValues {
-  fullname: string;
-  email: string;
-  phone: string;
-  dateOfBirth: Date;
+  [key: string]: string | number | undefined | null;
 }

@@ -139,7 +139,7 @@ const useResponsiveStyle = (
       if (typeof window === "undefined") {
         return {};
       }
-      return parseStyleString(styleString, windowWidth, failBackProperty);
+      return parseStyleString(styleString as string, windowWidth, failBackProperty);
     },
     [styleString, windowWidth, failBackProperty]
   );

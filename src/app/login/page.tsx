@@ -91,7 +91,7 @@ export default function Login() {
     dispatch(loginUser(loginForm) as any).then((result: any) => {
       if (result.payload.statusCode === 201) {
         toast.success(t("login.notify01"));
-        router.push("/");
+        window.location.href = "/";
       } else {
         toast.error(result.payload.message || t("system.error"));
       }
@@ -107,7 +107,7 @@ export default function Login() {
             localStorage.setItem("accessToken", result.payload.accessToken);
             localStorage.setItem("user", JSON.stringify(result.payload.data));
             toast.success(t("login.notify01"));
-            router.push("/");
+            window.location.href = "/";
           }
         } else {
           toast.error(result.payload.statusText || t("system.error"));

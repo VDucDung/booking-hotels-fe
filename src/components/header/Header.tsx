@@ -57,7 +57,7 @@ const AppHeader = () => {
 
     dispatch(logout());
 
-    router.push('/');
+    window.location.href = '/';
   };
 
   const handleClickOutsideUserOptions = useCallback((event: any) => {
@@ -119,7 +119,7 @@ const AppHeader = () => {
   useEffect(() => {
     if (auth || token) {
       setIsLogin(true);
-      setAvatar(userInfo?.avatar || userInfo?.picture );
+      setAvatar(userInfo?.avatar || userInfo?.picture);
     } else {
       setIsLogin(false);
     }

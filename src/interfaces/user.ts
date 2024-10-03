@@ -11,9 +11,10 @@ export interface User {
 }
 export interface UserState {
   users: User[];
-  selectedUser: User | null;
+  isUpdate: boolean;
   loading: boolean;
   error: string | null;
+  message: string;
 }
 
 

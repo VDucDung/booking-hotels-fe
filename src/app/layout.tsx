@@ -22,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ToastProvider>
-      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
-      <Providers>
-        <AppLayout>
-          {children}
-        </AppLayout>
-        </Providers>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+          <Providers>
+            <AppLayout>
+              {children}
+            </AppLayout>
+          </Providers>
         </GoogleOAuthProvider>
         </ToastProvider>
       </body>

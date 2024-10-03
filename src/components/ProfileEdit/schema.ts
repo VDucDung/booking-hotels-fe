@@ -1,20 +1,16 @@
 import * as Yup from "yup";
 
 interface FormValues {
-  name: string;
-  email: string;
+  fullname: string;
   phone: string;
-  birthday: Date;
+  dateOfBirth: Date | string | null;
 }
 
 const validationSchema = (t: (key: string) => string): Yup.Schema<FormValues> => {
   return Yup.object().shape({
-    name: Yup.string().required(t("nameRequired")),
-    email: Yup.string()
-      .email(t("invalidEmail"))
-      .required(t("emailRequired")),
-    phone: Yup.string().required(t("phoneRequired")),
-    birthday: Yup.date().required(t("birthdayRequired")),
+    fullname: Yup.string().required(t("reqquired.err01")),
+    phone: Yup.string().required(t("reqquired.err02")),
+    dateOfBirth: Yup.string().required(t("reqquired.err03")),
   });
 };
 

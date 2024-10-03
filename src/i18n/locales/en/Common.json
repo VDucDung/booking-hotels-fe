@@ -153,5 +153,14 @@
       "error": "Update failed.",
       "noExactlyPasswords": "Incorrect old password"
     }
+  },
+  "reqquired": {
+    "err01": "Fullname is required.",
+    "err02": "Phone is required.",
+    "err03": "Date of birth is required."
+  },
+  "toast": {
+    "successUpdate": "Update successful",
+    "errorUpdate": "Update failed"
   }
 }

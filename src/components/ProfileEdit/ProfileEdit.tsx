@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
+import { toast } from "react-toastify";
+import moment from 'moment-timezone';
 import { useEffect } from "react";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import { Form, Formik, FormikHelpers } from "formik";
@@ -11,10 +14,12 @@ import { ProfileFormValues } from "@/interfaces/profile";
 import { GetUserResponse } from "@/interfaces";
 import { setSelectedUser, useAppDispatch, useAppSelector } from "@/redux";
 import { getUser, updateUser } from "@/api/userService";
+import Loading from '../loading';
+
 
 function ProfileEdit() {
   const dispatch = useAppDispatch();
-  const { selectedUser, loading, error } = useAppSelector((state) => state.users);
+  const { users, loading, error } = useAppSelector((state) => state.users);
   const isLargerThanSm = useBreakpoint("sm");
   const { t } = useClientTranslation('Common');
 
@@ -23,8 +28,9 @@ function ProfileEdit() {
     if (storedUser) {
       try {
         const user: GetUserResponse = JSON.parse(storedUser);
-        dispatch(setSelectedUser(user));
-      } catch {
+        dispatch(setSelectedUser(user as any));
+      } catch (error) {
+        console.error("Error parsing user from localStorage:", error);
         dispatch(getUser());
       }
     } else {
@@ -32,31 +38,40 @@ function ProfileEdit() {
     }
   }, [dispatch]);
 
-  useEffect(() => {
-    if (selectedUser) {
-      localStorage.setItem("user", JSON.stringify(selectedUser));
-    }
-  }, [selectedUser]);
-
-  if (loading && !selectedUser) {
+  if (loading && !users) {
     return <div className="text-center mt-10">{t('loading')}</div>;
   }
 
   const initialValues: ProfileFormValues = {
-    fullname: selectedUser?.fullname || "",
-    email: selectedUser?.email || "",
-    phone: selectedUser?.phone || "",
-    dateOfBirth: selectedUser?.dateOfBirth || new Date("01/01/2000"),
+    fullname: users[0]?.fullname || "",
+    email: users[0]?.email || "",
+    phone: users[0]?.phone || "",
+    dateOfBirth: users[0]?.dateOfBirth
+      ? moment.tz(users[0].dateOfBirth, 'Asia/Ho_Chi_Minh').format('YYYY-MM-DD')
+      : "",
   };
 
   const handleSubmit = async (
     values: ProfileFormValues,
     { setSubmitting }: FormikHelpers<ProfileFormValues>
   ) => {
-    await dispatch(updateUser(values));
-    setSubmitting(false);
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { email, ...profileDataWithoutEmail } = values;
+      await dispatch(updateUser({ profileData: profileDataWithoutEmail, avatar: null })).then(({ payload }) => {
+        if (payload) {
+          dispatch(setSelectedUser(payload as any));
+          toast.success(t("toast.successUpdate"));
+        }
+      });
+    } catch (error) {
+      console.error("Lỗi khi cập nhật người dùng:", error);
+      toast.error(t("toast.errorUpdate")); 
+    } finally {
+      setSubmitting(false);
+    }
   };
-
+  
   return (
     <div className="xl:p-4">
       <h2 className="text-2xl font-semibold text-dark shadow-md p-4">
@@ -78,7 +93,6 @@ function ProfileEdit() {
                 labelClassName="font-medium"
                 required
               />
-
               <FormikTextField
                 name="email"
                 label={t('profile.email')}
@@ -87,7 +101,6 @@ function ProfileEdit() {
                 required
                 disabled
               />
-
               <FormikTextField
                 name="phone"
                 label={t('profile.phoneNumber')}
@@ -95,7 +108,6 @@ function ProfileEdit() {
                 labelClassName="font-medium"
                 required
               />
-
               <FormikTextField
                 name="dateOfBirth"
                 label={t('profile.birthDay')}
@@ -108,11 +120,10 @@ function ProfileEdit() {
             <div className="flex mt-10">
               <div className="flex gap-4 ml-auto">
                 <CustomButton type="button" onClick={() => resetForm()}>
-                  {t('button.btn17')}
+                  {t('button.btn18')}
                 </CustomButton>
-
                 <CustomButton type="submit" disabled={loading}>
-                  {loading ? t('button.loading') : t('button.btn18')}
+                  {loading ? <Loading/> : t('button.btn17')}
                 </CustomButton>
               </div>
             </div>
