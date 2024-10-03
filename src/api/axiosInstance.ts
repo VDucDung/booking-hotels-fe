@@ -1,3 +1,4 @@
+"use client";
 import { routes } from '@/configs';
 import { addOrUpdateFieldInLocalStorage, getLocalStorageItem, hostname } from '@/utils';
 import axios from 'axios';
@@ -43,10 +44,12 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = routes.login;
+        if(typeof window !== "undefined"){
+          localStorage.removeItem('user');
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          window.location.href = routes.login;
+        }
         return Promise.reject(refreshError);
       }
     }

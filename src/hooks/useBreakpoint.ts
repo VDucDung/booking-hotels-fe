@@ -1,3 +1,5 @@
+"use client";
+
 import { breakpoints } from "@/configs/breakpointConfig";
 import { useEffect, useMemo } from "react";
 

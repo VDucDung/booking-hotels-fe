@@ -78,11 +78,14 @@ export default function Login() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateFields()) return;
-    const token = localStorage.getItem("accessToken");
-    if (token || isLogin) {
-      toast.warning(t("login.notify03"));
-      router.push("/");
-      return;
+    if(typeof window !== 'undefined'){
+      const token = localStorage.getItem("accessToken");
+    
+      if (token || isLogin) {
+        toast.warning(t("login.notify03"));
+        router.push("/");
+        return;
+      }
     }
 
     dispatch(loginUser(loginForm) as any).then((result: any) => {
@@ -100,10 +103,12 @@ export default function Login() {
       const access_token = response.access_token;
       dispatch(loginWithGoogle({ access_token }) as any).then((result: any) => {
         if (result.payload.accessToken) {
-          localStorage.setItem("accessToken", result.payload.accessToken);
-          localStorage.setItem("user", JSON.stringify(result.payload.data));
-          toast.success(t("login.notify01"));
-          router.push("/");
+          if(typeof window !== 'undefined'){
+            localStorage.setItem("accessToken", result.payload.accessToken);
+            localStorage.setItem("user", JSON.stringify(result.payload.data));
+            toast.success(t("login.notify01"));
+            router.push("/");
+          }
         } else {
           toast.error(result.payload.statusText || t("system.error"));
         }

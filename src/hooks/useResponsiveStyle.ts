@@ -1,3 +1,5 @@
+"use client";
+
 import { breakpointsWithoutPx } from "@/configs/breakpointConfig";
 import { useMemo, useEffect, useState } from "react";
 
@@ -103,26 +105,42 @@ const parseStyleString = (
 
   return style;
 };
-
+const getWindow = () => {
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  return null;
+};
 const useResponsiveStyle = (
   styleString: string,
   failBackProperty: string
 ): Record<string, string> => {
-  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number>(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    if (typeof window !== "undefined") {
+      const window = getWindow();
+      if (window) {
+        setWindowWidth(window.innerWidth);
+        
+        const handleResize = () => {
+          setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => {
+          window.removeEventListener("resize", handleResize);
+        };
+      }
+    }
   }, []);
 
   const style = useMemo(
-    () => parseStyleString(styleString, windowWidth, failBackProperty),
+    () => {
+      if (typeof window === "undefined") {
+        return {};
+      }
+      return parseStyleString(styleString, windowWidth, failBackProperty);
+    },
     [styleString, windowWidth, failBackProperty]
   );
 

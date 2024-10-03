@@ -11,11 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { useCookies } from 'react-cookie';
 import { I18nCookieName } from "@/i18n/configs";
 import images from "@/assets/images";
-import { CheckIcon, CoinIcon, CopyIcon, HertIcon, HomeIcon, LogOutIcon, UserIcon } from "@/assets/icons";
+import { HertIcon, HomeIcon, LogOutIcon, UserIcon } from "@/assets/icons";
 import { getLocalStorageItem } from "@/utils";
 import { logout, useAppSelector } from "@/redux";
 import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const { Header } = Layout;
 
@@ -26,10 +27,11 @@ const AppHeader = () => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showLanguages, setShowLanguages] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const [avatar, setAvatar] = useState(userInfo?.avatar || userInfo?.picture);
+  const [avatar, setAvatar] = useState(userInfo?.avatar || userInfo?.picture || images.avatarDefault);
   const { i18n } = useTranslation();
   const [cookies, setCookie] = useCookies([I18nCookieName]);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const auth = useAppSelector((state) => state.auth.isLogin);
   const [token, setToken] = useState(null);
@@ -55,7 +57,7 @@ const AppHeader = () => {
 
     dispatch(logout());
 
-    window.location.href = '/';
+    router.push('/');
   };
 
   const handleClickOutsideUserOptions = useCallback((event: any) => {

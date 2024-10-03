@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 export const getLocalStorageItem = <T>(itemName: string): T | null => {
   if (typeof window === 'undefined') return null;
   try {

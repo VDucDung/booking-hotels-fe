@@ -1,5 +1,7 @@
-import ProfileEdit from "@/components/ProfileEdit/ProfileEdit";
-import ProfileLayout from "./ProfileLayout";
+"use client";
+import dynamic from "next/dynamic";
+const ProfileEdit = dynamic(() =>import("@/components/ProfileEdit/ProfileEdit"), { ssr: false });
+const ProfileLayout = dynamic(() =>import("./ProfileLayout"), { ssr: false });
 
 const Profile = () => {
   return (
