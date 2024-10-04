@@ -26,7 +26,9 @@ export default function RootLayout({
         <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
           <Providers>
             <AppHeader/>
-              {children}
+              <main className='min-h-screen'>
+                {children}
+              </main>
             <AppFooter/>
           </Providers>
         </GoogleOAuthProvider>

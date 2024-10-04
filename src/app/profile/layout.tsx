@@ -1,5 +1,3 @@
-"use client"; 
-
 import { ReactNode } from 'react';
 import dynamic from "next/dynamic";
 const SideBar = dynamic(() =>import("@/components/sidebar/SideBar"), { ssr: false });

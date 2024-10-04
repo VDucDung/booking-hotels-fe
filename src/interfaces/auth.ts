@@ -29,3 +29,8 @@ export  interface LoginWithGoogleState {
   error: string | null;
   isLogin: boolean | null;
 }
+
+export interface LoginForm {
+  email: string;
+  password: string;
+}

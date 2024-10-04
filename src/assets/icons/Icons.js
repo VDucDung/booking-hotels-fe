@@ -579,6 +579,7 @@ export const PasswordIcon = ({ width = '1.8rem', height = '2rem', className }) =
     width={width}
     height={height}
     viewBox="0 0 18 20"
+    fill="none"
   >
     <path
       d="M13.4228 7.44804V5.30104C13.4228 2.78804 11.3848 0.750045 8.87176 0.750045C6.35876 0.739045 4.31276 2.76704 4.30176 5.28104V5.30104V7.44804"
