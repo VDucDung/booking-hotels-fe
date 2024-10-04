@@ -12,7 +12,8 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
         'accept-language': `${Cookies.get('lang')}`,
       };
       const res: ApiResponse = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
-      if (res.statusCode === 201) {
+      console.log(res)
+      if (res.statusCode === 200) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(res.data.user));

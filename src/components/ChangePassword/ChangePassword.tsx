@@ -1,36 +1,58 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import validationSchema from "./schema";
-import { useTranslation } from "react-i18next";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import FormikTextField from "@/components/formik/FormikTextField";
 import CustomButton from "@/components/button/CustomButton";
-
-interface ChangePasswordValues {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-}
+import { ChangePasswordValues } from "@/interfaces";
+import { changePassword } from "@/api/userService";
+import { useClientTranslation } from "@/i18n/client";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux";
 
 function ChangePassword() {
   const isLargerThanSm = useBreakpoint("sm");
-  const { t } = useTranslation();
+  const { t } = useClientTranslation('Common');
+  const dispatch = useAppDispatch();
 
   const initialValues: ChangePasswordValues = {
-    currentPassword: "",
+    oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   };
 
-  const handleSubmit = (values: ChangePasswordValues) => {
-    console.log("Form values:", values);
+  const handleSubmit = async (
+    values: ChangePasswordValues,
+    { setSubmitting }: FormikHelpers<ChangePasswordValues>
+  ) => {
+    try {
+      if(values.newPassword !== values.confirmPassword) {
+        toast.error(t("toast.errorConfirmPassword"));
+        return;
+      }
+      const userData: ChangePasswordValues = {
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
+      }
+      await dispatch(changePassword(userData)).then(({ payload }: { payload: any }) => {
+        if (payload.statusCode === 200) {
+          toast.success(t("toast.successUpdate"));
+        }
+      })
+    } catch (error) {
+      console.error("Lỗi khi cập nhật người dùng:", error);
+      toast.error(t("toast.errorUpdate")); 
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
     <div className="xl:p-4">
       <h2 className="text-2xl font-semibold text-dark shadow-md p-4">
-        Đổi Mật Khẩu
+        {t("profile.passwordChange")}
       </h2>
       <Formik
         initialValues={initialValues}
@@ -41,7 +63,7 @@ function ChangePassword() {
           <Form>
             <div className="flex flex-col gap-6 sm:gap-y-6 gap-y-14 sm:mt-7 mt-14">
               <FormikTextField
-                name="currentPassword"
+                name="oldPassword"
                 label="Mật khẩu hiện tại:"
                 type="password"
                 orientation={isLargerThanSm ? "horizontal" : "vertical"}
@@ -79,11 +101,11 @@ function ChangePassword() {
                   type="button"
                   onClick={() => resetForm()} 
                 >
-                  Hủy
+                  {t('button.btn18')}
                 </CustomButton>
 
                 <CustomButton type="submit" className="">
-                  Lưu Thay Đổi
+                {t('button.btn17')}
                 </CustomButton>
               </div>
             </div>

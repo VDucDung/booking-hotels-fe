@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getUsers, getUser, updateUser } from '@/api/userService';
+import { getUsers, getUser, updateUser, changePassword } from '@/api/userService';
 import { GetUsersResponse, GetUserResponse, UserState } from '@/interfaces';
 import { addOrUpdateFieldInLocalStorage } from '@/utils';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -9,6 +9,7 @@ const initialState: UserState = {
   isUpdate: false,
   loading: false,
   error: null,
+  status: null,
   message: '',
 };
 
@@ -69,7 +70,22 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message || 'Failed to update user';
         state.isUpdate = false;
-      });
+      })
+
+      // change password
+      .addCase(changePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(changePassword.fulfilled, (state, action: any) => {
+        state.loading = false;
+        state.status = action.payload.statusCode;
+      })
+      .addCase(changePassword.rejected, (state, action: any) => {
+        state.loading = false;
+        state.status = action.payload.statusCode;
+        state.message = action.payload.message;
+      })
   },
 });
 

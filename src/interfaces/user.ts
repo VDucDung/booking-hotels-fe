@@ -15,8 +15,8 @@ export interface UserState {
   loading: boolean;
   error: string | null;
   message: string;
+  status: string | null;
 }
-
 
 export interface GetUsersResponse {
   data: {
@@ -34,4 +34,10 @@ export interface GetUserResponse {
   };
   statusCode: number;
   message: string;
+}
+
+export interface ChangePasswordValues {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword?: string;
 }

@@ -30,8 +30,6 @@ export interface HotelCardListProps {
   hotels: Hotel[];
 }
 
-
-
 export interface GetHotelsResponse {
   data: {
     hotels: Hotel[];

@@ -1,3 +1,4 @@
+"use client";
 import { FacebookIcon, GithubIcon, InstagramIcon } from '@/assets/icons';
 import { useClientTranslation } from '@/i18n/client';
 import { Layout } from 'antd';

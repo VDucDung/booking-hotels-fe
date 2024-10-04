@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { callApi } from './apiUtils';
-import { GetUserResponse, GetUsersResponse, ProfileFormValues } from '@/interfaces';
+import { ApiResponse, ChangePasswordValues, GetUserResponse, GetUsersResponse, ProfileFormValues } from '@/interfaces';
 import Cookies from 'js-cookie';
 
 export const getUsers = createAsyncThunk<GetUsersResponse, void>(
@@ -68,9 +68,7 @@ export const updateUser = createAsyncThunk<
 
       const response = await callApi('PUT', `/users/me`, null, formData, customHeaders);
 
-      console.log(response)
       if (response?.data) {
-        console.log(response.data)
         localStorage.setItem('user', JSON.stringify(response.data));
       }
       console.log(JSON.parse(localStorage.getItem('user') as string))
@@ -80,3 +78,16 @@ export const updateUser = createAsyncThunk<
     }
   }
 );
+
+export const changePassword = createAsyncThunk<ApiResponse, ChangePasswordValues>('auth/change-password', async (userData: ChangePasswordValues, { rejectWithValue }) => {
+  try {
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('POST', `/users/change-password`, null, userData, customHeaders);
+    console.log(response)
+    return response;
+  } catch (error: any) {
+    return rejectWithValue(error.message || 'Failed to update user profile');
+  }
+});
