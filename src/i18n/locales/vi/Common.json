@@ -142,5 +142,14 @@
   "toast": {
     "successUpdate": "Cập nhập thành công",
     "errorUpdate": "Cập nhập thất bại"
+  },
+  "account": {
+    "title01": "Thông tin tài khoản",
+    "title02": "Đổi mật khẩu",
+    "title03": "Đơn đặt phòng",
+    "title04": "Danh sách yêu thích",
+    "title05": "Nạp tiền",
+    "title06": "QUẢN LÝ TÀI KHOẢN",
+    "title07": "QUẢN LÝ GIAO DỊCH"
   }
 }

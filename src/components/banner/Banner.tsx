@@ -3,6 +3,7 @@ import { useClientTranslation } from '@/i18n/client';
 import React, { useState } from 'react';
 import { DatePicker, Input, Space, InputNumber, Popover, Button } from 'antd';
 import { ArrowDownIcon, LocationIcon, PersonalInfoIcon, SearchIcon } from '@/assets/icons';
+import Link from 'next/link';
 
 const Banner = () => {
   const { t } = useClientTranslation('Common');
@@ -60,7 +61,9 @@ const Banner = () => {
           </div>
           <div className='w-[10%]'>
           <Button className="h-[50px]  px-[22%] hover:border-none text-[16px] font-bold" type="primary" icon={<SearchIcon className={'w-6 h-6 '}/>}>
-            Search
+            <Link href={'/search'}>
+              Search
+            </Link>
           </Button>
           </div>
         </div>

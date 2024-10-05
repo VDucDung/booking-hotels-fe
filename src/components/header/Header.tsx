@@ -147,7 +147,7 @@ const AppHeader = () => {
         <div className="flex text-white gap-2">
         <div className="flex items-center">
           <Tooltip title={t('header.na03')}>
-            <Link href={'/'} className="border border-red-500 bg-red-500 rounded-full" >
+            <Link href={isLogin ? '/profile/favorite' : '/login'} className="border border-red-500 bg-red-500 rounded-full" >
               <HertIcon className="w-10 h-10 hover:scale-95 transition duration-300 ease-in-out scale-100" />
             </Link>
           </Tooltip>
@@ -194,7 +194,7 @@ const AppHeader = () => {
                           setShowUserOptions(false);
                         }}
                       >
-                        <Link href="/profile" className="flex items-center w-full hover:text-[#000]" >
+                        <Link href="/profile/order" className="flex items-center w-full hover:text-[#000]" >
                           <HomeIcon className="mr-2 w-6 h-6 fill-slate-400" />
                           <span>{t('user-options.op02')}</span>
                         </Link>

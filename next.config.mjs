@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['p21-ad-sg.ibyteimg.com', 'lh3.googleusercontent.com', 'res.cloudinary.com'],
+    domains: ['p21-ad-sg.ibyteimg.com', 'lh3.googleusercontent.com', 'res.cloudinary.com', 'cf.bstatic.com'],
   },
   webpack: (config, { isServer }) => {
     config.module.rules.push({

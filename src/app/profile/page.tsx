@@ -1,6 +1,5 @@
-"use client";
 import dynamic from "next/dynamic";
-const ProfileEdit = dynamic(() =>import("@/components/ProfileEdit/ProfileEdit"), { ssr: false });
+const ProfileEdit = dynamic(() =>import("@/components/profileEdit/ProfileEdit"), { ssr: false });
 
 const Profile = () => {
   return (

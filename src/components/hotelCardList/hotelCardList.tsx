@@ -14,7 +14,7 @@ const HotelCardList: React.FC<HotelCardListProps> = ({ hotels }) => {
               hotelName={hotel.hotelName}
               address={hotel.address}
               reviews={hotel?.reviews || null}
-              images={hotel.images}
+              images={hotel.images[0]}
             />
           </Col>
         ))

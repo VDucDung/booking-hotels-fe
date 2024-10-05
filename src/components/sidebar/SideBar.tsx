@@ -9,21 +9,23 @@ import { PATH } from "@/configs";
 import Image from "next/image";
 import images from "@/assets/images";
 import { Tooltip } from "antd";
+import { useClientTranslation } from "@/i18n/client";
 function SideBar() {
   const pathname = usePathname();
+  const { t } = useClientTranslation('Common');
   const [selectedAvatar, setSelectedAvatar] = useState(images.avatarDefault); 
   const [avatarFile, setAvatarFile] = useState<File | null>(null); 
   const [isHovering, setIsHovering] = useState(false); 
 
   const accountLinks = [
-    { name: "Thông tin tài khoản", path: PATH.PROFILE_EDIT, icon: "edit" },
-    { name: "Đổi mật khẩu", path: PATH.CHANGE_PASSWORD, icon: "key" },
+    { name: t("account.title01"), path: PATH.PROFILE_EDIT, icon: "edit" },
+    { name: t("account.title02"), path: PATH.CHANGE_PASSWORD, icon: "key" },
   ];
 
   const transactionLinks = [
-    { name: "Đơn hàng của bạn", path: PATH.ORDER, icon: "order" },
-    { name: "Sản phẩm đã xem", path: PATH.VIEWED_PRODUCTS, icon: "eye" },
-    { name: "Danh sách yêu thích", path: PATH.FAVORITE, icon: "heart" },
+    { name: t("account.title03"), path: PATH.ORDER, icon: "order" },
+    { name: t("account.title04"), path: PATH.FAVORITE, icon: "heart" },
+    { name: t("account.title05"), path: PATH.FAVORITE, icon: "coin" },
   ];
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,14 +87,14 @@ function SideBar() {
         <div className="flex h-fit items-stretch">
           <div className="w-[3px] bg-yellow"></div>
           <h2 className="flex-1 font-semibold text-dark text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
-            QUẢN LÝ TÀI KHOẢN
+            {t("account.title06")}
           </h2>
         </div>
         <ul className="space-y-2">
           {accountLinks.map((link) => (
             <li key={link.path}>
               <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-dark hover:text-yellow'}`}>
-                <Icon name={link.icon as IconName} size="1.3em" />
+                <Icon name={link.icon as IconName} size="1.4em" />
                 <span>{link.name}</span>
               </Link>
             </li>
@@ -104,14 +106,14 @@ function SideBar() {
         <div className="flex h-fit items-stretch">
           <div className="w-[3px] bg-yellow"></div>
           <h2 className="flex-1 font-semibold text-dark text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
-            QUẢN LÝ GIAO DỊCH
+            {t("account.title07")}
           </h2>
         </div>
         <ul className="space-y-2">
           {transactionLinks.map((link) => (
             <li key={link.path}>
               <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-dark hover:text-yellow'}`}>
-                <Icon name={link.icon as IconName} size="1.3em" />
+                <Icon name={link.icon as IconName} size="1.4em" />
                 <span>{link.name}</span>
               </Link>
             </li>

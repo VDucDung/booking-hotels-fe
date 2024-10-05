@@ -163,5 +163,14 @@
   "toast": {
     "successUpdate": "Update successful",
     "errorUpdate": "Update failed"
+  },
+  "account": {
+    "title01": "Account Information",
+    "title02": "Change Password",
+    "title03": "Booking",
+    "title04": "List of favorites",
+    "title05": "Top-Up",
+    "title06": "ACCOUNT MANAGEMENT",
+    "title07": "TRADE MANAGEMENT"
   }
 }

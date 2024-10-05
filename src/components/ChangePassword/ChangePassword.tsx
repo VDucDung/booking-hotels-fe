@@ -2,7 +2,6 @@
 "use client";
 
 import { Form, Formik, FormikHelpers } from "formik";
-import validationSchema from "./schema";
 import useBreakpoint from "@/hooks/useBreakpoint";
 import FormikTextField from "@/components/formik/FormikTextField";
 import CustomButton from "@/components/button/CustomButton";
@@ -11,6 +10,7 @@ import { changePassword } from "@/api/userService";
 import { useClientTranslation } from "@/i18n/client";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/redux";
+import validationSchema from "./schema";
 
 function ChangePassword() {
   const isLargerThanSm = useBreakpoint("sm");

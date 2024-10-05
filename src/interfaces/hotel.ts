@@ -24,7 +24,7 @@ export interface HotelCardProps {
   hotelName: string;
   address: string;
   reviews: any;
-  images: string;
+  images: string| null;
 }
 export interface HotelCardListProps {
   hotels: Hotel[];
