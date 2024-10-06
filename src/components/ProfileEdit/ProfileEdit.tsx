@@ -17,7 +17,7 @@ import { getUser, updateUser } from "@/api/userService";
 import Loading from '../loading';
 
 
-function ProfileEdit() {
+const ProfileEdit = () => {
   const dispatch = useAppDispatch();
   const { users, loading, error } = useAppSelector((state) => state.users);
   const isLargerThanSm = useBreakpoint("sm");
