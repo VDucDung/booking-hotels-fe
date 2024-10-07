@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { clearError, loginUser, registerUser } from '@/api/authService';
+import { clearError, loginGoogle, loginUser, registerUser } from '@/api/authService';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -53,6 +53,26 @@ const authSlice = createSlice({
         state.error = action.payload.message;
         state.isLogin = false;
       })
+
+      // login with google
+      .addCase(loginGoogle.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.user = null;
+      state.isLogin = false;
+    })
+    .addCase(loginGoogle.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload.statusCode === 200 ? action.payload.data.user : null;
+      state.error = null;
+      state.isLogin = true;
+    })
+    .addCase(loginGoogle.rejected, (state, action: any) => {
+      state.loading = false;
+      state.user = null;
+      state.error = action.payload.message;
+      state.isLogin = false;
+    })
 
       // register
       .addCase(registerUser.pending, (state) => {

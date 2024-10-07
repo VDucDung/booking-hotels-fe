@@ -162,7 +162,7 @@ export default function Register() {
       </label>
     </div>
     <AppButton
-      className={`w-full bg-blue-600 text-white py-2 rounded-lg ${submit || loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
+      className={`w-full bg-green-600 text-white py-3 rounded-lg ${submit || loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700'}`}
       disabled={submit || loading}
       leftIcon={loading && <Oval width="20" color="#fff" />}
     >
@@ -171,7 +171,7 @@ export default function Register() {
   </form>
   <p className="mt-4 text-gray-700">
     {t('register.desc02')}{' '}
-    <Link href="/login" className="text-blue-600 hover:underline">
+    <Link href="/login" className="text-green-600 hover:underline">
       {t('button.btn04')}
     </Link>
   </p>

@@ -10,7 +10,7 @@ import { EmailIcon, GoogleIcon, PasswordIcon } from "@/assets/icons";
 import { useAppSelector } from "@/redux/store";
 import { routes } from "@/configs";
 import AppButton from "@/components/button/AppButton";
-import { loginUser } from "@/api/authService";
+import { loginGoogle, loginUser } from "@/api/authService";
 import { loginWithGoogle } from "@/api/loginWithGoogleService";
 import { useRouter } from "next/navigation";
 import { statistical } from "@/api/statisticalService";
@@ -69,9 +69,9 @@ export default function Login() {
       }
     }
     dispatch(loginUser(loginForm) as any).then((result: any) => {
-      if (result.payload.statusCode === 201) {
-        toast.success(t("login.notify01"));
+      if (result.payload.statusCode === 200) {
         window.location.href = "/";
+        toast.success(t("login.notify01"));
       } else {
         toast.error(result.payload.message || t("system.error"));
       }
@@ -83,10 +83,18 @@ export default function Login() {
       dispatch(loginWithGoogle({ access_token }) as any).then((result: any) => {
         if (result.payload.accessToken) {
           if(typeof window !== 'undefined'){
-            localStorage.setItem("accessToken", result.payload.accessToken);
-            localStorage.setItem("user", JSON.stringify(result.payload.data));
-            toast.success(t("login.notify01"));
-            window.location.href = "/";
+            const email = result.payload.data.email;
+            const name = result.payload.data.name;
+            const avatar = result.payload.data.picture;
+            const providerId = result.payload.data.sub;
+            dispatch(loginGoogle({ email, name, avatar, provider: "google", providerId  }) as any).then((result: any) => {
+              if (result.payload.statusCode === 200) {
+                toast.success(t("login.notify01"));
+                window.location.href = "/";
+              }else{
+                toast.error(result.payload.message || t("system.error"));
+              }
+            });
           }
         } else {
           toast.error(result.payload.statusText || t("system.error"));
@@ -149,22 +157,24 @@ export default function Login() {
             <input type="checkbox" className="mr-2" onChange={() => setShowPassword(showPassword === "password" ? "text" : "password")} />
             <span>{t("form.lb01")}</span>
           </label>
-          <Link className="text-primary" href={routes.forgotPassword}>
+          <Link className="text-[#00ba51]" href={routes.forgotPassword}>
             {t("forgot-password.heading")}
           </Link>
         </div>
         <div className="flex flex-col gap-4">
-          <AppButton primary auth disabled={submit || loading} leftIcon={loading && <Oval width="20" color="#fff" />} className="py-2 rounded-full">
+          <AppButton success auth disabled={submit || loading} leftIcon={loading && <Oval width="20" color="#fff" />} className="py-3 rounded-full">
             {t("button.btn04")}
-          </AppButton>
-          <AppButton onClick={() => loginWithGoogleHandler()} authGoogle leftIcon={<GoogleIcon className={"w-6 h-6"} />} className="py-2 rounded-full flex justify-center">
-            {t("button.btn05")}
           </AppButton>
         </div>
       </form>
+      <div className="flex flex-col gap-4 mt-3">
+      <AppButton onClick={() => loginWithGoogleHandler()} authGoogle leftIcon={<GoogleIcon className={"w-6 h-6"} />} className="py-3 rounded-full flex justify-center">
+          {t("button.btn05")}
+      </AppButton>
+      </div>
       <p className="mt-6">
         {t("login.desc02")}{" "}
-        <Link className="text-[#007bff]" href={routes.register}>
+        <Link className="text-[#00ba51]" href={routes.register}>
           {t("button.btn06")}
         </Link>
       </p>

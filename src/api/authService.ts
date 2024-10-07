@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import { callApi } from './apiUtils';
-import { ApiResponse, UserCredentials } from '@/interfaces';
+import { ApiResponse, LoginGoogleCredentials, UserCredentials } from '@/interfaces';
 
 export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
   'auth/login',
@@ -12,7 +12,30 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
         'accept-language': `${Cookies.get('lang')}`,
       };
       const res: ApiResponse = await callApi('POST', `/auth/login`, null, userCredentials, customHeaders);
-      console.log(res)
+      if (res.statusCode === 200) {
+        localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
+        localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+      }
+      return res; 
+    } catch (error) {
+      if (error) {
+        return rejectWithValue({ ...error }); 
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+);
+
+export const loginGoogle = createAsyncThunk<ApiResponse, LoginGoogleCredentials>(
+  'auth/login-google',
+  async (loginGoogleCredentials, { rejectWithValue }) => {
+    try {
+      const customHeaders = {
+        'accept-language': `${Cookies.get('lang')}`,
+      };
+      const res: ApiResponse = await callApi('POST', `/auth/google/login`, null, loginGoogleCredentials, customHeaders);
       if (res.statusCode === 200) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));

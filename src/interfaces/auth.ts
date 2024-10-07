@@ -5,6 +5,14 @@ export interface UserCredentials {
   password: string;
 }
 
+export interface LoginGoogleCredentials {
+  name?: string;
+  email: string;
+  provider: string;
+  providerId: string;
+  avatar: string;
+}
+
 export interface ApiResponse {
   statusCode: number;
   data?: any;

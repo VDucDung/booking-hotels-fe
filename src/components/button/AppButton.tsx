@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 interface ButtonProps {
   to?: string;
   href?: string;
-  primary?: boolean;
+  success?: boolean;
   outline?: boolean;
   large?: boolean;
   action?: boolean;
@@ -26,7 +26,7 @@ interface ButtonProps {
 export default function AppButton({
   to,
   href,
-  primary = false,
+  success = false,
   outline = false,
   large = false,
   action = false,
@@ -71,7 +71,7 @@ export default function AppButton({
   }
 
   const baseClasses = 'inline-flex items-center justify-center font-bold cursor-pointer px-4 py-2 rounded-md select-none transition-all';
-  const primaryClasses = primary ? 'text-white bg-blue-500 hover:bg-blue-600' : '';
+  const successClasses = success ? 'text-white bg-green-500 hover:bg-green-600' : '';
   const outlineClasses = outline ? 'text-gray-700 border border-gray-300 bg-white hover:border-gray-400' : '';
   const largeClasses = large ? 'w-full h-12 text-lg' : '';
   const actionClasses = action ? 'text-sm font-medium px-2 py-1' : '';
@@ -87,7 +87,7 @@ export default function AppButton({
 
   const combinedClasses = [
     baseClasses,
-    primaryClasses,
+    successClasses,
     outlineClasses,
     largeClasses,
     actionClasses,
