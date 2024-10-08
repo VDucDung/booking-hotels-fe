@@ -104,7 +104,6 @@ export const verifyOtpForgotPassword = createAsyncThunk<
       'accept-language': `${Cookies.get('lang')}`,
     };
     const response = await callApi('POST', `/auth/verify-otp-forgot-password`, null, data, customHeaders);
-
     return response;
   } catch (error: any) {
     return rejectWithValue({ code: error.code as number, message: error.message as string } as ApiError);

@@ -67,6 +67,8 @@ export const PATH = {
   CHECKOUT: "/checkout",
   OTHER: "/other",
   CONTACT: "/contact",
+  FORGOT_PASSWORD_OTP: "/forgotPasswordOTP",
+  RESET_PASSWORD: "/resetPassword",
 };
 
 export const PAGE_TITLE = {

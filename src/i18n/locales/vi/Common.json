@@ -96,6 +96,10 @@
     "desc01": "Gửi mã xác nhận quên mật khẩu qua email.",
     "desc02": "Bạn đã nhớ mật khẩu"
   },
+  "verify-otp": {
+    "heading": "Xác minh mã OTP",
+    "desc01": "Nhập mã OTP được gửi tới email của bạn."
+  },
   "user-options": {
     "op01": "Trang cá nhân",
     "op02": "Vé của tôi",

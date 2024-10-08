@@ -117,6 +117,10 @@
     "desc01": "Send a forgotten password verification code via email.",
     "desc02": "You remembered the password"
   },
+  "verify-otp": {
+    "heading": "Verify OTP",
+    "desc01": "Enter the OTP sent to your email."
+  },
   "user-options": {
     "op01": "Profile page",
     "op02": "My booking",

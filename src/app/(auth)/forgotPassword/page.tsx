@@ -28,11 +28,11 @@ function ForgotPassword() {
         setSubmit(false);
         setButton(t("button.btn07"));
 
-        if (result.payload.code === 200) {
-          sessionStorage.setItem("token", JSON.stringify(result.payload.data.data));
+        if (result.payload.statusCode === 200) {
+          sessionStorage.setItem("tokenForgot", JSON.stringify(result.payload.data));
 
-          router.push(PATH.FORGOT_PASSWORD);
-        } else if (result.payload.code === 400) {
+          router.push(PATH.FORGOT_PASSWORD_OTP);
+        } else if (result.payload.statusCode === 400) {
           toast.error(result.payload.message);
         }
       }) 

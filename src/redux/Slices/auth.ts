@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { clearError, loginGoogle, loginUser, registerUser } from '@/api/authService';
+import { clearError, forgotPassword, loginGoogle, loginUser, registerUser, verifyOtpForgotPassword } from '@/api/authService';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -16,6 +16,7 @@ const authSlice = createSlice({
     message: '',
     isUpdate: false,
     secretStatus: null,
+    statusCode: null,
   },
 
   reducers: {
@@ -74,28 +75,62 @@ const authSlice = createSlice({
       state.isLogin = false;
     })
 
-      // register
-      .addCase(registerUser.pending, (state) => {
-        state.loading = true;
-        state.user = null;
-        state.error = null;
-        state.isLogin = false;
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-        state.error = null;
-        state.isLogin = false;
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.loading = false;
-        state.user = null;
-        state.error = action.error.message ? action.error.message : null;
-        state.isLogin = false;
-      })
-      .addCase(clearError.fulfilled, (state) => {
-        state.error = null;
-      });
+    // register
+    .addCase(registerUser.pending, (state) => {
+      state.loading = true;
+      state.user = null;
+      state.error = null;
+      state.isLogin = false;
+    })
+    .addCase(registerUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+      state.isLogin = false;
+    })
+    .addCase(registerUser.rejected, (state, action) => {
+      state.loading = false;
+      state.user = null;
+      state.error = action.error.message ? action.error.message : null;
+      state.isLogin = false;
+    })
+    .addCase(clearError.fulfilled, (state) => {
+      state.error = null;
+    })
+
+    //verify Otp ForgotPassword
+    .addCase(verifyOtpForgotPassword.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(verifyOtpForgotPassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.secretKey = action.payload.data;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    })
+    .addCase(verifyOtpForgotPassword.rejected, (state, action: any) => {
+      state.loading = false;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    })
+
+    // forgot password
+    .addCase(forgotPassword.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(forgotPassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.secretKey = action.payload.data;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    })
+    .addCase(forgotPassword.rejected, (state, action: any) => {
+      state.loading = false;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    })
   },
 });
 export const { reFreshStatus, logout } = authSlice.actions;
