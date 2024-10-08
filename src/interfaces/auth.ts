@@ -42,3 +42,13 @@ export interface LoginForm {
   email: string;
   password: string;
 }
+
+export interface OtpForgotPasswordData{
+  token: string;
+  otp: string;
+}
+
+export interface ApiError {
+  message: string;
+  code?: number;
+}

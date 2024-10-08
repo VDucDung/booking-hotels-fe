@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import { callApi } from './apiUtils';
-import { ApiResponse, LoginGoogleCredentials, UserCredentials } from '@/interfaces';
+import { ApiError, ApiResponse, LoginGoogleCredentials, OtpForgotPasswordData, UserCredentials } from '@/interfaces';
 
 export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
   'auth/login',
@@ -69,5 +69,46 @@ export const registerUser = createAsyncThunk<any, UserCredentials>(
     }
   }
 );
+
+
+export const forgotPassword = createAsyncThunk<
+  any, 
+  string,             
+  { rejectValue: ApiError } 
+>(
+  'auth/forgot-password',
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const customHeaders = {
+        'accept-language': `${Cookies.get('lang')}`, 
+      };
+
+      const response = await callApi('POST', `/auth/forgot-password`, null, { email }, customHeaders);
+      return response;
+    } catch (error: any) {
+      return rejectWithValue({
+        code: error.code as number,
+        message: error.message as string,
+      } as ApiError);
+    }
+  }
+);
+
+export const verifyOtpForgotPassword = createAsyncThunk<
+  any,
+  OtpForgotPasswordData,
+  { rejectValue: ApiError }
+>('auth/verify-otp-forgot-password', async (data, { rejectWithValue }) => {
+  try {
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('POST', `/auth/verify-otp-forgot-password`, null, data, customHeaders);
+
+    return response;
+  } catch (error: any) {
+    return rejectWithValue({ code: error.code as number, message: error.message as string } as ApiError);
+  }
+});
 
 export const clearError = createAsyncThunk('auth/clearError', async () => {});

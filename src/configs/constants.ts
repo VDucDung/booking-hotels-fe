@@ -1,11 +1,3 @@
-export const routes = {
-  home: '/',
-  login: '/login',
-  register: '/register',
-  forgotPassword: '/forgot-password',
-  notFound: '*',
-};
-
 export const ruleDateFormat = 'DD-MM-YYYY'
 export const ruleTimeFormat = 'HH:mm:ss'
 export const dateOfBirthFormat = 'DD/MM/YYYY'
@@ -56,11 +48,12 @@ export const REGEX_EMAIL =
 
 export const PATH = {
   HOME: "/",
+  NOTFOUND: '*',
   ABOUT: "/about",
   AUTH: "/auth",
   LOGIN: "/login",
   REGISTER: "/register",
-  FORGOT_PASSWORD: "/forgot-password",
+  FORGOT_PASSWORD: "/forgotPassword",
   CART: "/cart",
   TEST: "/test",
   PRODUCTS: "/products",
@@ -68,7 +61,7 @@ export const PATH = {
   PROFILE: "/profile",
   PROFILE_EDIT: "/profile",
   VIEWED_PRODUCTS: "profile/viewed-products",
-  CHANGE_PASSWORD: "/profile/ChangePassword",
+  CHANGE_PASSWORD: "/profile/changePassword",
   FAVORITE: "/profile/favorite",
   ORDER: "/profile/order",
   CHECKOUT: "/checkout",

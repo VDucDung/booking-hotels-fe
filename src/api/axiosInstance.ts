@@ -1,5 +1,5 @@
 "use client";
-import { routes } from '@/configs';
+import { PATH } from '@/configs';
 import { addOrUpdateFieldInLocalStorage, getLocalStorageItem, hostname } from '@/utils';
 import axios from 'axios';
 
@@ -48,7 +48,7 @@ axiosInstance.interceptors.response.use(
           localStorage.removeItem('user');
           localStorage.removeItem('accessToken');
           localStorage.removeItem('refreshToken');
-          window.location.href = routes.login;
+          window.location.href = PATH.LOGIN;
         }
         return Promise.reject(refreshError);
       }

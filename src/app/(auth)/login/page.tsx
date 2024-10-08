@@ -8,7 +8,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { EmailIcon, GoogleIcon, PasswordIcon } from "@/assets/icons";
 import { useAppSelector } from "@/redux/store";
-import { routes } from "@/configs";
+import { PATH } from "@/configs";
 import AppButton from "@/components/button/AppButton";
 import { loginGoogle, loginUser } from "@/api/authService";
 import { loginWithGoogle } from "@/api/loginWithGoogleService";
@@ -157,7 +157,7 @@ export default function Login() {
             <input type="checkbox" className="mr-2" onChange={() => setShowPassword(showPassword === "password" ? "text" : "password")} />
             <span>{t("form.lb01")}</span>
           </label>
-          <Link className="text-[#00ba51]" href={routes.forgotPassword}>
+          <Link className="text-[#00ba51]" href={PATH.FORGOT_PASSWORD}>
             {t("forgot-password.heading")}
           </Link>
         </div>
@@ -174,7 +174,7 @@ export default function Login() {
       </div>
       <p className="mt-6">
         {t("login.desc02")}{" "}
-        <Link className="text-[#00ba51]" href={routes.register}>
+        <Link className="text-[#00ba51]" href={PATH.REGISTER}>
           {t("button.btn06")}
         </Link>
       </p>
