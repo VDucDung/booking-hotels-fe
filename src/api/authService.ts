@@ -2,7 +2,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import { callApi } from './apiUtils';
-import { ApiError, ApiResponse, LoginGoogleCredentials, OtpForgotPasswordData, UserCredentials } from '@/interfaces';
+import { ApiError, ApiResponse, LoginGoogleCredentials, OtpForgotPasswordData, ResendPassworDTO, UserCredentials } from '@/interfaces';
 
 export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
   'auth/login',
@@ -110,4 +110,19 @@ export const verifyOtpForgotPassword = createAsyncThunk<
   }
 });
 
+export const resetPassword = createAsyncThunk<
+  any,
+  ResendPassworDTO,
+  { rejectValue: ApiError }
+>('auth/reset-password', async (data, { rejectWithValue }) => {
+  try {
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const response = await callApi('POST', `/auth/reset-password`, null, data, customHeaders);
+    return response;
+  } catch (error: any) {
+    return rejectWithValue({ code: error.code as number, message: error.message as string } as ApiError);
+  }
+});
 export const clearError = createAsyncThunk('auth/clearError', async () => {});

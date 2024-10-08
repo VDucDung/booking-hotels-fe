@@ -100,6 +100,10 @@
     "heading": "Xác minh mã OTP",
     "desc01": "Nhập mã OTP được gửi tới email của bạn."
   },
+  "reset-password": {
+    "heading": "Đặt lại mật khẩu",
+    "desc01": "Vui lòng nhập mật khẩu mới của bạn vào ô bên dưới."
+  },
   "user-options": {
     "op01": "Trang cá nhân",
     "op02": "Vé của tôi",

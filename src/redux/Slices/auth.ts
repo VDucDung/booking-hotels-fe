@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getLocalStorageItem } from '@/utils/localStorage';
-import { clearError, forgotPassword, loginGoogle, loginUser, registerUser, verifyOtpForgotPassword } from '@/api/authService';
+import { clearError, forgotPassword, loginGoogle, loginUser, registerUser, resetPassword, verifyOtpForgotPassword } from '@/api/authService';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -131,6 +131,22 @@ const authSlice = createSlice({
       state.statusCode = action.payload.statusCode;
       state.message = action.payload.message;
     })
+    //reset password
+    .addCase(resetPassword.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(resetPassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.secretKey = action.payload.data;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    })
+    .addCase(resetPassword.rejected, (state, action:any) => {
+      state.loading = false;
+      state.statusCode = action.payload.statusCode;
+      state.message = action.payload.message;
+    });
   },
 });
 export const { reFreshStatus, logout } = authSlice.actions;

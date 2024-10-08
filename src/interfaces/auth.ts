@@ -52,3 +52,8 @@ export interface ApiError {
   message: string;
   code?: number;
 }
+
+export interface ResendPassworDTO{
+  token: string;
+  newPassword: string;
+}
