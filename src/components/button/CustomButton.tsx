@@ -69,11 +69,9 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
 
   const isLink = Boolean(href);
 
-  // Base classes common to both 'a' and 'button'
   const baseClasses =
     "rounded focus:outline-none transition duration-300 flex items-center justify-center font-medium";
 
-  // Size-based classes
   const sizeClasses: Record<string, string> = {
     small: "px-2 py-1 text-sm",
     medium: "px-5 py-2 text-base",
@@ -81,18 +79,17 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     zeroPadding: "p-0",
   };
 
-  // Default color classes based on whether it's a link
-  const defaultTextContainedColor = isLink ? "text-blue-500" : "text-white";
+  const defaultTextContainedColor = isLink ? "text-green-500" : "text-white";
   const defaultBgContainedColor = isLink ? "" : "bg-emerald-700";
   const defaultBgHoverContainedColor = isLink ? "" : "hover:bg-yellow-500";
   const defaultTextHoverContainedColor = isLink ? "" : "hover:text-black";
 
-  const defaultTextColor = "text-blue-500";
-  const defaultBorderColor = "border-blue-500";
-  const defaultBgHoverColor = "hover:bg-blue-200";
+  const defaultTextColor = "text-green-500";
+  const defaultBorderColor = "border-green-500";
+  const defaultBgHoverColor = "hover:bg-green-200";
   const defaultTextHoverColorClass = "hover:text-white";
 
-  const defaultLinkColor = "text-blue-500";
+  const defaultLinkColor = "text-green-500";
 
   // Generate dynamic color classes using custom hook
   const { textColor: newTextColor } = useColorClasses({ textColor });
@@ -158,7 +155,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     className
   );
 
-  // Content inside the button/link
   const content = (
     <>
       {loading ? (
@@ -187,7 +183,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     </>
   );
 
-  // Type guard to determine if props are for a button
   function isButton(props: ButtonProps): props is ButtonAsButton {
     return !props.href;
   }

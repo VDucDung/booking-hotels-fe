@@ -102,7 +102,7 @@ const PaginationApp: FC<PaginationProps> = ({
             style={{ width: buttonWidth, height: buttonHeight }}
             ref={i === forcePage ? buttonRef : null}
             className={clsx(
-              "flex items-center justify-center flex-shrink-0 text-emerald font-semibold border cursor-pointer rounded-md border-emerald-50 hover:bg-emerald-700 hover:text-white transition duration-300",
+              "flex items-center justify-center flex-shrink-0 text-emerald font-semibold border cursor-pointer rounded-md border-emerald-300 hover:bg-emerald-700 hover:text-white transition duration-300",
               buttonClassName,
               { "bg-emerald-700 text-white": isActive }
             )}

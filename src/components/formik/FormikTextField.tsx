@@ -12,12 +12,16 @@ interface FormikTextFieldProps extends FieldConfig {
   labelClassName?: string;
   disabled?: boolean;
   type?: string; 
+  rightIcon?: React.ReactNode;
+  inputClassName?: string;
 }
 
 const FormikTextField: React.FC<FormikTextFieldProps> = ({
   id,
   name,
   type = "text",
+  rightIcon,
+  inputClassName,
   ...props
 }) => {
   const [field, meta, helpers] = useField(id || name);
@@ -36,6 +40,8 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
       value={field.value || ""}
       error={meta.touched && meta.error ? meta.error : ""}
       disabled={props.disabled}
+      rightIcon={rightIcon}
+      inputClassName={inputClassName}
     />
   );
 };

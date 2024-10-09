@@ -16,6 +16,7 @@ interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   strokeWidth?: number; 
 }
 
+
 const Icon: React.FC<IconProps> = ({
   name = "",
   size = 2,
