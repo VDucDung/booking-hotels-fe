@@ -100,7 +100,7 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
                   hotelName={hotel.hotelName}
                   avgRating={hotel.avgRating}
                   reviews={hotel.reviews || null}
-                  images={hotel.images[0]}
+                  images={hotel?.images[0]}
                   address={hotel.address}
                   className="h-[420px]"
                 />

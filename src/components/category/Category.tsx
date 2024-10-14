@@ -65,7 +65,7 @@ const Category: React.FC<CategoryProps> = ({ className }) => {
               <div className="w-full cursor-pointer">
                 <Image
                   className="border rounded-lg w-[200px] h-[130px]"
-                  src={item.image}
+                  src={item?.image}
                   width={200}
                   height={130}
                   alt={item.name}

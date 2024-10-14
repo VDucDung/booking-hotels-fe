@@ -72,6 +72,7 @@ function Favorite() {
         {hotels.map((hotel) => (
           <HotelCard
             key={hotel.id}
+            avgRating={hotel.reviews.rating || 0}
             id={hotel.id}
             hotelName={hotel.name}
             reviews={hotel.reviews || null}

@@ -71,7 +71,6 @@ export const updateUser = createAsyncThunk<
       if (response?.data) {
         localStorage.setItem('user', JSON.stringify(response.data));
       }
-      console.log(JSON.parse(localStorage.getItem('user') as string))
       return response.data as GetUserResponse;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to update user profile');
@@ -85,7 +84,6 @@ export const changePassword = createAsyncThunk<ApiResponse, ChangePasswordValues
       'accept-language': `${Cookies.get('lang')}`,
     };
     const response = await callApi('POST', `/users/change-password`, null, userData, customHeaders);
-    console.log(response)
     return response;
   } catch (error: any) {
     return rejectWithValue(error.message || 'Failed to update user profile');

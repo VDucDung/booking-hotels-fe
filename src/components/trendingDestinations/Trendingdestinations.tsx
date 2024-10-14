@@ -1,3 +1,5 @@
+
+"use client";
 import { useClientTranslation } from "@/i18n/client";
 import CustomButton from "../button/CustomButton";
 import { useAppDispatch, useAppSelector } from "@/redux";
@@ -36,14 +38,14 @@ function Trendingdestinations(): JSX.Element {
           <div
             className="absolute inset-0 transform scale-100 hover:scale-110 duration-500"
             style={{
-              backgroundImage: `url(${trendingCategories[0].image})`, 
+              backgroundImage: `url(${trendingCategories[0]?.image})`, 
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           />
           <div className="absolute p-4 md:p-6 text-left">
             <h2 className="text-xl sm:text-2xl xl:text-3xl font-semibold text-white">
-              {t(`${trendingCategories[0].name}`)}
+              {t(`${trendingCategories[0]?.name}`)}
             </h2>
             <p className="text-sm md:text-lg font-medium text-white mt-2">
               {t("home.trendingDestinations.desc1")}
@@ -66,14 +68,14 @@ function Trendingdestinations(): JSX.Element {
         <div
           className="absolute inset-0 transform scale-100 hover:scale-110 duration-500"
           style={{
-            backgroundImage: `url(${trendingCategories[1].image})`,
+            backgroundImage: `url(${trendingCategories[1]?.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
         <div className="absolute p-4 md:p-6">
           <h2 className="text-xl sm:text-2xl xl:text-3xl font-semibold text-white">
-          {t(`${trendingCategories[1].name}`)}
+          {t(`${trendingCategories[1]?.name}`)}
           </h2>
           <CustomButton
             rounded
@@ -92,14 +94,14 @@ function Trendingdestinations(): JSX.Element {
         <div
           className="absolute inset-0 transform scale-100 hover:scale-110 duration-500"
           style={{
-            backgroundImage: `url(${trendingCategories[2].image})`,
+            backgroundImage: `url(${trendingCategories[2]?.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
         <div className="absolute p-4 md:p-6">
           <h2 className="text-xl sm:text-2xl xl:text-3xl font-semibold text-white">
-          {t(`${trendingCategories[2].name}`)}
+          {t(`${trendingCategories[2]?.name}`)}
           </h2>
           <CustomButton
             rounded

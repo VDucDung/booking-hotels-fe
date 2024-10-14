@@ -98,7 +98,7 @@ const HotelOldCardList: React.FC<HotelCardListProps> = () => {
                   hotelName={hotel.hotelName}
                   avgRating={hotel.avgRating}
                   reviews={hotel.reviews || null}
-                  images={hotel.images[0]}
+                  images={hotel?.images[0]}
                   address={hotel.address}
                   className="mx-2 h-[420px]"
                 />
