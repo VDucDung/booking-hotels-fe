@@ -1,28 +1,32 @@
-import { Action, Reducer } from '@reduxjs/toolkit'
-import { combineReducers } from 'redux'
+import { Action, Reducer, combineReducers } from '@reduxjs/toolkit';
 
-import authReducer from './auth'
-import hotelReducer from './hotel'
-import userReducer from './user'
+import authReducer from './auth';
+import hotelReducer from './hotel';
+import userReducer from './user';
+import categoryReducer from './category';
 
-export * from './auth'
-export * from './hotel'
-export * from './user'
-
+export * from './auth';
+export * from './hotel';
+export * from './user';
+export * from './category';
 
 const productReducer = combineReducers({
   auth: authReducer,
   hotels: hotelReducer,
-  users: userReducer
-})
-  
-export type RootState = ReturnType<typeof productReducer>
+  users: userReducer,
+  categories: categoryReducer
+});
 
-const rootReducer: Reducer = (state: RootState, action: Action) => {
+export type RootState = ReturnType<typeof productReducer>;
+
+const rootReducer: Reducer = (state: RootState | undefined, action: Action) => {
   if (action.type === 'RESET') {
-    state = {} as RootState
-    sessionStorage.clear()
+    // Clear session storage
+    sessionStorage.clear();
+    // Return a fresh state instead of mutating the existing one
+    return productReducer(undefined, action);
   }
-  return productReducer(state, action)
-}
-export default rootReducer
+  return productReducer(state, action);
+};
+
+export default rootReducer;

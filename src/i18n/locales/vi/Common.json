@@ -5,13 +5,45 @@
     "contact": "Liên hệ",
     "product": "Sản phẩm",
     "other": "Khác",
-    "signIn": "Đăng nhập",
-    "signUp": "Đăng ký",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
     "test": "TEST",
     "cart": "Giỏ hàng",
     "search": "Tìm kiếm",
     "checkout": "Thanh toán",
-    "profile": "Trang cá nhân"
+    "profile": "Trang cá nhân",
+    "title": "Booking Hotels"
+  },
+  "home": {
+    "category": {
+      "ca01": "Khám phá Việt Nam",
+      "ca02": "Các điểm đến phổ biến này có nhiều điều chờ đón bạn"
+    },
+    "favoriteCardList": {
+      "fa01": "Nhà ở mà khách yêu thích"
+    },
+    "hotelCardList": {
+      "ho01": "Bạn có còn quan tâm đến những chỗ nghỉ này?"
+    },
+    "relatedProducts": {
+      "re01": "Danh sách nhà nghỉ mới nhất"
+    },
+    "hotelOldCardList": {
+      "ho01": "Lưu trú tại các chỗ nghỉ độc đáo hàng đầu",
+      "ho02": "Từ nhà nghỉ truyền thống, hay các nhà nghỉ với truyền thống lâu đời"
+    },
+    "email": {
+      "title": "Đăng ký email nhận tin khuyến mãi",
+      "inputPlaceholder": "Nhập email của bạn..."
+    },
+    "trendingDestinations": {
+      "title1": "Trending Destinations",
+      "desc1": "View all",
+      "title2": "View All",
+      "desc2": "Trending Destinations",
+      "title3": "Trending Destinations",
+      "desc3": "View all"
+    }
   },
   "header": {
     "na01": "Đăng chỗ nghỉ của Quý vị",

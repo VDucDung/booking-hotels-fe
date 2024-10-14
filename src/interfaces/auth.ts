@@ -50,7 +50,7 @@ export interface OtpForgotPasswordData{
 
 export interface ApiError {
   message: string;
-  code?: number;
+  status?: number;
 }
 
 export interface ResendPassworDTO{

@@ -69,13 +69,14 @@ export const PATH = {
   CONTACT: "/contact",
   FORGOT_PASSWORD_OTP: "/forgotPasswordOTP",
   RESET_PASSWORD: "/resetPassword",
+  SEARCH: "/search",
 };
 
 export const PAGE_TITLE = {
   HOME: "pageTitle.home",
   ABOUT: "pageTitle.about",
-  SIGN_UP: "pageTitle.signUp",
-  LOGIN: "pageTitle.signIn",
+  SIGN_UP: "pageTitle.register",
+  LOGIN: "pageTitle.login",
   TEST: "pageTitle.test",
   PRODUCT: "pageTitle.product",
   CART: "pageTitle.cart",

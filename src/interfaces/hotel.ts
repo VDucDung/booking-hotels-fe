@@ -1,5 +1,3 @@
-import { DetailResult } from "./detailResult";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Hotel {
   id: number;
@@ -9,6 +7,7 @@ export interface Hotel {
   reviews: number;
   images: string;
   hotelName: string;
+  avgRating: number;
 }
 
 export interface HotelState {
@@ -24,17 +23,16 @@ export interface HotelCardProps {
   hotelName: string;
   address: string;
   reviews: any;
+  avgRating: number;
   images: string| null;
+  className?: string;
 }
 export interface HotelCardListProps {
-  hotels: Hotel[];
+  hotels?: Hotel[];
 }
 
 export interface GetHotelsResponse {
-  data: {
-    hotels: Hotel[];
-    detailResult: DetailResult;
-  };
+  data: Hotel[]
   statusCode: number;
   message: string;
 }

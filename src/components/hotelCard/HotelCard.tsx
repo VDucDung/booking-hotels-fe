@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const { Title, Text } = Typography;
 
-const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, images }) => {
+const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, avgRating, images, className }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const router = useRouter();
 
@@ -23,6 +23,7 @@ const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, i
 
   return (
     <Card
+      className={className}
       onClick={handleDirection}
       hoverable
       cover={
@@ -58,7 +59,7 @@ const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, i
       <Title level={5}>{hotelName}</Title>
       <Text>{address }</Text>
       <div style={{ marginTop: 8 }}>
-        <Rate disabled defaultValue={reviews?.rating || 5} />
+        <Rate disabled defaultValue={avgRating} />
         <Text> Tuyệt vời · {reviews?.length || 0} đánh giá</Text>
       </div>
     </Card>

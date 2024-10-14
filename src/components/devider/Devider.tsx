@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import clsx from "clsx";
-import useColorClasses from "../../hooks/useColorClasses";
-import useResponsiveStyle from "../../hooks/useResponsiveStyle";
+import useResponsiveStyle from "@/hooks/useResponsiveStyle";
+import useColorClasses from "@/hooks/useColorClasses";
 
 type DividerProps = {
   orientation?: "horizontal" | "vertical";

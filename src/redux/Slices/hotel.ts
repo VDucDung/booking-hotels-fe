@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getHotels } from '@/api/hotelService';
-import { HotelState, GetHotelsResponse } from '@/interfaces';
+import { HotelState, Hotel, DetailResult } from '@/interfaces';
 
 const initialState: HotelState = {
   hotels: [],
@@ -12,28 +13,43 @@ const initialState: HotelState = {
 const hotelSlice = createSlice({
   name: 'hotel',
   initialState,
-  reducers: {},
+  reducers: {
+    clearHotels: (state) => {
+      state.hotels = [];
+      state.detailResult = null;
+    },
+    setLoadingHotel: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
+    updateHotel: (state, action: PayloadAction<Hotel>) => {
+      const index = state.hotels.findIndex(hotel => hotel.id === action.payload.id);
+      if (index !== -1) {
+        state.hotels[index] = action.payload;
+      }
+    },
+    setDetailResult: (state, action: PayloadAction<DetailResult>) => {
+      state.detailResult = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getHotels.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.hotels = [];
-        state.detailResult = null;
       })
-      .addCase(getHotels.fulfilled, (state, action: PayloadAction<GetHotelsResponse>) => {
+      .addCase(getHotels.fulfilled, (state, action) => {
         state.loading = false;
-        state.hotels = action.payload.data.hotels;
-        state.detailResult = action.payload.data.detailResult;
+        state.hotels = action.payload.data;
         state.error = null;
       })
-      .addCase(getHotels.rejected, (state, action) => {
+      .addCase(getHotels.rejected, (state: any, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to load hotels';
+        state.error = action.payload || { message: 'An unknown error occurred', status: 500 };
         state.hotels = [];
         state.detailResult = null;
       });
   },
 });
 
+export const { clearHotels, setLoadingHotel, updateHotel, setDetailResult } = hotelSlice.actions;
 export default hotelSlice.reducer;

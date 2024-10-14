@@ -1,5 +1,3 @@
-import { ApiError } from "next/dist/server/api-utils";
-
 export interface CategoryProps {
   className?: string;
 }
@@ -8,7 +6,7 @@ export interface CategoryState {
   categories: Category[];
   loading: boolean;
   statusCode: number | null;
-  error: ApiError | null;
+  error: string | null;
 }
 
 export interface Category {

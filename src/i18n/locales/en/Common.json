@@ -5,11 +5,43 @@
     "contact": "Contact Us",
     "product": "Products",
     "other": "Other",
-    "signIn": "Sign In",
-    "signUp": "Sign Up",
+    "login": "Login",
+    "register": "Register",
     "test": "Test",
     "search": "Search",
-    "profile": "Profile"
+    "profile": "Profile",
+    "title": "Booking Hotels"
+  },
+  "home": {
+    "category": {
+      "ca01": "Explore Vietnam",
+      "ca02": "These popular destinations have a lot to offer"
+    },
+    "favoriteCardList": {
+      "fa01": "Homes guests love"
+    },
+    "hotelOldCardList": {
+      "ho01": "Stay at our top unique properties",
+      "ho02": "From traditional properties, or properties with long-standing traditions"
+    },
+    "relatedProducts": {
+      "re01": "List of Latest properties"
+    },
+    "hotelCardList": {
+      "ho01": "Still interested in these properties?"
+    },
+    "email": {
+      "title": "Register for email newsletters",
+      "inputPlaceholder": "Enter your email..."
+    },
+    "trendingDestinations": {
+      "title1": "Trending Destinations",
+      "desc1": "View all",
+      "title2": "View All",
+      "desc2": "Trending Destinations",
+      "title3": "Trending Destinations",
+      "desc3": "View all"
+    }
   },
   "header": {
     "na01": "List your property",

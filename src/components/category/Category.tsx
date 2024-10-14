@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 const Category: React.FC<CategoryProps> = ({ className }) => {
   const dispatch = useAppDispatch()
-  const { categories, loading } = useAppSelector((state) => state.categories)
+  const { categories, loading, error } = useAppSelector((state) => state.categories)
   const slider = useRef<Slider | null>(null)
 
   useEffect(() => {
@@ -49,12 +49,19 @@ const Category: React.FC<CategoryProps> = ({ className }) => {
     return <Loading className="mt-5 mx-auto" />
   }
 
+  if (error) {
+    return (
+      <div className="text-red-500 text-center mt-5">
+        {error}
+      </div>
+    );
+  }
   return (
     <section className={clsx('container sm:mt-10 mt-5', className)}>
       <div className="relative">
         <Slider ref={slider} {...settings}>
           {categories.map((item: CategoryType) => (
-            <Link href={`/search`} key={item.id} className="p-2">
+            <Link href={`/search`} key={item.id}>
               <div className="w-full cursor-pointer">
                 <Image
                   className="border rounded-lg w-[200px] h-[130px]"

@@ -110,7 +110,7 @@ const ResetPassword: React.FC = () => {
         toast.error(result.payload.message);
       }
     });
-  }, [dispatch, newPassword, t]);
+  }, [dispatch, newPassword, router, t]);
 
   useEffect(() => {
     dispatch(statistical())

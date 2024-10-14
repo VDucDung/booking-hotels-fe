@@ -91,7 +91,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
 
   const defaultLinkColor = "text-green-500";
 
-  // Generate dynamic color classes using custom hook
   const { textColor: newTextColor } = useColorClasses({ textColor });
   const { bgHoverColor: newBgHoverColor } = useColorClasses({ bgHoverColor });
   const { bgColor: newBgColor } = useColorClasses({ bgColor });
@@ -103,7 +102,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     borderHoverColor,
   });
 
-  // Define variant-based classes
   const variantClasses: Record<string, string> = {
     contained: clsx(
       newTextColor || defaultTextContainedColor,
@@ -129,7 +127,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     ),
   };
 
-  // Classes specific to links
   const linkClass = clsx(
     newTextColor || defaultLinkColor,
     newBgHoverColor || "",
@@ -139,7 +136,6 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
     newTextHoverColor || ""
   );
 
-  // Combine all classes
   const classes = clsx(
     baseClasses,
     sizeClasses[size],
