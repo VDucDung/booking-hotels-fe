@@ -63,7 +63,7 @@ function Favorite() {
 
   return (
     <div className="xl:p-4">
-      <h2 className="text-2xl font-semibold text-dark shadow-md p-4">
+      <h2 className="text-2xl font-semibold text-black shadow-md p-4">
         Danh sách yêu thích
       </h2>
 
@@ -75,7 +75,7 @@ function Favorite() {
             avgRating={hotel.reviews.rating || 0}
             id={hotel.id}
             hotelName={hotel.name}
-            reviews={hotel.reviews || null}
+            totalReviews={hotel.reviews.comment || 0}
             images={'/images/booking-icon.jpg'}
             address="Địa điểm"
           />

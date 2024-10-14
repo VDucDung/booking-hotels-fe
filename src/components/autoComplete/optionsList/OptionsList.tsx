@@ -38,7 +38,7 @@ const OptionsList = <T,>({
   return (
     <>
       {loading && showOptions ? (
-        <div className="absolute z-10 mt-1 bg-white-100 border border-gray-300 rounded-md shadow-lg w-full p-2 text-center">
+        <div className="absolute z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg w-full p-2 text-center">
           Đang tải...
         </div>
       ) : (
@@ -70,7 +70,7 @@ const OptionsList = <T,>({
                 onClick={() => handleOptionSelect(option)}
                 style={{ height: heightPerOption }}
                 className={clsx(
-                  "cursor-pointer p-2 flex items-center transition duration-300 hover:text-yellow",
+                  "cursor-pointer p-2 flex items-center transition duration-300 hover:text-yellow-500",
                   {
                     "bg-emerald text-white hover:!text-white": isSelected(
                       option

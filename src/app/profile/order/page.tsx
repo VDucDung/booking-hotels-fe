@@ -4,7 +4,7 @@ function OrderPage() {
   const isEmpty = true;
   return (
     <div className="xl:p-4">
-      <h2 className="text-2xl font-semibold text-dark shadow-md p-4">
+      <h2 className="text-2xl font-semibold text-black shadow-md p-4">
         Danh sách đơn đặt phòng của bạn
       </h2>
       {isEmpty ? (

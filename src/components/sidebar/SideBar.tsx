@@ -49,7 +49,7 @@ function SideBar() {
   return (
     <nav className="p-4 sm:pb-[200px] pb-[100px] bg-white-100 border-r border-gray-200">
       <div className="mb-4">
-        <div className="text-dark text-xl font-semibold">
+        <div className="text-black text-xl font-semibold">
             <Tooltip title="Thay đổi avatar">
                 <div className="flex justify-center relative">
                 <Image 
@@ -86,14 +86,14 @@ function SideBar() {
       <div className="mb-6">
         <div className="flex h-fit items-stretch">
           <div className="w-[3px] bg-yellow"></div>
-          <h2 className="flex-1 font-semibold text-dark text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
+          <h2 className="flex-1 font-semibold text-black text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
             {t("account.title06")}
           </h2>
         </div>
         <ul className="space-y-2">
           {accountLinks.map((link) => (
             <li key={link.path}>
-              <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-dark hover:text-yellow'}`}>
+              <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-black hover:text-yellow'}`}>
                 <Icon name={link.icon as IconName} size="1.4em" />
                 <span>{link.name}</span>
               </Link>
@@ -105,14 +105,14 @@ function SideBar() {
       <div>
         <div className="flex h-fit items-stretch">
           <div className="w-[3px] bg-yellow"></div>
-          <h2 className="flex-1 font-semibold text-dark text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
+          <h2 className="flex-1 font-semibold text-black text-lg bg-gray-100 h-full flex items-center p-2 mb-0">
             {t("account.title07")}
           </h2>
         </div>
         <ul className="space-y-2">
           {transactionLinks.map((link) => (
             <li key={link.path}>
-              <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-dark hover:text-yellow'}`}>
+              <Link href={link.path} className={`flex items-center space-x-2 p-2 text-lg font-medium rounded ${pathname === link.path ? 'text-yellow hover:text-yellow' : 'text-black hover:text-yellow'}`}>
                 <Icon name={link.icon as IconName} size="1.4em" />
                 <span>{link.name}</span>
               </Link>

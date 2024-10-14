@@ -1,54 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { memo } from "react";
 import { useField, FieldInputProps, FieldMetaProps, FieldHelperProps } from "formik";
-import { AutoCompleteProps } from "antd";
-import AutoComplete, { OptionType } from "../autoComplete/AutoComplete";
+import AutoComplete from "../autoComplete/AutoComplete";
 
-interface FormikAutocompleteProps extends Omit<AutoCompleteProps, "onChange" | "onBlur"> {
+interface FormikAutocompleteProps {
   name: string;
   id?: string;
-  onChange?: (value: string) => void; 
-  onBlur?: (value: string | undefined) => void;
-  options?: OptionType[];
-  label?: string;
-  getOptionLabel?: (option: any) => string;
-  isEqualValue: (option: any | null, opt: any) => boolean;
+  onChange?: any;
+  onBlur?: (event: any) => void;
+  [key: string]: any; 
 }
 
 const FormikAutocomplete: React.FC<FormikAutocompleteProps> = ({
   name,
-  onChange: externalOnChange,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  id,
+  onChange: externalOnchange,
   onBlur: externalOnBlur,
   ...props
 }) => {
-  const [field, meta, helpers]: [
-    FieldInputProps<string>,
-    FieldMetaProps<string>,
-    FieldHelperProps<string>
-  ] = useField(name);
+  const [field, meta, helpers]: [FieldInputProps<any>, FieldMetaProps<any>, FieldHelperProps<any>] = useField(name);
   const { setValue, setTouched } = helpers;
 
   return (
-    <>
     <AutoComplete
       {...props}
-      onChange={(val: OptionType | OptionType[] | null) => {
-        if (externalOnChange) {
-          if (val !== null) {
-            externalOnChange(val.toString()); 
-          }
+      onChange={(val: any) => {
+        if (externalOnchange) {
+          externalOnchange(val);
         }
-        if (typeof val === 'string' || val === null) {
-          setValue(val ?? '');
-        } else if (Array.isArray(val)) {
-          setValue(JSON.stringify(val)); 
-        } else {
-          setValue(val.label); 
-        }
+        setValue(val);
       }}
-      onBlur={() => {
+      onBlur={(event: any) => {
         if (externalOnBlur) {
-          externalOnBlur(field.value); 
+          externalOnBlur(event);
         }
         setTouched(true);
       }}
@@ -56,7 +41,6 @@ const FormikAutocomplete: React.FC<FormikAutocompleteProps> = ({
       value={field.value}
       error={meta.touched && meta.error ? meta.error : ""}
     />
-    </>
   );
 };
 

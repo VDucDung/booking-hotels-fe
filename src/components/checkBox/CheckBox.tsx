@@ -22,7 +22,7 @@ const Checkbox: React.FC<CustomCheckBoxProps> = ({
   size = "20px",
   className,
   labelClassName,
-  borderColor = "dark",
+  borderColor = "black",
 }) => {
   const [isChecked, setIsChecked] = useState<boolean>(checked);
 
@@ -46,16 +46,15 @@ const Checkbox: React.FC<CustomCheckBoxProps> = ({
           className="appearance-none w-0 h-0 opacity-0 invisible display-none"
         />
         <div
-          className={clsx("relative", newBorderColor)}
+          className={clsx("relative ", newBorderColor)}
           style={{
             borderWidth,
             width: size,
             height: size,
           }}
         >
-          {/* before */}
           <span
-            className={clsx("absolute bg-dark transition-transform")}
+            className={clsx("absolute bg-black transition-transform")}
             style={{
               width: `calc(${borderWidth} * 3)`,
               height: borderWidth,
@@ -68,9 +67,8 @@ const Checkbox: React.FC<CustomCheckBoxProps> = ({
             }}
           ></span>
 
-          {/* after */}
           <span
-            className={clsx("absolute bg-dark transition-transform")}
+            className={clsx("absolute bg-black transition-transform")}
             style={{
               width: `calc(${borderWidth} * 5)`,
               height: borderWidth,

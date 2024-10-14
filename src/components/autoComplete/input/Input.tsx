@@ -57,7 +57,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               onClick={clearInput}
               className="text-gray-500 hover:text-gray-700 focus:outline-none p-0 m-0 flex items-center"
             >
-              <Icon name="close" size={18} color="text-gray-500" />
+              <Icon name="close" size={2} color="text-gray-500" />
             </button>
           )}
           <Icon

@@ -94,14 +94,14 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
 
           <Slider ref={slider} {...settings}>
             {hotels.map((hotel) => (
-              <div key={hotel.id} className="py-2">
+              <div key={hotel.hotel_id} className="py-2">
                 <HotelCard
-                  id={hotel.id}
-                  hotelName={hotel.hotelName}
-                  avgRating={hotel.avgRating}
-                  reviews={hotel.reviews || null}
-                  images={hotel?.images[0]}
-                  address={hotel.address}
+                  id={hotel.hotel_id}
+                  hotelName={hotel.hotel_hotelName}
+                  avgRating={hotel.hotel_avg_rating}
+                  totalReviews={hotel.hotel_total_reviews || 0}
+                  images={hotel?.hotel_images[0]}
+                  address={hotel.hotel_address}
                   className="h-[420px]"
                 />
               </div>

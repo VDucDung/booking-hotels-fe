@@ -29,11 +29,6 @@ export const pagesIntroduction: enumPagination[] = [
   enumPagination._4,
 ];
 
-export enum enumThemeMode {
-  LIGHT = 'light',
-  DARK = 'dark',
-}
-
 export enum enumOrderDate {
   Y_M_D = 'year/month/day',
   D_M_Y = 'day/month/year',

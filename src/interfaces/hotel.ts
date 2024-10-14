@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Hotel {
-  id: number;
-  name: string;
-  address: string;
-  rating: number;
-  reviews: number;
-  images: string;
-  hotelName: string;
-  avgRating: number;
+  hotel_id: number;
+  hotel_hotelName: string;
+  hotel_address: string;
+  hotel_description?: string;
+  hotel_total_reviews: number;
+  hotel_images: string;
+  hotel_avg_rating: number;
 }
 
 export interface HotelState {
@@ -22,7 +21,7 @@ export interface HotelCardProps {
   id: number;
   hotelName: string;
   address: string;
-  reviews: any;
+  totalReviews: number;
   avgRating: number;
   images: string| null;
   className?: string;
@@ -32,7 +31,10 @@ export interface HotelCardListProps {
 }
 
 export interface GetHotelsResponse {
-  data: Hotel[]
+  data: {
+    hotels: Hotel[],
+    detailResult: any
+  }
   statusCode: number;
   message: string;
 }

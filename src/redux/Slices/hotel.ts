@@ -22,7 +22,7 @@ const hotelSlice = createSlice({
       state.loading = action.payload;
     },
     updateHotel: (state, action: PayloadAction<Hotel>) => {
-      const index = state.hotels.findIndex(hotel => hotel.id === action.payload.id);
+      const index = state.hotels.findIndex(hotel => hotel.hotel_id === action.payload.hotel_id);
       if (index !== -1) {
         state.hotels[index] = action.payload;
       }
@@ -39,7 +39,8 @@ const hotelSlice = createSlice({
       })
       .addCase(getHotels.fulfilled, (state, action) => {
         state.loading = false;
-        state.hotels = action.payload.data;
+        state.hotels = action.payload.data.hotels;
+        state.detailResult = action.payload.data.detailResult;
         state.error = null;
       })
       .addCase(getHotels.rejected, (state: any, action) => {

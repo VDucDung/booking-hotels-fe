@@ -7,7 +7,6 @@ import FormikAutoComplete from "../formik/FormikAutoComplete";
 interface Option {
   label: string;
   value: string;
-  id: string; 
 }
 
 interface ProductFilterTopBarProps {
@@ -23,12 +22,10 @@ const ProductFilterTopBar: React.FC<ProductFilterTopBarProps> = ({ setFieldValue
     {
       label: "Giá: Tăng dần",
       value: "desc",
-      id: "newest-id",
     },
     {
       label: "Giá: Giảm dần",
       value: "asc",
-      id: "newest-id",
     },
   ];
 
@@ -36,17 +33,10 @@ const ProductFilterTopBar: React.FC<ProductFilterTopBarProps> = ({ setFieldValue
     {
       label: "Mới nhất",
       value: "newest",
-      id: "newest-id",
-    },
-    {
-      label: "Bán chạy nhất",
-      value: "bestSeller",
-      id: "newest-id",
     },
     {
       label: "Đánh giá cao nhất",
       value: "highestRating",
-      id: "newest-id",
     },
   ];
 
@@ -57,8 +47,8 @@ const ProductFilterTopBar: React.FC<ProductFilterTopBarProps> = ({ setFieldValue
         <CustomButton
           type="button"
           height="50px"
-          className={clsx("text-lg hover:text-dark hidden sm:block", {
-            "bg-yellow-500 text-dark hover:text-white":
+          className={clsx("text-lg hover:text-black hidden sm:block", {
+            "bg-yellow-500 text-black hover:text-white":
               values.displayOption === "newest",
           })}
           onClick={() => setFieldValue("displayOption", "newest")}
@@ -68,19 +58,8 @@ const ProductFilterTopBar: React.FC<ProductFilterTopBarProps> = ({ setFieldValue
         <CustomButton
           type="button"
           height="50px"
-          className={clsx("text-lg hover:text-dark hidden sm:block", {
-            "bg-yellow text-dark hover:text-white":
-              values.displayOption === "bestSeller",
-          })}
-          onClick={() => setFieldValue("displayOption", "bestSeller")}
-        >
-          Bán chạy nhất
-        </CustomButton>
-        <CustomButton
-          type="button"
-          height="50px"
-          className={clsx("text-lg hover:text-dark hidden sm:block", {
-            "bg-yellow text-dark hover:text-white":
+          className={clsx("text-lg hover:text-black hidden sm:block", {
+            "bg-yellow-500 text-black hover:text-white":
               values.displayOption === "highestRating",
           })}
           onClick={() => setFieldValue("displayOption", "highestRating")}
@@ -98,7 +77,7 @@ const ProductFilterTopBar: React.FC<ProductFilterTopBarProps> = ({ setFieldValue
         />
         </div>
 
-        <div className="flex-2 sm:w-[300px] w-full xl:mt-0 mt-7">
+        <div className="flex-2 sm:w-[300px] w-full xl:mt-0 mt-7 ml-[220px]">
           <FormikAutoComplete
             name="price"
             options={priceOptions}

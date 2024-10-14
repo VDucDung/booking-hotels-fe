@@ -46,7 +46,7 @@ const Email: React.FC = () => {
                 size="large"
                 width="150px"
                 height="60px"
-                className="sm:ml-auto sm:mr-0 ml-auto mr-auto hover:text-dark font-semibold px-10 mt-5 z-[1000] relative"
+                className="sm:ml-auto sm:mr-0 ml-auto mr-auto hover:text-black font-semibold px-10 mt-5 z-[1000] relative"
               >
                 {t("pageTitle.register")}
               </CustomButton>

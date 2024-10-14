@@ -1,109 +1,54 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import ProductFilterSideBar from "@/components/productFilterSideBar/ProductFilterSideBar";
 import HotelCard from "@/components/hotelCard/HotelCard";
 import PaginationApp from "@/components/pagination/Pagination";
 import ProductFilterTopBar from "@/components/productFilterTopBar/ProductFilterTopBar";
+import { useAppDispatch, useAppSelector } from "@/redux";
+import { getHotels } from "@/api/hotelService";
+import Loading from "@/components/loading";
+import Image from "next/image";
+import images from "@/assets/images";
+import ProductFilterSideBar from "@/components/productFilterSideBar/ProductFilterSideBar";
+import { getCategories } from "@/api/categoryService";
 
 function Search() {
-  const items = [
-    {
-      id: 1,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1300000,
-      image: '/images/booking-icon.jpg',
-      rating: 2.5,
-      alt: "Banner 1",
-      state: 0,
-      brand: "Kinh đô",
-      discount: 10,
-    },
-    {
-      id: 2,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1500000,
-      image: '/images/booking-icon.jpg',
-      rating: 5,
-      alt: "Banner 2",
-      state: 1,
-      brand: "Huỳnh đô",
-      discount: 15,
-    },
-    {
-      id: 3,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1200000,
-      image: '/images/booking-icon.jpg',
-      rating: 4,
-      alt: "Banner 3",
-      state: 0,
-      brand: "Sao vàng",
-      discount: 20,
-    },
-    {
-      id: 4,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1400000,
-      image: '/images/booking-icon.jpg',
-      rating: 5,
-      alt: "Banner 4",
-      state: 1,
-      brand: "Thủ đô",
-      discount: 5,
-    },
-    {
-      id: 5,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1100000,
-      image: '/images/booking-icon.jpg',
-      rating: 3,
-      alt: "Banner 5",
-      state: 0,
-      brand: "Sao vàng",
-      discount: 25,
-    },
-    {
-      id: 6,
-      name: "Trăng vàng hoàng kim vinh hiển đỏ",
-      price: 1600000,
-      image: '/images/booking-icon.jpg',
-      rating: 4.5,
-      alt: "Banner 6",
-      state: 1,
-      brand: "Thủ đô",
-      discount: 0,
-    },
-  ];
-
   const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useAppDispatch();
+  const { hotels, detailResult, loading, error } = useAppSelector((state) => state.hotels);
+  const { categories } = useAppSelector((state) => state.categories);
+
+  useEffect(() => {
+    dispatch(getHotels({
+      page: currentPage + 1,
+      limit: 20,
+      sortBy: "",
+      keyword: "",
+    }));
+
+    dispatch(getCategories());
+  }, [dispatch, currentPage]);
+
 
   const handlePageChange = ({ selected }: any) => {
     setCurrentPage(selected);
   };
 
-  const brandList = [
-    { name: "Kinh Đô", code: "kinh_do" },
-    { name: "Bibica", code: "bibica" },
-    { name: "Như Lan", code: "nhu_lan" },
-    { name: "Hữu Nghị", code: "huu_nghi" },
-    { name: "Đồng Khánh", code: "dong_khanh" },
-    { name: "Brodard", code: "brodard" },
-    { name: "Givral", code: "givral" },
-    { name: "Maison", code: "maison" },
-  ];
+  const addressList = categories.map((item) => {
+    return {
+      name: item.name as string,
+      code: item.id as string
 
-  const categoryList = [
-    { label: "Bánh trăng vàng cao cấp", image: '/images/booking-icon.jpg' },
-    { label: "Bánh nướng 2 trứng đb", image: '/images/booking-icon.jpg' },
-    { label: "Bánh xanh", image: '/images/booking-icon.jpg' },
-    { label: "Bánh trung thu OREO", image: '/images/booking-icon.jpg' },
-    { label: "Bánh nướng 1 trứng", image: '/images/booking-icon.jpg' },
-    { label: "Bánh dẻo", image: '/images/booking-icon.jpg' },
-    { label: "Bánh Lava trứng chảy", image: '/images/booking-icon.jpg' },
-    { label: "Hộp thu Young", image: '/images/booking-icon.jpg' },
-  ];
+    }
+  })
+
+  const categoryList = hotels.map((item) => {
+    return {
+      label: item.hotel_hotelName,
+      image: item.hotel_images[0],
+    };
+  })
 
   const initialValues = {
     rating: 1,
@@ -114,6 +59,18 @@ function Search() {
     price: "",
     search: "",
   };
+
+  if (loading) {
+    return <Loading className="mt-5 mx-auto" />;
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500 text-center mt-5">
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -133,7 +90,7 @@ function Search() {
                   <ProductFilterSideBar
                     values={values}
                     setFieldValue={setFieldValue}
-                    brandList={brandList}
+                    addressList={addressList}
                     categoryList={categoryList}
                   />
                 </div>
@@ -145,13 +102,18 @@ function Search() {
                   />
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {items.map((item) => (
-                      <HotelCard key={item.id} avgRating={item.rating} id={item.id} hotelName={item.name} address={item.brand} reviews={item.rating} images={item?.image}  />
-                    ))}
+                    {hotels?.length > 0 ? ( hotels.map((item) => (
+                      <HotelCard key={item?.hotel_id} avgRating={item?.hotel_avg_rating} id={item?.hotel_id} hotelName={item?.hotel_hotelName} address={item.hotel_address} totalReviews={item.hotel_total_reviews} images={item?.hotel_images[0]}  />
+                    ))) : (
+                      <div className="col-span-3 mt-3">
+                        <Image src={images.empty} alt="empty" width={300} height={300} className="mx-auto" />
+                        <div className="text-center mt-3">Không tìm thấy nào</div>
+                      </div>
+                    )}
                   </div>
 
                   <PaginationApp
-                    pageCount={20}
+                    pageCount={detailResult?.totalPages}
                     onPageChange={handlePageChange}
                     forcePage={currentPage}
                     className="ml-auto mt-10"
@@ -162,7 +124,7 @@ function Search() {
                   <ProductFilterSideBar
                     values={values}
                     setFieldValue={setFieldValue}
-                    brandList={brandList}
+                    addressList={addressList}
                     categoryList={categoryList}
                   />
                 </div>

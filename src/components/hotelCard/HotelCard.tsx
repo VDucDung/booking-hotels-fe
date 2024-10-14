@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 
 const { Title, Text } = Typography;
 
-const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, avgRating, images, className }) => {
+const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, totalReviews, avgRating, images, className }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const router = useRouter();
 
@@ -60,7 +60,7 @@ const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, reviews, a
       <Text>{address }</Text>
       <div style={{ marginTop: 8 }}>
         <Rate disabled defaultValue={avgRating} />
-        <Text> Tuyệt vời · {reviews?.length || 0} đánh giá</Text>
+        <Text> Tuyệt vời · {totalReviews || 0} đánh giá</Text>
       </div>
     </Card>
   );

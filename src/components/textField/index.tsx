@@ -131,7 +131,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               labelClassName,
               {
                 "text-gray-500": !isFocused && !value,
-                "text-dark top-0 -translate-y-full": isFocused || value,
+                "text-black top-0 -translate-y-full": isFocused || value,
                 "top-1/2 -translate-y-1/2": !isFocused && !value,
               }
             )}
