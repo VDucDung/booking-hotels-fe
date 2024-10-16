@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Hotel {
-  hotel_id: number;
-  hotel_hotelName: string;
-  hotel_address: string;
-  hotel_description?: string;
-  hotel_total_reviews: number;
-  hotel_images: string;
-  hotel_avg_rating: number;
+  id: number;
+  hotelName: string;
+  address: string;
+  description?: string;
+  images: string;
+  totalReviews: number;
+  avgRating: number;
+  favorites?: any;
 }
 
 export interface HotelState {
@@ -25,6 +26,8 @@ export interface HotelCardProps {
   avgRating: number;
   images: string| null;
   className?: string;
+  favorites?: boolean;
+  onLikeSuccess: any;
 }
 export interface HotelCardListProps {
   hotels?: Hotel[];

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import HotelCard from "@/components/hotelCard/HotelCard";
 import PaginationApp from "@/components/pagination/Pagination";
@@ -20,15 +20,21 @@ function Search() {
   const { categories } = useAppSelector((state) => state.categories);
 
   useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  const fetchHotels = useCallback(() => {
     dispatch(getHotels({
-      page: currentPage + 1,
+      page: currentPage+1,
       limit: 20,
       sortBy: "",
       keyword: "",
     }));
-
-    dispatch(getCategories());
   }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    fetchHotels();
+  }, [fetchHotels]);
 
 
   const handlePageChange = ({ selected }: any) => {
@@ -45,8 +51,8 @@ function Search() {
 
   const categoryList = hotels.map((item) => {
     return {
-      label: item.hotel_hotelName,
-      image: item.hotel_images[0],
+      label: item.hotelName,
+      image: item.images[0],
     };
   })
 
@@ -103,7 +109,8 @@ function Search() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {hotels?.length > 0 ? ( hotels.map((item) => (
-                      <HotelCard key={item?.hotel_id} avgRating={item?.hotel_avg_rating} id={item?.hotel_id} hotelName={item?.hotel_hotelName} address={item.hotel_address} totalReviews={item.hotel_total_reviews} images={item?.hotel_images[0]}  />
+                      <HotelCard key={item?.id} avgRating={item?.avgRating} id={item?.id} hotelName={item?.hotelName} address={item.address} totalReviews={item.totalReviews} images={item?.images[0]} favorites={item.favorites.length > 0 ? true : false} onLikeSuccess={fetchHotels}
+/>
                     ))) : (
                       <div className="col-span-3 mt-3">
                         <Image src={images.empty} alt="empty" width={300} height={300} className="mx-auto" />

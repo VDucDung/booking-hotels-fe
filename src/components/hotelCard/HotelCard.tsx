@@ -1,25 +1,54 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Rate, Typography, Button } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { HotelCardProps } from '@/interfaces';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch } from '@/redux';
+import { createFavorite, removeFavorite } from '@/api/favoriteService';
+import { toast } from "react-toastify";
 
 const { Title, Text } = Typography;
 
-const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, totalReviews, avgRating, images, className }) => {
+const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, totalReviews, avgRating, images, className, favorites, onLikeSuccess }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); 
-    setIsLiked((prevLiked) => !prevLiked);
+    if(isLiked){
+      dispatch(removeFavorite({hotelId: id})).then((result: any) => {
+        if(result.payload.statusCode === 200){
+          setIsLiked(false)
+          toast.success(result.payload.message);
+          onLikeSuccess?.();
+        }
+      });
+    }else{
+      dispatch(createFavorite({hotelId: id})).then((result: any) => {
+        if(result.payload.statusCode === 201){
+          setIsLiked(true)
+          toast.success(result.payload.message);
+          onLikeSuccess?.();
+        }
+      });
+    }
   };
 
   const handleDirection = () => {
     router.push(`/hotel/${id}`); 
   };
+
+  useEffect(() => {
+    if(favorites){
+      setIsLiked(true);
+    }else{
+      setIsLiked(false);
+    }
+  }, [favorites]);
 
   return (
     <Card
@@ -59,8 +88,8 @@ const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, totalRevie
       <Title level={5}>{hotelName}</Title>
       <Text>{address }</Text>
       <div style={{ marginTop: 8 }}>
-        <Rate disabled defaultValue={avgRating} />
-        <Text> Tuyệt vời · {totalReviews || 0} đánh giá</Text>
+        <Rate disabled value={avgRating}/>
+        <Text> {avgRating > 3 ? ((avgRating  > 4)  ? 'Tuyệt vời': 'Tốt') : 'Tệ' } · {totalReviews || 0} đánh giá</Text>
       </div>
     </Card>
   );

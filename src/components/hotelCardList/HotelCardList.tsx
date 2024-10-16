@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import Slider, { Settings } from "react-slick";
 import clsx from "clsx";
 import IconButton from "../iconButton/IconButton";
@@ -14,7 +14,8 @@ const HotelCardList: React.FC<HotelCardListProps> = () => {
   const slider = useRef<Slider | null>(null);
   const dispatch = useAppDispatch();
   const { hotels, loading, error } = useAppSelector((state) => state.hotels);
-  useEffect(() => {
+
+  const fetchHotels = useCallback(() => {
     dispatch(getHotels({
       page: 1,
       limit: 20,
@@ -22,6 +23,10 @@ const HotelCardList: React.FC<HotelCardListProps> = () => {
       keyword: "",
     }));
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchHotels();
+  }, [fetchHotels]);
 
   const settings: Settings = {
     infinite: true,
@@ -92,14 +97,16 @@ const HotelCardList: React.FC<HotelCardListProps> = () => {
 
           <Slider ref={slider} {...settings}>
             {hotels.map((hotel) => (
-              <div key={hotel.hotel_id} className="py-2">
+              <div key={hotel.id} className="py-2">
                 <HotelCard
-                  id={hotel.hotel_id}
-                  hotelName={hotel.hotel_hotelName}
-                  avgRating={hotel.hotel_avg_rating}
-                  totalReviews={hotel.hotel_total_reviews || 0}
-                  images={hotel?.hotel_images[0]}
-                  address={hotel.hotel_address}
+                  id={hotel.id}
+                  hotelName={hotel.hotelName}
+                  avgRating={hotel.avgRating}
+                  totalReviews={hotel.totalReviews || 0}
+                  images={hotel?.images[0]}
+                  address={hotel.address}
+                  favorites={hotel.favorites.length > 0 ? true : false}
+                  onLikeSuccess={fetchHotels}
                   className="mx-2 h-[420px]"
                 />
               </div>

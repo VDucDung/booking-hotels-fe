@@ -22,7 +22,7 @@ const hotelSlice = createSlice({
       state.loading = action.payload;
     },
     updateHotel: (state, action: PayloadAction<Hotel>) => {
-      const index = state.hotels.findIndex(hotel => hotel.hotel_id === action.payload.hotel_id);
+      const index = state.hotels.findIndex(hotel => hotel.id === action.payload.id);
       if (index !== -1) {
         state.hotels[index] = action.payload;
       }

@@ -4,15 +4,18 @@ import authReducer from './auth';
 import hotelReducer from './hotel';
 import userReducer from './user';
 import categoryReducer from './category';
+import favoriteReducer from './favorite';
 
 export * from './auth';
 export * from './hotel';
 export * from './user';
 export * from './category';
+export * from './favorite';
 
 const productReducer = combineReducers({
   auth: authReducer,
   hotels: hotelReducer,
+  favorites: favoriteReducer,
   users: userReducer,
   categories: categoryReducer
 });
