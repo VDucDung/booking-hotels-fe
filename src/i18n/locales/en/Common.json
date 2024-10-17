@@ -43,6 +43,13 @@
       "desc3": "View all"
     }
   },
+  "detailPage": {
+    "de01": "Overview",
+    "de02": "Rooms",
+    "de03": "Locations",
+    "de04": "Utilities",
+    "de05": "Reviews"
+  },
   "header": {
     "na01": "List your property",
     "na02": "Login/Register",

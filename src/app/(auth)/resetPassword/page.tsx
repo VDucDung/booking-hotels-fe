@@ -125,7 +125,7 @@ const ResetPassword: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-6 w-[450px] min-h-[100px] text-center self-center rounded-lg bg-white backdrop-blur-lg shadow-md z-50 mx-auto my-8 mt-20">
+    <div className="p-6 w-[450px] min-h-[100px] text-center self-center rounded-lg bg-white backdrop-blur-lg shadow-md z-50 mx-auto my-8 mt-[200px]">
       <h1 className="text-2.5xl md:text-2xl font-semibold shine">{t("reset-password.heading")}</h1>
       <p className="mt-2 text-xl md:text-lg text-gray-500">{t("reset-password.desc01")}</p>
 

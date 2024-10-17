@@ -4,14 +4,17 @@ export interface Hotel {
   hotelName: string;
   address: string;
   description?: string;
-  images: string;
+  images: [string];
   totalReviews: number;
   avgRating: number;
   favorites?: any;
+  partners?: any;
+  typeRooms?: any;
 }
 
 export interface HotelState {
   hotels: Hotel[];
+  hotel: Hotel | null;
   loading: boolean;
   error: string | null;
   detailResult: any; 
@@ -38,6 +41,15 @@ export interface GetHotelsResponse {
     hotels: Hotel[],
     detailResult: any
   }
+  statusCode: number;
+  message: string;
+}
+
+export interface HotelCredentials {
+  hotelId: number;
+}
+export interface GetHotelResponse {
+  data: Hotel,
   statusCode: number;
   message: string;
 }

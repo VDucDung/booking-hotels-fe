@@ -33,7 +33,7 @@ const Banner = () => {
   );
 
   return (
-    <section className='pt-[8px] relative h-[500px]' style={{ backgroundImage: `url(/images/banner.jpg)`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundAttachment: "fixed" }}>
+    <section className='mt-[115px] relative h-[500px]' style={{ backgroundImage: `url(/images/banner.jpg)`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundAttachment: "fixed" }}>
       <div className='container mx-auto'>
         <div className='text-white py-24 mx-[40px]'>
           <h3 className='text-6xl font-bold'>{t('header.na04')}</h3>

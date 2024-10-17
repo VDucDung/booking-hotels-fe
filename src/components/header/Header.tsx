@@ -136,7 +136,7 @@ const AppHeader = () => {
   }, [handleClickOutsideUserOptions]);
 
   return (
-  <Header className=" bg-[#00ba51] h-[115px] pt-[8px] relative px-[230px]">
+  <Header className=" bg-[#00ba51] h-[115px] pt-[8px] fixed z-[999] top-0 w-full px-[230px]">
       <div className="container mx-auto">
       <div className="container mx-auto flex items-center justify-between">
         <div>

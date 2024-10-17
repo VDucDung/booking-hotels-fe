@@ -45,6 +45,13 @@
       "desc3": "View all"
     }
   },
+  "detailPage": {
+    "de01": "Tổng quan",
+    "de02": "Phòng",
+    "de03": "Vị trí",
+    "de04": "Tiện ích",
+    "de05": "Đánh giá"
+  },
   "header": {
     "na01": "Đăng chỗ nghỉ của Quý vị",
     "na02": "Đăng nhập/Đăng kí",

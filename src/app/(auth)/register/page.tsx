@@ -101,7 +101,7 @@ export default function Register() {
       });
   }, [dispatch]);
   return (
-<div className="bg-white p-5 rounded-xl shadow-lg w-[450px] min-h-[100px] text-center mx-auto mt-20">
+<div className="bg-white p-5 rounded-xl shadow-lg w-[450px] min-h-[100px] text-center mx-auto mt-[200px]">
   <h1 className="text-4xl font-semibold mb-4">{t('register.heading')}</h1>
   <p className="text-xl text-gray-600">{t('register.desc01')}</p>
   <form onSubmit={handleRegister} className="mt-4">

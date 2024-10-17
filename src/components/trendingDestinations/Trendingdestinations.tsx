@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { getCategories } from "@/api/categoryService";
 import Loading from "../loading";
 import { getRandomElements } from "@/utils/getRandomElements";
+import { PATH } from "@/configs";
+import Link from "next/link";
 
 function Trendingdestinations(): JSX.Element {
   const { t } = useClientTranslation('Common');
@@ -55,10 +57,12 @@ function Trendingdestinations(): JSX.Element {
               bgColor="white"
               textColor="emerald-700"
               bgHoverColor="yellow-500"
-              // href={PATH.SEARCH}
+              href={PATH.SEARCH}
               className="font-medium mt-4 w-fit"
             >
-              {t("pageTitle.other")}
+              <Link href={PATH.SEARCH}>
+                {t("pageTitle.other")}
+              </Link>
             </CustomButton>
           </div>
         </div>
@@ -79,13 +83,14 @@ function Trendingdestinations(): JSX.Element {
           </h2>
           <CustomButton
             rounded
-            // href={PATH.SEARCH}
             bgColor="white"
             textColor="emerald-700"
             className="font-medium mt-2 w-fit"
             bgHoverColor="yellow-500"
           >
+            <Link href={PATH.SEARCH}>
             {t("pageTitle.other")}
+            </Link>
           </CustomButton>
         </div>
       </div>
@@ -105,13 +110,14 @@ function Trendingdestinations(): JSX.Element {
           </h2>
           <CustomButton
             rounded
-            // href={PATH.SEARCH}
             bgColor="white"
             textColor="emerald-700"
             className="font-medium mt-2 w-fit"
             bgHoverColor="yellow-500"
           >
-            {t("pageTitle.other")}
+            <Link href={PATH.SEARCH}>
+              {t("pageTitle.other")}
+            </Link>
           </CustomButton>
         </div>
       </div>
