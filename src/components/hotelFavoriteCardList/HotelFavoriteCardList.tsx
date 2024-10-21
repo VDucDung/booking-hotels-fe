@@ -67,7 +67,7 @@ const HotelFavoriteCardList: React.FC<HotelCardListProps> = () => {
       {
         hotels?.length > 0 ? (<div className="relative">
           <IconButton
-            className="absolute top-1/2 -translate-y-1/2 left-[-50px] hidden sm:flex"
+            className="absolute top-1/2 -translate-y-1/2 left-[-10px] hidden sm:flex z-[999]"
             iconName="arrowSlider"
             variant="contained"
             size="small"
@@ -81,7 +81,7 @@ const HotelFavoriteCardList: React.FC<HotelCardListProps> = () => {
           />
 
           <IconButton
-            className="rotate-180 absolute top-1/2 -translate-y-1/2 right-[-50px] hidden sm:flex"
+            className="rotate-180 absolute top-1/2 -translate-y-1/2 right-[-20px] hidden sm:flex z-[999]"
             iconName="arrowSlider"
             variant="contained"
             size="small"

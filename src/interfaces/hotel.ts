@@ -46,7 +46,7 @@ export interface GetHotelsResponse {
 }
 
 export interface HotelCredentials {
-  hotelId: number;
+  hotel: Hotel;
 }
 export interface GetHotelResponse {
   data: Hotel,

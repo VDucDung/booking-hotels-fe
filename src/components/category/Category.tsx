@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { getCategories } from '@/api/categoryService'
 import Loading from '../loading'
 import Link from 'next/link'
+import IconButton from '../iconButton/IconButton'
 
 const Category: React.FC<CategoryProps> = ({ className }) => {
   const dispatch = useAppDispatch()
@@ -22,7 +23,6 @@ const Category: React.FC<CategoryProps> = ({ className }) => {
     dots: true,
     slidesToShow: 6,
     slidesToScroll: 1,
-    arrows: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -59,6 +59,34 @@ const Category: React.FC<CategoryProps> = ({ className }) => {
   return (
     <section className={clsx('container sm:mt-10 mt-5', className)}>
       <div className="relative">
+
+      <IconButton
+        className="absolute top-1/2 -translate-y-1/2 left-[-20px] hidden sm:flex z-[999]"
+        iconName="arrowSlider"
+        variant="contained"
+        size="small"
+        bgColor="emerald-500"
+        textColor="white"
+        bgHoverColor="yellow"
+        iconSize={1.5}
+        onClick={() => {
+          slider.current?.slickPrev();
+        }}
+      />
+
+      <IconButton
+        className="rotate-180 absolute top-1/2 -translate-y-1/2 right-[-20px] hidden sm:flex z-[999]"
+        iconName="arrowSlider"
+        variant="contained"
+        size="small"
+        bgColor="emerald-500"
+        textColor="white"
+        bgHoverColor="yellow"
+        iconSize={1.5}
+        onClick={() => {
+          slider.current?.slickNext();
+        }}
+      />
         <Slider ref={slider} {...settings}>
           {categories.map((item: CategoryType) => (
             <Link href={`/search`} key={item.id}>

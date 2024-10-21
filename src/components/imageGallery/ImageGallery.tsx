@@ -71,7 +71,7 @@ const ImageGallery: React.FC<GalleryProps> = ({
 
         <div className="flex justify-center p-4 relative">
         <IconButton
-            className="absolute top-1/2 -translate-y-1/2 left-[-50px] hidden sm:flex"
+            className="absolute top-1/2 -translate-y-1/2 left-[-10px] hidden sm:flex z-[999]"
             iconName="arrowSlider"
             variant="contained"
             size="small"
@@ -91,12 +91,12 @@ const ImageGallery: React.FC<GalleryProps> = ({
             quality={100} 
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = '/api/placeholder/400/300';
+              target.src = 'https://res.cloudinary.com/dgyusabsy/image/upload/v1728631167/booking-hotels/nr1gltdqndwuajubmzor.jpg/400/300';
             }}
           />
 
           <IconButton
-            className="rotate-180 absolute top-1/2 -translate-y-1/2 right-[-50px] hidden sm:flex"
+            className="rotate-180 absolute top-1/2 -translate-y-1/2 right-[-20px] hidden sm:flex z-[999]"
             iconName="arrowSlider"
             variant="contained"
             size="small"

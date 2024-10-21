@@ -55,7 +55,7 @@ export const createFavorite = createAsyncThunk<GetFavoritesResponse, FavoriteCre
   }
 );
 
-export const removeFavorite = createAsyncThunk<RemovieFavoritesResponse, FavoriteCredentials>(
+export const removeFavorite = createAsyncThunk<RemovieFavoritesResponse, { hotelId: number }>(
   'favorites',
   async ({ hotelId }, { rejectWithValue }) => { 
     try {

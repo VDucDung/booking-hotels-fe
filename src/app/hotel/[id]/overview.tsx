@@ -2,10 +2,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'; 
-import { useAppDispatch, useAppSelector } from '@/redux';
-import { getHotel } from '@/api/hotelService';
-import Loading from '@/components/loading';
-import { HotelCredentials } from '@/interfaces';
+import { useAppDispatch } from '@/redux';
+import {  HotelCredentials } from '@/interfaces';
 import ImageGallery from '@/components/imageGallery/ImageGallery';
 import { Button, Rate } from 'antd';
 import { LocationIcon } from '@/assets/icons';
@@ -13,38 +11,33 @@ import CustomButton from '@/components/button/CustomButton';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { createFavorite, removeFavorite } from '@/api/favoriteService';
 import { toast } from 'react-toastify';
-const Overview: React.FC<HotelCredentials> = ({ hotelId }) => {
+const Overview: React.FC<HotelCredentials> = ({ hotel }) => {
   const dispatch = useAppDispatch();
-  const { hotel, loading, error } = useAppSelector((state) => state.hotels);
-  
   const [showFullDescription, setShowFullDescription] = useState(false);
-
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
   useEffect(() => {
-    const hotelCredentials: HotelCredentials = { hotelId };
-    dispatch(getHotel(hotelCredentials));
-  }, [dispatch, hotelId]);
+    if(hotel){
+      if(hotel.favorites.length > 0){
+        setIsLiked(true);
+      }else{
+        setIsLiked(false);
+      }
+    }
 
-  if (loading) {
-    return <Loading className="mt-5 mx-auto" />;
-  }
-
-  if (error) {
-    return <div className="text-red-500 text-center mt-5">{error}</div>;
-  }
+  }, [hotel]);
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); 
     if(isLiked){
-      dispatch(removeFavorite({hotelId})).then((result: any) => {
+      dispatch(removeFavorite({hotelId: hotel.id})).then((result: any) => {
         if(result.payload.statusCode === 200){
           setIsLiked(false)
           toast.success(result.payload.message);
         }
       });
     }else{
-      dispatch(createFavorite({hotelId})).then((result: any) => {
+      dispatch(createFavorite({hotelId: hotel.id})).then((result: any) => {
         if(result.payload.statusCode === 201){
           setIsLiked(true)
           toast.success(result.payload.message);

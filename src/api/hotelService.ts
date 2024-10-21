@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { callApi } from './apiUtils';
-import { GetHotelsResponse, ApiError, GetHotelResponse, HotelCredentials } from '@/interfaces';
+import { GetHotelsResponse, ApiError, GetHotelResponse } from '@/interfaces';
 import Cookies from 'js-cookie';
 
 export const getHotels = createAsyncThunk<
@@ -33,16 +33,14 @@ export const getHotels = createAsyncThunk<
 
 
 
-export const getHotel = createAsyncThunk<GetHotelResponse, HotelCredentials>(
+export const getHotel = createAsyncThunk<GetHotelResponse, { hotelId: number }>(
   'hotels/id',
   async ({ hotelId }, { rejectWithValue }) => { 
-    console.log(hotelId)
     try {
       const customHeaders = {
         'accept-language': `${Cookies.get('lang')}`,
       };
       const response = await callApi('GET', `/hotels/${hotelId}`, null, customHeaders);
-      console.log(response)
       if (response.statusCode === 200) {
         return response as GetHotelResponse;
       } else {

@@ -119,7 +119,7 @@ const AppHeader = () => {
   useEffect(() => {
     if (auth || token) {
       setIsLogin(true);
-      setAvatar(userInfo?.avatar || userInfo?.picture);
+      setAvatar(userInfo?.avatar);
     } else {
       setIsLogin(false);
     }

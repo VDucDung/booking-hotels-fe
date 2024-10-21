@@ -9,11 +9,24 @@ import Location from './location';
 import Utilities from './utilities';
 import Review from './review';
 import Divider from '@/components/devider/Devider';
+import { useAppDispatch, useAppSelector } from '@/redux';
+import { getHotel } from '@/api/hotelService';
+import Loading from '@/components/loading';
+import { Hotel } from '@/interfaces';
 
 const { TabPane } = Tabs;
 
 const HotelDetails = ({ params }: { params: { id: number } }) => {
   const { id } = params;
+  const dispatch = useAppDispatch();
+
+  const { hotel, loading, error } = useAppSelector((state) => state.hotels);
+
+  useEffect(() => {
+    dispatch(getHotel({ hotelId: id }));
+
+  }, [dispatch, id]);
+
 
   const [activeKey, setActiveKey] = useState<string>('1');
   const { t } = useClientTranslation('Common');
@@ -73,7 +86,15 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
         break;
     }
   };
+  if(hotel === null) return <div className="text-red-500 text-center mt-5">No Data</div>
 
+  if (loading) {
+    return <Loading className="mt-5 mx-auto" />;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center mt-5">{error}</div>;
+  }
   return (
     <section className=''>
       <Tabs activeKey={activeKey} onChange={handleTabChange} className=" text-2xl font-semibold text-black shadow-md fixed w-full top-[115px]" centered>
@@ -86,12 +107,12 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
 
       <section className='container mx-auto mt-[190px]'>
         <div ref={section1Ref}>
-          <Overview hotelId={id}/>
+          <Overview hotel={hotel as Hotel}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 
         <div ref={section2Ref} >
-          <Room/>
+          <Room hotel={hotel as Hotel}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 
