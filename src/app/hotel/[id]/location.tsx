@@ -1,14 +1,43 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-const Location = () => {
+import getCoordinates from '@/api/getCoordinates';
+import Loading from '@/components/loading';
+import Map from '@/components/map/Map';
+import React, { useEffect, useState } from 'react';
+
+const Location: React.FC<{ address: string }> = ({ address }) => {
+  const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      const addressParts = address.split(", ");
+      setLoading(true);
+      if (addressParts.length > 2) {
+        const addressFromThirdElement = addressParts.slice(2).join(", ");
+
+        const coords: any = await getCoordinates(addressFromThirdElement);
+        setCoords({ latitude: coords.latitude, longitude: coords.longitude });
+      } else {
+        const coords: any = await getCoordinates('Viet Nam');
+        setCoords({ latitude: coords.latitude, longitude: coords.longitude });
+
+      }
+      setLoading(false);
+    };
+
+    fetchCoordinates();
+  }, [address]);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">Location</h1>
-      <p className="mt-4 text-lg text-gray-700">This is the Location of our Next.js application.</p>
-      <a href="/" className="mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-        Go back to Home
-      </a>
-    </div>
+    <div className="container mx-auto p-5">
+    <h1 className="text-2xl font-bold mb-4">Map Locator</h1>
+    {loading ? ( 
+      <Loading />
+    ) : (
+      <Map latitude={coords.latitude} longitude={coords.longitude} />
+    )}
+  </div>
   );
 };
 

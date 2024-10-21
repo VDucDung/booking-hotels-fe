@@ -12,7 +12,6 @@ GettypeRoomsResponse,
 >('typeRooms/getTypeRoomByHotelId', async ({ hotelId }, { rejectWithValue }) => {
   try {
     const response = await callApi('GET', `/type-room/hotel/${hotelId}`);
-    console.log(response);
     if (response.statusCode === 200) {
       return response as GettypeRoomsResponse;
     } else {

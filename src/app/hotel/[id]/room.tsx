@@ -53,7 +53,7 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
           <div className="bg-white shadow-md rounded-lg p-4 flex space-x-12 mb-10" key={typeRoom.id}>
           <div className="flex flex-col space-y-4">
             <Image
-              src={typeRoom.rooms[0].images[0]}
+              src={typeRoom.rooms[0]?.images[0]}
               alt="Hotel Room"
               width={480}
               height={480}
