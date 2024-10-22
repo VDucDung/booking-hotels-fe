@@ -47,9 +47,9 @@ const Overview: React.FC<HotelCredentials> = ({ hotel }) => {
   };
 
   return (
-    <section className="flex flex-col min-h-screen bg-gray-100">
+    <section className="flex flex-col bg-gray-100">
       {hotel ? (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-6">
           <ImageGallery images={hotel.images} className="mb-8" />
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h1 className="text-2xl font-bold mb-4">{hotel.hotelName}</h1>

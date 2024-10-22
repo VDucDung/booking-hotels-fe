@@ -117,12 +117,12 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
         <Divider color="emerald-500" height="2px" />
 
         <div ref={section3Ref}>
-         <Location address={hotel.address}/>
+         <Location address={hotel?.address}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 
         <div ref={section4Ref}>
-         <Utilities/>
+         <Utilities hotel={hotel}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 

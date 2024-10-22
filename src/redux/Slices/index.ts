@@ -6,6 +6,7 @@ import userReducer from './user';
 import categoryReducer from './category';
 import favoriteReducer from './favorite';
 import typeRoomReducer from './typeRoom';
+import typeUtilitiesReducer from './typeUtilities'
 
 export * from './auth';
 export * from './hotel';
@@ -13,6 +14,7 @@ export * from './user';
 export * from './category';
 export * from './favorite';
 export * from './typeRoom';
+export * from './typeUtilities'
 
 const productReducer = combineReducers({
   auth: authReducer,
@@ -21,6 +23,7 @@ const productReducer = combineReducers({
   users: userReducer,
   categories: categoryReducer,
   typeRooms: typeRoomReducer,
+  typeUtilities: typeUtilitiesReducer
 });
 
 export type RootState = ReturnType<typeof productReducer>;

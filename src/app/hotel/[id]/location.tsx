@@ -30,8 +30,8 @@ const Location: React.FC<{ address: string }> = ({ address }) => {
   }, [address]);
 
   return (
-    <div className="container mx-auto p-5">
-    <h1 className="text-2xl font-bold mb-4">Map Locator</h1>
+    <div className="container mx-auto mt-5">
+    <h1 className="text-2xl font-bold mb-4 pl-5">Map Locator</h1>
     {loading ? ( 
       <Loading />
     ) : (

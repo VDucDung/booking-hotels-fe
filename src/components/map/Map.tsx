@@ -19,7 +19,7 @@ const Map: React.FC<MapProps> = ({ latitude, longitude }) => {
   });
 
   return (
-    <MapContainer center={position} zoom={15} style={{ height: '400px', width: '100%' }} scrollWheelZoom={false}>
+    <MapContainer center={position} zoom={15} style={{ height: '400px', width: '100%', zIndex: 0 }} scrollWheelZoom={false}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
