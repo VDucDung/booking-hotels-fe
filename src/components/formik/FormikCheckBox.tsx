@@ -1,6 +1,6 @@
 import React from "react";
 import { useField } from "formik";
-import Checkbox from "../checkBox/CheckBox";
+import Checkbox from "../checkBox";
 
 interface FieldHookConfig<T> {
   name?: string;

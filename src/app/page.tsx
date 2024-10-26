@@ -1,15 +1,15 @@
 "use client";
 import React from 'react';
-import Banner from '@/components/banner/Banner';
-import Divider from '@/components/devider/Devider';
-import Email from '@/components/email/Email';
-import Trendingdestinations from '@/components/trendingDestinations/Trendingdestinations';
-import Category from '@/components/category/Category';
+import Banner from '@/components/banner';
+import Divider from '@/components/devider';
+import Email from '@/components/email';
+import Trendingdestinations from '@/components/trendingDestinations';
+import Category from '@/components/category';
 import { useClientTranslation } from '@/i18n/client';
-import HotelFavoriteCardList from '@/components/hotelFavoriteCardList/HotelFavoriteCardList';
-import HotelCardList from '@/components/hotelCardList/HotelCardList';
-import HotelOldCardList from '@/components/hotelOldCardList/HotelOldCardList';
-import RelatedProducts from '@/components/relatedProducts/RelatedProducts';
+import HotelFavoriteCardList from '@/components/hotelFavoriteCardList';
+import HotelCardList from '@/components/hotelCardList';
+import HotelOldCardList from '@/components/hotelOldCardList';
+import RelatedProducts from '@/components/relatedProducts';
 
 export default function Home() {
   const { t } = useClientTranslation('Common');

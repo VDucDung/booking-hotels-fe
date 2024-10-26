@@ -3,8 +3,8 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Gallery from 'react-photo-gallery';
 import Modal from 'react-modal';
-import IconButton from '../iconButton/IconButton';
 import { CloseIcon } from '@/assets/icons';
+import IconButton from '../iconButton';
 
 interface GalleryProps {
   images?: string[];

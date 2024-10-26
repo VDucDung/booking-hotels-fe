@@ -5,9 +5,9 @@ import clsx from "clsx";
 import { useFormikContext } from "formik";
 import useDebounce from "@/hooks/useDebouce";
 import useResponsiveStyle from "@/hooks/useResponsiveStyle";
-import SelectedTags from "./selectedTags/SelectedTags";
-import OptionsList from "./optionsList/OptionsList";
-import Input from "./input/Input";
+import SelectedTags from "./selectedTags";
+import OptionsList from "./optionsList";
+import Input from "./input";
 
 interface AutocompleteProps {
   options?: any[];

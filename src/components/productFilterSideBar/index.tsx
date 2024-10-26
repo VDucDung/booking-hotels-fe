@@ -3,8 +3,7 @@ import React from "react";
 import clsx from "clsx";
 import FormikTextField from "../formik/FormikTextField";
 import Icon from "../icon";
-import Divider from "../devider/Devider";
-import Accordion from "../accordion/Accordion";
+import Divider from "../devider";
 import Image from "next/image";
 import CustomButton from "../button/CustomButton";
 import FormikCheckBox from "../formik/FormikCheckBox";
@@ -12,6 +11,7 @@ import { useAppDispatch } from "@/redux";
 import { getHotels } from "@/api/hotelService";
 import { Form, Formik } from "formik";
 import { ProductFilterSideBarProps } from "@/interfaces/productFilterSideBar";
+import Accordion from "../accordion";
 
 const ProductFilterSideBar: React.FC<ProductFilterSideBarProps> = ({
   categoryList,

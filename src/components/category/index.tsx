@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store'
 import { getCategories } from '@/api/categoryService'
 import Loading from '../loading'
 import Link from 'next/link'
-import IconButton from '../iconButton/IconButton'
+import IconButton from '../iconButton'
 
 const Category: React.FC<CategoryProps> = ({ className }) => {
   const dispatch = useAppDispatch()

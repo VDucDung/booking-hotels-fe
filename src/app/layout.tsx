@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { Inter } from "next/font/google";
 import Providers from '@/redux/provider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import ToastProvider from '@/components/toast/ToastProvider';
-import AppHeader from '@/components/header/Header';
-import AppFooter from '@/components/footer/Footer';
+import ToastProvider from '@/components/toast';
+import AppHeader from '@/components/header';
+import AppFooter from '@/components/footer';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 export const metadata: Metadata = {

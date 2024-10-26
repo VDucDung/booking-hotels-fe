@@ -3,23 +3,22 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import Slider, { Settings } from "react-slick";
 import clsx from "clsx";
-import IconButton from "../iconButton/IconButton";
-import HotelCard from "../hotelCard/HotelCard";
+import IconButton from "../iconButton";
 import { HotelCardListProps } from "@/interfaces/hotel";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import Loading from "../loading";
 import { getHotels } from "@/api/hotelService";
+import HotelCard from "../hotelCard";
 
-const HotelCardList: React.FC<HotelCardListProps> = () => {
+const HotelFavoriteCardList: React.FC<HotelCardListProps> = () => {
   const slider = useRef<Slider | null>(null);
   const dispatch = useAppDispatch();
   const { hotels, loading, error } = useAppSelector((state) => state.hotels);
-
   const fetchHotels = useCallback(() => {
     dispatch(getHotels({
       page: 1,
-      limit: 20,
-      sortBy: "",
+      limit: 10,
+      sortBy: "rating:desc",
       keyword: "",
     }));
   }, [dispatch]);
@@ -119,4 +118,4 @@ const HotelCardList: React.FC<HotelCardListProps> = () => {
   );
 };
 
-export default HotelCardList;
+export default HotelFavoriteCardList;

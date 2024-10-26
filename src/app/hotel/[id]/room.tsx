@@ -3,7 +3,7 @@
 
 import { getTypeRoomByHotelId } from '@/api/typeRoomService';
 import { CloseIcon, PlusIcon } from '@/assets/icons';
-import IconButton from '@/components/iconButton/IconButton';
+import IconButton from '@/components/iconButton';
 import Loading from '@/components/loading';
 import { HotelCredentials } from '@/interfaces';
 import { useAppDispatch, useAppSelector } from '@/redux';

@@ -3,10 +3,10 @@
 import { getFavorites } from "@/api/favoriteService";
 import images from "@/assets/images";
 import FormikTextField from "@/components/formik/FormikTextField";
-import HotelCard from "@/components/hotelCard/HotelCard";
+import HotelCard from "@/components/hotelCard";
 import Icon from "@/components/icon";
 import Loading from "@/components/loading";
-import PaginationApp from "@/components/pagination/Pagination";
+import PaginationApp from "@/components/pagination";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { Form, Formik } from "formik";
 import Image from "next/image";

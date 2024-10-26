@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import dynamic from "next/dynamic";
-const SideBar = dynamic(() =>import("@/components/sidebar/SideBar"), { ssr: false });
+const SideBar = dynamic(() =>import("@/components/sidebar"), { ssr: false });
 
 
 function ProfileLayout({ children }: { children: ReactNode }) {

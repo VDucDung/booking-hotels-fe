@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { memo } from "react";
 import { useField, FieldInputProps, FieldMetaProps, FieldHelperProps } from "formik";
-import AutoComplete from "../autoComplete/AutoComplete";
+import AutoComplete from "../autoComplete";
 
 interface FormikAutocompleteProps {
   name: string;

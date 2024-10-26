@@ -1,4 +1,4 @@
-import SearchResultCard from "../searchResultCard/SearchResultCard"
+import SearchResultCard from "../searchResultCard"
 
 const SearchResults = () => {
   return (

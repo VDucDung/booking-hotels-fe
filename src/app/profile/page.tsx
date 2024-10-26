@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const ProfileEdit = dynamic(() =>import("@/components/profileEdit/ProfileEdit"), { ssr: false });
+const ProfileEdit = dynamic(() =>import("@/components/profileEdit"), { ssr: false });
 
 const Profile = () => {
   return (

@@ -8,7 +8,7 @@ import Room from './room';
 import Location from './location';
 import Utilities from './utilities';
 import Review from './review';
-import Divider from '@/components/devider/Devider';
+import Divider from '@/components/devider';
 import { useAppDispatch, useAppSelector } from '@/redux';
 import { getHotel } from '@/api/hotelService';
 import Loading from '@/components/loading';

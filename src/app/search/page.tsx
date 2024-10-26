@@ -2,16 +2,16 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
-import HotelCard from "@/components/hotelCard/HotelCard";
-import PaginationApp from "@/components/pagination/Pagination";
-import ProductFilterTopBar from "@/components/productFilterTopBar/ProductFilterTopBar";
+import PaginationApp from "@/components/pagination";
+import ProductFilterTopBar from "@/components/productFilterTopBar";
 import { useAppDispatch, useAppSelector } from "@/redux";
 import { getHotels } from "@/api/hotelService";
 import Loading from "@/components/loading";
 import Image from "next/image";
 import images from "@/assets/images";
-import ProductFilterSideBar from "@/components/productFilterSideBar/ProductFilterSideBar";
+import ProductFilterSideBar from "@/components/productFilterSideBar";
 import { getCategories } from "@/api/categoryService";
+import HotelCard from "@/components/hotelCard";
 
 function Search() {
   const [currentPage, setCurrentPage] = useState(0);

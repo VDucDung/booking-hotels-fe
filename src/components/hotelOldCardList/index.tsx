@@ -3,23 +3,22 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import Slider, { Settings } from "react-slick";
 import clsx from "clsx";
-import IconButton from "../iconButton/IconButton";
-import HotelCard from "../hotelCard/HotelCard";
+import IconButton from "../iconButton";
 import { HotelCardListProps } from "@/interfaces/hotel";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import Loading from "../loading";
 import { getHotels } from "@/api/hotelService";
+import HotelCard from "../hotelCard";
 
-const RelatedProducts: React.FC<HotelCardListProps> = () => {
+const HotelOldCardList: React.FC<HotelCardListProps> = () => {
   const slider = useRef<Slider | null>(null);
   const dispatch = useAppDispatch();
   const { hotels, loading, error } = useAppSelector((state) => state.hotels);
-
   const fetchHotels = useCallback(() => {
     dispatch(getHotels({
       page: 1,
       limit: 20,
-      sortBy: "createdAt:desc",
+      sortBy: "createdAt:asc",
       keyword: "",
     }));
   }, [dispatch]);
@@ -30,12 +29,10 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
 
   const settings: Settings = {
     infinite: true,
-    speed: 500,
     dots: true,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
+    autoplay: false,
     arrows: false,
     responsive: [
       {
@@ -70,7 +67,7 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
       {
         hotels?.length > 0 ? (<div className="relative">
           <IconButton
-            className="absolute top-1/2 -translate-y-1/2 left-[-20px] hidden sm:flex z-[999]"
+            className="absolute top-1/2 -translate-y-1/2 left-[-10px] hidden sm:flex z-[999]"
             iconName="arrowSlider"
             variant="contained"
             size="small"
@@ -109,7 +106,7 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
                   address={hotel.address}
                   favorites={hotel.favorites.length > 0 ? true : false}
                   onLikeSuccess={fetchHotels}
-                  className="h-[420px]"
+                  className="mx-2 h-[420px]"
                 />
               </div>
             ))}
@@ -121,4 +118,4 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
   );
 };
 
-export default RelatedProducts;
+export default HotelOldCardList;

@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react'; 
 import { useAppDispatch } from '@/redux';
 import {  HotelCredentials } from '@/interfaces';
-import ImageGallery from '@/components/imageGallery/ImageGallery';
+import ImageGallery from '@/components/imageGallery';
 import { Button, Rate } from 'antd';
 import { LocationIcon } from '@/assets/icons';
 import CustomButton from '@/components/button/CustomButton';

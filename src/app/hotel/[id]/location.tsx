@@ -3,7 +3,7 @@
 
 import getCoordinates from '@/api/getCoordinates';
 import Loading from '@/components/loading';
-import Map from '@/components/map/Map';
+import Map from '@/components/map';
 import React, { useEffect, useState } from 'react';
 
 const Location: React.FC<{ address: string }> = ({ address }) => {

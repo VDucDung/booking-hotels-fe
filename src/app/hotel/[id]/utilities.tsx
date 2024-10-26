@@ -8,7 +8,7 @@ import Modal from 'react-modal';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { CloseIcon } from '@/assets/icons';
-import IconButton from '@/components/iconButton/IconButton';
+import IconButton from '@/components/iconButton';
 
 const Utilities: React.FC<{ hotel: Hotel }> = ({ hotel }) => {
   const dispatch = useAppDispatch();
