@@ -12,7 +12,6 @@ import Divider from '@/components/devider';
 import { useAppDispatch, useAppSelector } from '@/redux';
 import { getHotel } from '@/api/hotelService';
 import Loading from '@/components/loading';
-import { Hotel } from '@/interfaces';
 
 const { TabPane } = Tabs;
 
@@ -107,12 +106,12 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
 
       <section className='container mx-auto mt-[190px]'>
         <div ref={section1Ref}>
-          <Overview hotel={hotel as Hotel}/>
+          <Overview hotel={hotel}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 
         <div ref={section2Ref} >
-          <Room hotel={hotel as Hotel}/>
+          <Room hotel={hotel}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 
@@ -127,7 +126,7 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
         <Divider color="emerald-500" height="2px" />
 
         <div ref={section5Ref}>
-          <Review/>
+          <Review hotel={hotel}/>
         </div>
       </section>
     </section>

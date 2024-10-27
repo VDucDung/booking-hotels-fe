@@ -2,12 +2,12 @@ import { DetailResult } from "./detailResult";
 
 export interface User {
   id: number;
-  fullname: string;
-  email: string;
-  phone: string;
-  password: string;
-  avartar: string;
-  dateOfBirth: Date;
+  fullname?: string;
+  email?: string;
+  phone?: string;
+  password?: string;
+  avatar?: string;
+  dateOfBirth?: Date;
 }
 export interface UserState {
   users: User[];

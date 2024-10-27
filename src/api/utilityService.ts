@@ -12,7 +12,6 @@ GetTypeUtiliesResponse,
 >('typeUtilities/getTypeUtilities', async ({ hotelId}, { rejectWithValue }) => {
   try {
     const response = await callApi('GET', `/type-utilities/hotel/${hotelId}`);
-    console.log(response)
     if (response.statusCode === 200) {
       return response as GetTypeUtiliesResponse;
     } else {
