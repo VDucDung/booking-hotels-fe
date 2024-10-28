@@ -71,7 +71,7 @@ export default function Register() {
     dispatch(registerUser({ fullname, email, password }) as any).then((result: any) => {
       if (result) {
         setTimeout(() => {
-          router.push('/login');
+          router.push('/auth/login');
         }, 3500);
         toast.success(t('register.notify'));
       } else {
@@ -171,7 +171,7 @@ export default function Register() {
   </form>
   <p className="mt-4 text-gray-700">
     {t('register.desc02')}{' '}
-    <Link href="/login" className="text-green-600 hover:underline">
+    <Link href="/auth/login" className="text-green-600 hover:underline">
       {t('button.btn04')}
     </Link>
   </p>

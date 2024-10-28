@@ -147,7 +147,7 @@ const AppHeader = () => {
         <div className="flex text-white gap-2">
         <div className="flex items-center">
           <Tooltip title={t('header.na03')}>
-            <Link href={isLogin ? '/profile/favorite' : '/login'} className="border border-red-500 bg-red-500 rounded-full" >
+            <Link href={isLogin ? '/profile/favorite' : '/auth/login'} className="border border-red-500 bg-red-500 rounded-full" >
               <HertIcon className="w-10 h-10 hover:scale-95 transition duration-300 ease-in-out scale-100" />
             </Link>
           </Tooltip>
@@ -158,7 +158,7 @@ const AppHeader = () => {
             {/* Login/Logout */}
             <div className="flex items-center">
               {!isLogin ? (
-                <Link href="/login" className="px-3 text-lg font-medium bg-white text-[#00BA00] hover:text-[#00BA00]  hover:opacity-90 border border-white rounded-lg">
+                <Link href="/auth/login" className="px-3 text-lg font-medium bg-white text-[#00BA00] hover:text-[#00BA00]  hover:opacity-90 border border-white rounded-lg">
                   {t('header.na02')}
                 </Link>
               ) : (

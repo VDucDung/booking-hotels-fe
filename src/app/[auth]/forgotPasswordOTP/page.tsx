@@ -88,7 +88,7 @@ const ForgotPasswordOTP: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="p-6 w-[450px] min-h-[100px] text-center self-center rounded-lg bg-white shadow-md z-[999] mx-auto mt-20">
+    <div className="p-6 w-[450px] min-h-[100px] text-center self-center rounded-lg bg-white shadow-md z-[999] mx-auto mt-48">
       <h1 className="text-4xl font-semibold">{t('verify-otp.heading')}</h1>
       <p className="mt-2 text-xl text-gray-500">{t('verify-otp.heading')}</p>
 

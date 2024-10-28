@@ -62,7 +62,7 @@ function ForgotPassword() {
   }, [email, touchedEmail]);
 
   return (
-    <div className="flex flex-col items-center justify-center p-5 w-full max-w-md mx-auto bg-white bg-opacity-80 backdrop-blur-lg rounded-3xl shadow-lg z-50 mt-20">
+    <div className="flex flex-col items-center justify-center p-5 w-full max-w-md mx-auto bg-white bg-opacity-80 backdrop-blur-lg rounded-3xl shadow-lg z-50 my-48">
       <h1 className="text-4xl font-semibold leading-snug md:text-3xl text-center">{t("forgot-password.heading")}</h1>
       <p className="mt-2 text-lg font-medium text-gray-500 md:text-base text-center">{t("forgot-password.desc01")}</p>
 

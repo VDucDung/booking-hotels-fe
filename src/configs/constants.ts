@@ -1,9 +1,3 @@
-export const ruleDateFormat = 'DD-MM-YYYY'
-export const ruleTimeFormat = 'HH:mm:ss'
-export const dateOfBirthFormat = 'DD/MM/YYYY'
-export const dateTimeFormat = 'HH:mm:ss DD-MM-YYYY'
-export const dateFormat = 'DD-MM-YYYY'
-
 export enum ClientStatusCode {
   OTP_TIMEOUT = 600,
   OTP_INVALID = 601,
@@ -51,9 +45,9 @@ export const PATH = {
   NOTFOUND: '*',
   ABOUT: "/about",
   AUTH: "/auth",
-  LOGIN: "/login",
-  REGISTER: "/register",
-  FORGOT_PASSWORD: "/forgotPassword",
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
+  FORGOT_PASSWORD: "/auth/forgotPassword",
   CART: "/cart",
   TEST: "/test",
   PRODUCTS: "/products",
@@ -67,8 +61,8 @@ export const PATH = {
   CHECKOUT: "/checkout",
   OTHER: "/other",
   CONTACT: "/contact",
-  FORGOT_PASSWORD_OTP: "/forgotPasswordOTP",
-  RESET_PASSWORD: "/resetPassword",
+  FORGOT_PASSWORD_OTP: "/auth/forgotPasswordOTP",
+  RESET_PASSWORD: "/auth/resetPassword",
   SEARCH: "/search",
 };
 
