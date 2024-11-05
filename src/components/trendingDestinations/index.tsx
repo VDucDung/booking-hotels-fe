@@ -32,7 +32,6 @@ function Trendingdestinations(): JSX.Element {
     );
   }
 
-
   return (
     <section className="container grid grid-cols-1 xl:grid-cols-3 xl:grid-rows-2 grid-rows-3 gap-6">
       <div className="col-span-1 xl:col-span-2 row-span-1 xl:row-span-2 overflow-hidden rounded-xl relative">
@@ -40,7 +39,7 @@ function Trendingdestinations(): JSX.Element {
           <div
             className="absolute inset-0 transform scale-100 hover:scale-110 duration-500"
             style={{
-              backgroundImage: `url(${trendingCategories[0]?.image})`, 
+              backgroundImage: `url(${trendingCategories[0]?.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -60,7 +59,7 @@ function Trendingdestinations(): JSX.Element {
               href={PATH.SEARCH}
               className="font-medium mt-4 w-fit"
             >
-              <Link href={PATH.SEARCH}>
+              <Link href={`/search?address=${trendingCategories[0]?.name}`}>
                 {t("pageTitle.other")}
               </Link>
             </CustomButton>
@@ -79,7 +78,7 @@ function Trendingdestinations(): JSX.Element {
         />
         <div className="absolute p-4 md:p-6">
           <h2 className="text-xl sm:text-2xl xl:text-3xl font-semibold text-white">
-          {t(`${trendingCategories[1]?.name}`)}
+            {t(`${trendingCategories[1]?.name}`)}
           </h2>
           <CustomButton
             rounded
@@ -88,8 +87,8 @@ function Trendingdestinations(): JSX.Element {
             className="font-medium mt-2 w-fit"
             bgHoverColor="yellow-500"
           >
-            <Link href={PATH.SEARCH}>
-            {t("pageTitle.other")}
+            <Link href={`/search?address=${trendingCategories[1]?.name}`}>
+              {t("pageTitle.other")}
             </Link>
           </CustomButton>
         </div>
@@ -106,7 +105,7 @@ function Trendingdestinations(): JSX.Element {
         />
         <div className="absolute p-4 md:p-6">
           <h2 className="text-xl sm:text-2xl xl:text-3xl font-semibold text-white">
-          {t(`${trendingCategories[2]?.name}`)}
+            {t(`${trendingCategories[2]?.name}`)}
           </h2>
           <CustomButton
             rounded
@@ -115,7 +114,7 @@ function Trendingdestinations(): JSX.Element {
             className="font-medium mt-2 w-fit"
             bgHoverColor="yellow-500"
           >
-            <Link href={PATH.SEARCH}>
+            <Link href={`/search?address=${trendingCategories[2]?.name}`}>
               {t("pageTitle.other")}
             </Link>
           </CustomButton>

@@ -67,6 +67,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
       {showToggleButton && (
         <CustomButton
+          type="button"
           onClick={toggleAccordion}
           variant="text"
           bgHoverColor="transparent"

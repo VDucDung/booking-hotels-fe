@@ -20,8 +20,8 @@ interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
 const Icon: React.FC<IconProps> = ({
   name = "",
   size = 2,
-  width,
-  height,
+  width = "",
+  height = "",
   className = "",
   color = "gray",
   strokeWidth,

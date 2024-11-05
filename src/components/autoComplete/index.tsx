@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
+
 import React, { useState, useEffect, useRef, useId, memo } from "react";
 import clsx from "clsx";
 import { useFormikContext } from "formik";
@@ -90,8 +92,8 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   const labelRef = useRef<HTMLLabelElement>(null);
   const id = useId();
 
-  const heightStyle = useResponsiveStyle(height, "h");
-  const widthStyle = useResponsiveStyle(width, "w");
+  const heightStyle = useResponsiveStyle(height as string, "h");
+  const widthStyle = useResponsiveStyle(width as string, "w");
 
   useEffect(() => {
     if (options?.length > 0) {

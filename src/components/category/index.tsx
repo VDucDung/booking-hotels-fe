@@ -89,7 +89,7 @@ const Category: React.FC<CategoryProps> = ({ className }) => {
       />
         <Slider ref={slider} {...settings}>
           {categories.map((item: CategoryType) => (
-            <Link href={`/search`} key={item.id}>
+            <Link href={`/search?address=${item.name}`} key={item.id}>
               <div className="w-full cursor-pointer">
                 <Image
                   className="border rounded-lg w-[200px] h-[130px]"

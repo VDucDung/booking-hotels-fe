@@ -14,6 +14,9 @@ interface FormikTextFieldProps extends FieldConfig {
   type?: string; 
   rightIcon?: React.ReactNode;
   inputClassName?: string;
+  className?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }
 
 const FormikTextField: React.FC<FormikTextFieldProps> = ({
@@ -24,18 +27,19 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
   inputClassName,
   ...props
 }) => {
-  const [field, meta, helpers] = useField(id || name);
+  const [field, meta, helpers] = useField(name || id || "");
   const { setValue, setTouched } = helpers;
 
-  const handleChange = (value: string) => {
-    setValue(value); 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value); // Cập nhật giá trị vào Formik
+    if (props.onChange) props.onChange(event); // Gọi hàm onChange truyền từ bên ngoài nếu có
   };
 
   return (
     <TextField
       {...props}
       type={type}
-      onChange={handleChange} 
+      onChange={handleChange}
       onBlur={() => setTouched(true)}
       value={field.value || ""}
       error={meta.touched && meta.error ? meta.error : ""}

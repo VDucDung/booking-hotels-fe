@@ -106,6 +106,8 @@ const ReviewCard = ({ review }: {review: Reviews}) => (
           {review.images.map((image: any, index: number) => (
             <div key={index} className="relative w-32 h-24 overflow-hidden rounded-lg">
               <Image
+                width={300}
+                height={300}
                 src={image}
                 alt={`Review image ${index + 1}`}
                 fill

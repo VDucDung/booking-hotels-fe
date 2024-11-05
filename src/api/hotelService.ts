@@ -5,17 +5,37 @@ import Cookies from 'js-cookie';
 
 export const getHotels = createAsyncThunk<
   GetHotelsResponse,
-  { sortBy?: string; page?: number; limit?: number, keyword?: string },
+  { sortBy?: string; page?: number; limit?: number, keyword?: string, 
+    startDate?: string, endDate?: string, totalRoom?: string, capacity?: string, 
+    startPrice?: string, endPrice?: string, rating?: string, address?: string
+  },
   {
     rejectValue: ApiError
   }
->('hotels/search', async (params: { sortBy?: string; page?: number; limit?: number, keyword?: string }, { rejectWithValue }) => {
+>('hotels/search', async (params: { sortBy?: string; page?: number; limit?: number, keyword?: string,
+   startDate?: string, endDate?: string, totalRoom?: string, capacity?: string, 
+   startPrice?: string, endPrice?: string, rating?: string, address?: string
+   }, { rejectWithValue }) => {
   try {
     const customHeaders = {
       'accept-language': `${Cookies.get('lang')}`,
     };
-
-    const queryString = `sortBy=${params.sortBy}&page=${params.page}&limit=${params.limit}&keyword=${params.keyword}`;
+    const queryString = [
+      params.sortBy ? `sortBy=${params.sortBy}` : "",
+      params.page ? `page=${params.page}` : "",
+      params.keyword ? `keyword=${params.keyword}` : "",
+      params.limit ? `limit=${params.limit}` : "",
+      params.startDate ? `startDate=${params.startDate}` : "",
+      params.endDate ? `endDate=${params.endDate}` : "",
+      params.totalRoom ? `totalRoom=${params.totalRoom}` : "",
+      params.capacity ? `capacity=${params.capacity}` : "",
+      params.startPrice ? `startPrice=${params.startPrice}` : "",
+      params.endPrice ? `endPrice=${params.endPrice}` : "",
+      params.rating ? `rating=${params.rating}` : "",
+      params.address ? `address=${params.address}` : ""
+    ]
+      .filter(Boolean)
+      .join("&"); 
 
     const response = await callApi('GET', `/hotels/search?${queryString}`, null, null, customHeaders);
     if (response.statusCode === 200) {

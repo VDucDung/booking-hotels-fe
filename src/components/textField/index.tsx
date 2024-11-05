@@ -8,7 +8,7 @@ interface TextFieldProps {
   value?: string;
   placeholder?: string;
   type?: string;
-  onChange?: (value: string) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   label?: string;
   className?: string;
@@ -61,16 +61,16 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const widthStyle = useResponsiveStyle(width, "w");
-    const heightStyle = useResponsiveStyle(height, "h");
-    const labelWidthStyle = useResponsiveStyle(labelWidth, "w");
+    const widthStyle = useResponsiveStyle(width as string, "w");
+    const heightStyle = useResponsiveStyle(height as string, "h");
+    const labelWidthStyle = useResponsiveStyle(labelWidth as string, "w");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      let newValue = e.target.value;
-      if (allow instanceof RegExp) {
-        newValue = newValue.replace(allow, "");
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (allow && allow instanceof RegExp) {
+        const filteredValue = event.target.value.replace(allow, "");
+        event.target.value = filteredValue;
       }
-      onChange(newValue);
+      onChange(event); 
     };
 
     const handleFocus = () => {

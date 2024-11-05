@@ -32,7 +32,7 @@ const Divider: React.FC<DividerProps> = ({
   });
 
   const dimensionStyle = useResponsiveStyle(
-    orientation === "horizontal" ? width : height,
+    orientation === "horizontal" ? width as string : height as string,
     orientation === "horizontal" ? "w" : "h"
   );
 

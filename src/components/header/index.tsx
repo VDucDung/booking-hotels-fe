@@ -141,7 +141,7 @@ const AppHeader = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div>
           <Link href={'/'}>
-            <Image src="/images/booking-icon.jpg" alt="logo" width={80} height={80} className="rounded-[50px]" />
+            <Image src="/images/booking-icon.jpg" alt="logo" width={80} height={80} priority className="rounded-[50px] w-[80px] h-[80px]" />
           </Link>
         </div>
         <div className="flex text-white gap-2">
