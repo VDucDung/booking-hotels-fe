@@ -1,3 +1,4 @@
+import { Hotel } from "./hotel";
 
 export interface Room {
   id: number;
@@ -5,14 +6,17 @@ export interface Room {
   description: string;
   capacity: number;
   images: [string];
-  options: string;
+  options: [];
   price: number;
+  bookingDate: Date;
+  typeRoomId: TypeRoom;
 }
 export interface TypeRoom {
   id: number;
   name: string;
   description: string;
-  rooms: Room[]
+  rooms: Room[];
+  hotel: Hotel;
 }
 
 export interface GettypeRoomsResponse{

@@ -194,7 +194,7 @@ const AppHeader = () => {
                           setShowUserOptions(false);
                         }}
                       >
-                        <Link href="/profile/order" className="flex items-center w-full hover:text-[#000]" >
+                        <Link href="/profile/booking" className="flex items-center w-full hover:text-[#000]" >
                           <HomeIcon className="mr-2 w-6 h-6 fill-slate-400" />
                           <span>{t('user-options.op02')}</span>
                         </Link>

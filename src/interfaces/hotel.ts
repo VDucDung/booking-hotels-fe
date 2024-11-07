@@ -1,3 +1,5 @@
+import { Reviews } from "./review";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Hotel {
   id: number;
@@ -10,6 +12,7 @@ export interface Hotel {
   favorites?: any;
   partners?: any;
   typeRooms?: any;
+  reviews: Reviews[]
 }
 
 export interface HotelState {

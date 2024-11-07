@@ -7,7 +7,7 @@ function ProfileLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <main className="container mx-auto grid grid-cols-12 gap-4 py-14">
+      <main className="container mx-auto grid grid-cols-12 gap-4 py-[115px]">
         <aside className="lg:col-span-3 col-span-full rounded-md shadow-md">
           <SideBar />
         </aside>

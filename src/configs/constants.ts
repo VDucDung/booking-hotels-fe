@@ -57,7 +57,7 @@ export const PATH = {
   VIEWED_PRODUCTS: "profile/viewed-products",
   CHANGE_PASSWORD: "/profile/changePassword",
   FAVORITE: "/profile/favorite",
-  ORDER: "/profile/order",
+  ORDER: "/profile/booking",
   CHECKOUT: "/checkout",
   OTHER: "/other",
   CONTACT: "/contact",
