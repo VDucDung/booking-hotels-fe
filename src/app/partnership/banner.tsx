@@ -1,4 +1,5 @@
 import { ArrowRightIcon, CheckIcon } from "@/assets/icons";
+import Link from "next/link";
 
 export function Banner() {
   return (
@@ -15,20 +16,22 @@ export function Banner() {
             <li className="flex">
               <CheckIcon className='text-green-700 mr-3 w-6 h-6' width={22} height={22} />
               <span>45% host nhận được đơn đặt dịch vụ trong vòng 1 tuần</span>
-              </li>
+            </li>
             <li className="flex">
               <CheckIcon className='text-green-700  mr-3 w-6 h-6' width={22} height={22} />
               <span>Chọn một trong hai cách nhận đơn đặt: xác nhận tự động hay xem trước để duyệt</span>
-              </li>
+            </li>
             <li className="flex">
               <CheckIcon className='text-green-700 mr-3 w-6 h-6' width={22} height={22} />
               <span>Chúng tôi sẽ lý thanh toán hay Quý vị</span>
-              </li>
+            </li>
           </ul>
-          <button className="w-full bg-[#00ba51] hover:bg-green-700 text-white px-6 py-3 rounded-md mt-4 flex items-center text-center justify-center">
-            Bắt đầu ngay
-            <ArrowRightIcon className='w-6 h-6 text-white'/>
-          </button>
+          <Link href={'partnership/signup'}>
+            <button className="w-full bg-[#00ba51] hover:bg-green-700 text-white px-6 py-3 rounded-md mt-4 flex items-center text-center justify-center">
+              Bắt đầu ngay
+              <ArrowRightIcon className='w-6 h-6 text-white' />
+            </button>
+          </Link>
         </div>
       </div>
     </div>
