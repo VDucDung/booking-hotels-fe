@@ -153,7 +153,7 @@ const AppHeader = () => {
           </Tooltip>
           </div>
           <div className="flex items-center">
-            <Link href={'/'} className="px-[12px] text-[16px] font-medium hover:bg-[#00BA00] hover:text-white">{t('header.na01')}</Link>
+            <Link href={'/partnership'} className="px-[12px] text-[16px] font-medium hover:bg-[#00BA00] hover:text-white">{t('header.na01')}</Link>
           </div>
             {/* Login/Logout */}
             <div className="flex items-center">
