@@ -1,58 +1,94 @@
+"use client";
+
+import { useClientTranslation } from "@/i18n/client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const SignupForm = () => {
+  const { t } = useClientTranslation("Common");
+  const [email, setEmail] = useState<string>("");
+  const router = useRouter();
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const validateEmail = () => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateEmail()) {
+      setIsValidEmail(true);
+      sessionStorage.setItem('userEmail', email);
+
+      router.push("signup/contact");
+    } else {
+      setIsValidEmail(false);
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto mt-[155px] p-6">
-      <h1 className="text-2xl font-semibold mb-2">Tạo tài khoản đối tác</h1>
-      <p className="text-gray-600 mb-6">
-        Tạo tài khoản để đăng ký và quản lý chỗ nghỉ.
-      </p>
+      <h1 className="text-2xl font-semibold mb-2">{t("partnership.signup.title01")}</h1>
+      <p className="text-gray-600 mb-6">{t("partnership.signup.title02")}</p>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         <div>
-          <label className="block text-sm mb-2">Địa chỉ email</label>
+          <label className="block text-sm mb-3">{t("partnership.signup.title03")}</label>
           <input
             type="email"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="vuducdung@gmail.com"
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           />
+          {!isValidEmail && (
+            <p className="text-red-500 text-sm mt-2">{t("partnership.signup.invalidEmail")}</p>
+          )}
         </div>
 
-        <Link href="contact">
-        <button className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors">
-          Tiếp tục
-        </button>
-        </Link>
+        <form onSubmit={handleSubmit}>
+          <button
+            type="submit"
+            className="w-full mt-3 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors"
+          >
+            {t("partnership.signup.title04")}
+          </button>
+        </form>
 
         <div className="text-center text-sm text-gray-600">
-          Quý vị có thắc mắc về chỗ nghỉ của mình hay extranet? Hãy ghé thăm{' '}
-          <a href="#" className="text-blue-500 hover:underline">
-            Trung tâm Trợ giúp Đối tác
+          {t("partnership.signup.title05")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signup.title06")}
           </a>{' '}
-          để tìm hiểu thêm.
+          {t("partnership.signup.title07")}
         </div>
 
-        <Link href='signin'>
-        <button className="w-full border border-blue-500 text-blue-500 py-2 rounded-md hover:bg-blue-50 transition-colors">
-          Đăng nhập
-        </button>
+        <Link href="signin">
+          <button className="w-full mt-3 border border-green-500 text-green-500 py-2 rounded-md hover:bg-green-50 transition-colors">
+            {t("partnership.signup.title08")}
+          </button>
         </Link>
 
         <p className="text-sm text-gray-600 text-center">
-          Qua việc đăng nhập hoặc tạo tài khoản, bạn đồng ý với các{' '}
-          <a href="#" className="text-blue-500 hover:underline">
-            Điều khoản và Điều kiện
+          {t("partnership.signup.title09")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signup.title10")}
           </a>{' '}
-          cũng như{' '}
-          <a href="#" className="text-blue-500 hover:underline">
-            Chính sách An toàn và Bảo mật
+          {t("partnership.signup.title11")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signup.title12")}
           </a>{' '}
-          của chúng tôi
+          {t("partnership.signup.title13")}
         </p>
 
         <div className="text-center text-sm text-gray-500 mt-8">
-          <p>Bảo lưu mọi quyền.</p>
-          <p>Bản quyền (2024) - booking hotels StayBuddy</p>
+          <p>{t("partnership.signup.title14")}</p>
+          <p>{t("partnership.signup.title15")}</p>
         </div>
       </div>
     </div>

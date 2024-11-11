@@ -3,25 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getLocalStorageItem } from '@/utils/localStorage';
 import { clearError, forgotPassword, loginGoogle, loginUser, registerUser, resetPassword, verifyOtpForgotPassword } from '@/api/authService';
+import { AuthState } from '@/interfaces';
+
+const initialState: AuthState = {
+  loading: false,
+  user: (getLocalStorageItem('user') || null),
+  error: null,
+  isLogin: false,
+  secretKey: '',
+  message: '',
+  isUpdate: false,
+  secretStatus: null,
+  statusCode: null,
+}
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    loading: false,
-    user: (getLocalStorageItem('user') || null) as any,
-    error: null as string | null,
-    isLogin: false,
-    status: null,
-    secretKey: '',
-    message: '',
-    isUpdate: false,
-    secretStatus: null,
-    statusCode: null,
-  },
-
+  initialState,
   reducers: {
     reFreshStatus: (state) => {
-      state.status = null;
+      state.statusCode = null;
       state.secretStatus = null;
     },
     logout: (state) => {
@@ -34,7 +35,6 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-
       // login
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -46,7 +46,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload.statusCode === 200 ? action.payload.data.user : null;
         state.error = null;
-        state.isLogin = true;
+        state.isLogin = action.payload.statusCode === 200 ? true : false;;
       })
       .addCase(loginUser.rejected, (state, action: any) => {
         state.loading = false;
@@ -66,7 +66,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.user = action.payload.statusCode === 200 ? action.payload.data.user : null;
       state.error = null;
-      state.isLogin = true;
+      state.isLogin =  action.payload.statusCode === 200 ? true : false;
     })
     .addCase(loginGoogle.rejected, (state, action: any) => {
       state.loading = false;
@@ -84,7 +84,7 @@ const authSlice = createSlice({
     })
     .addCase(registerUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = action.payload;
+      state.user = action.payload.data;
       state.error = null;
       state.isLogin = false;
     })

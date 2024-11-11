@@ -1,75 +1,96 @@
 "use client";
-import React from 'react';
-import { Eye } from "lucide-react";
-import { Input } from 'antd';
-import AppButton from '@/components/button/AppButton';
-import Link from 'next/link';
 
-const LoginForm = () => {
+import { useClientTranslation } from "@/i18n/client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const SigninForm = () => {
+  const { t } = useClientTranslation("Common");
+  const [email, setEmail] = useState<string>("");
+  const router = useRouter();
+  const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const validateEmail = () => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateEmail()) {
+      setIsValidEmail(true);
+      sessionStorage.setItem('loginEmail', email);
+
+      router.push("signin/password",);
+    } else {
+      setIsValidEmail(false);
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto mt-[155px] p-6">
-      <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-gray-900">
-          Nhập mật khẩu của bạn
-        </h1>
-        
-        <div className="space-y-1">
-          <p className="text-sm text-gray-700">
-            Vui lòng nhập mật khẩu Booking.com của bạn cho
-          </p>
-          <p className="text-sm font-semibold text-gray-900">
-            vuducdung24022003@gmail.com
-          </p>
+      <h1 className="text-2xl font-semibold mb-2">{t("partnership.signin.title01")}</h1>
+      <div className="space-y-8">
+        <div>
+          <label className="block text-sm mb-3">{t("partnership.signin.title03")}</label>
+          <input
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          {!isValidEmail && (
+            <p className="text-red-500 text-sm mt-2">{t("partnership.signin.invalidEmail")}</p>
+          )}
         </div>
 
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
-            Mật khẩu
-          </label>
-          <div className="relative">
-            <Input 
-              type="password"
-              placeholder="Nhập mật khẩu của bạn"
-              className="w-full pr-10"
-            />
-            <button 
-              className="absolute inset-y-0 right-0 flex items-center pr-3"
-              aria-label="Toggle password visibility"
-            >
-              <Eye className="h-5 w-5 text-gray-400" />
-            </button>
-          </div>
-        </div>
-
-        <AppButton href='signup/verify' className="w-full bg-[#00ba51] hover:bg-green-700 text-white">
-          Đăng nhập
-        </AppButton>
-
-        <div className="text-center">
-          <Link href="accountRecovery" className="text-[#0071c2] hover:text-blue-700 text-sm">
-            Quên mật khẩu?
-          </Link>
-        </div>
-
-        <div className="text-center text-sm text-gray-600 space-y-2">
-          <p>
-            Qua việc đăng nhập hoặc tạo tài khoản, bạn đồng ý với các
-          </p>
-          <p>
-            <a href="#" className="text-blue-600 hover:text-blue-700">Điều khoản và Điều kiện</a>
-            {' '}cũng như{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-700">Chính sách An toàn và Bảo mật</a>
-            {' '}của chúng tôi
-          </p>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <button
+            type="submit"
+            className="w-full mt-3 bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors"
+          >
+            {t("partnership.signin.title04")}
+          </button>
+        </form>
 
         <div className="text-center text-sm text-gray-600">
-          <p>Bảo lưu mọi quyền.</p>
-          <p>Bản quyền (2024) - booking hotels StayBuddy</p>
+          {t("partnership.signin.title05")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signin.title06")}
+          </a>{' '}
+          {t("partnership.signin.title07")}
+        </div>
+
+        <Link href="signup">
+          <button className="w-full mt-3 border border-green-500 text-green-500 py-2 rounded-md hover:bg-green-50 transition-colors">
+            {t("partnership.signin.title08")}
+          </button>
+        </Link>
+
+        <p className="text-sm text-gray-600 text-center">
+          {t("partnership.signin.title09")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signin.title10")}
+          </a>{' '}
+          {t("partnership.signin.title11")}{' '}
+          <a href="#" className="text-green-500 hover:underline">
+            {t("partnership.signin.title12")}
+          </a>{' '}
+          {t("partnership.signin.title13")}
+        </p>
+
+        <div className="text-center text-sm text-gray-600">
+          <p>{t("partnership.signin.password.title12")}</p>
+          <p>{t("partnership.signin.password.title13")}</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default SigninForm;

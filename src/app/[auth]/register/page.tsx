@@ -3,23 +3,22 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { Oval } from '@agney/react-loading';
 import { useRouter } from "next/navigation";
 import { statistical } from '@/api/statisticalService';
 import { EmailIcon, PasswordIcon, UserIcon } from '@/assets/icons';
 import AppButton from '@/components/button/AppButton';
 import { useClientTranslation } from '@/i18n/client';
-import { useAppSelector } from '@/redux';
+import { useAppDispatch, useAppSelector } from '@/redux';
 import { registerUser } from '@/api/authService';
 export default function Register() {
   const { t } = useClientTranslation('Common');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const loading = useAppSelector((state: any) => state.auth.loading);
   const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
   const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
-  const [fullname, setFullName] = useState<string>('');
+  const [fullname, setfullname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [submit, setSubmit] = useState<boolean>(true);
@@ -32,7 +31,7 @@ export default function Register() {
   const checkSubmit = useCallback(() => {
     setSubmit(!emailRegex.test(email) || !passwordRegex.test(password) || fullname === '' || email === '' || password === '');
   }, [emailRegex, passwordRegex, fullname, email, password]);
-  const handleCheckFullName = useCallback(() => {
+  const handleCheckfullname = useCallback(() => {
     if (!fullname || !fullname.trim()) {
       setErrors((prev) => ({ ...prev, fullname: t('errors.err05') }));
     } else {
@@ -69,7 +68,7 @@ export default function Register() {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerUser({ fullname, email, password }) as any).then((result: any) => {
-      if (result) {
+      if (result.payload.statusCode === 201) {
         setTimeout(() => {
           router.push('/auth/login');
         }, 3500);
@@ -110,8 +109,8 @@ export default function Register() {
         <input
           type="text"
           value={fullname}
-          onChange={(e) => setFullName(e.target.value)}
-          onBlur={handleCheckFullName}
+          onChange={(e) => setfullname(e.target.value)}
+          onBlur={handleCheckfullname}
           placeholder={t('form.tp03')}
           className="w-full p-4 border-none outline-none border rounded-lg"
           readOnly={loading}

@@ -1,73 +1,76 @@
+import { useClientTranslation } from "@/i18n/client";
 import Image from "next/image";
 
 export default function Section3(){
+  const { t } = useClientTranslation("Common");
+
   return (
     <section className="container mx-auto py-16 px-[40px]">
-    <h2 className="text-3xl font-bold text-gray-800 mb-12">Chia sẻ từ các host khác</h2>
+    <h2 className="text-3xl font-bold text-gray-800 mb-12">{t("partnership.section3.title01")}</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"Tôi có thể đăng trong vòng 15 phút và không quá hai giờ sau, tôi đã có đơn đặt phòng đầu tiên!"`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title02")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full" width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Parley Rose</h4>
-            <p className="text-sm text-gray-500">Host ở Vương quốc Anh</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title03")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title04")}</p>
           </div>
         </div>
       </div>
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"booking hotel StayBuddy là nền tảng dễ hiểu, dễ làm việc nhất. Điều này tạo điều kiện để chúng tôi tập trung vào những khía cạnh mà mình có thể thực sự mang đến thêm giá trị."`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title05")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full" width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Martin Fieldman</h4>
-            <p className="text-sm text-gray-500">Giám đốc điều hành, Abodebed</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title06")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title07")}</p>
           </div>
         </div>
       </div>
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"booking hotel StayBuddy chiếm lượng tỉ lệ lớn nhất trong tổng lượng khách của chỗ nghỉ và đã giúp chúng tôi gặt hái được thành quả như hôm nay."`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title08")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full"width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Michel và Asja</h4>
-            <p className="text-sm text-gray-500">Chủ sở hữu La Maison de Souhey</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title09")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title10")}</p>
           </div>
         </div>
       </div>
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"Du khách đến Charming Lofts từ khắp nơi trên thế giới và booking hotel StayBuddy đã góp phần rất nhiều trong việc này."`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title11")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full" width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Louis Gonzalez</h4>
-            <p className="text-sm text-gray-500">Charming Lofts, Los Angeles</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title12")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title13")}</p>
           </div>
         </div>
       </div>
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"Sau khi hoàn tất cài đặt chỗ nghỉ trên Booking.com, tỉ lệ lấp phòng tăng vọt và khách đặt trước từ 5-6 tháng."`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title14")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full" width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Zoey Berghoff</h4>
-            <p className="text-sm text-gray-500">Host ở Hoa Kỳ</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title15")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title16")}</p>
           </div>
         </div>
       </div>
       
       <div className="bg-white border-2 border-yellow-400 rounded-lg p-6">
-        <p className="text-gray-600 italic mb-4">{`"Quá trình bắt đầu sử dụng booking hotel StayBuddy vô cùng đơn giản và không hề tốn thời gian."`}</p>
+        <p className="text-gray-600 italic mb-4">{t("partnership.section3.title17")}</p>
         <div className="flex items-center space-x-4">
           <Image src="/images/booking-icon.jpg" alt="Avatar" className="h-12 w-12 rounded-full" width={22} height={22}/>
           <div>
-            <h4 className="text-sm font-bold text-gray-700">Shawn Ritzenthaler</h4>
-            <p className="text-sm text-gray-500">Chủ sở hữu Hollywood Hills Mansion</p>
+            <h4 className="text-sm font-bold text-gray-700">{t("partnership.section3.title18")}</h4>
+            <p className="text-sm text-gray-500">{t("partnership.section3.title19")}</p>
           </div>
         </div>
       </div>

@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { User } from "./user";
+
+
 export interface UserCredentials {
   fullname?: string;
   email: string;
+  phone?: string;
   password: string;
+  Role?: string;
 }
 
 export interface LoginGoogleCredentials {
@@ -56,4 +62,16 @@ export interface ApiError {
 export interface ResendPassworDTO{
   token: string;
   newPassword: string;
+}
+
+export interface AuthState {
+  user: User | null;
+  loading: boolean;
+  statusCode: number | null;
+  error: string | null;
+  isLogin: boolean;
+  secretKey: string,
+  message: string,
+  isUpdate: boolean,
+  secretStatus: string | null,
 }

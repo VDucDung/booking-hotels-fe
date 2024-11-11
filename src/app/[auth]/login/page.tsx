@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useCallback, useEffect, useMemo, useState, ChangeEvent, FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useState, ChangeEvent } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { Oval } from "@agney/react-loading";
@@ -21,8 +21,7 @@ export default function Login() {
   const { t } = useClientTranslation('Common');
   const router = useRouter();
   const dispatch = useDispatch();
-  const loading = useAppSelector((state) => state.auth.loading);
-  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const {loading, isLogin} = useAppSelector((state) => state.auth);
   const emailRegex = useMemo(() => /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/, []);
   const passwordRegex = useMemo(() => /^(?=.*[@-_]).{8,}$/, []);
   const [loginForm, setLoginForm] = useState<LoginForm>({ email: "", password: "" });
@@ -56,22 +55,21 @@ export default function Login() {
     }
     return emailValid && passwordValid;
   };
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (!validateFields()) return;
-    if(typeof window !== 'undefined'){
-      const token = localStorage.getItem("accessToken");
+    if (!validateFields()) {
+      toast.warning(t("login.notify04"));
+    };
+    const token = localStorage.getItem("accessToken");
     
-      if (token || isLogin) {
+    if (token && isLogin) {
         toast.warning(t("login.notify03"));
         router.push("/");
-        return;
-      }
     }
     dispatch(loginUser(loginForm) as any).then((result: any) => {
       if (result.payload.statusCode === 200) {
-        window.location.href = "/";
         toast.success(t("login.notify01"));
+        router.push("/");
       } else {
         toast.error(result.payload.message || t("system.error"));
       }
