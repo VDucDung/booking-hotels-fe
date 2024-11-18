@@ -36,9 +36,7 @@ export type RootState = ReturnType<typeof productReducer>;
 
 const rootReducer: Reducer = (state: RootState | undefined, action: Action) => {
   if (action.type === 'RESET') {
-    // Clear session storage
     sessionStorage.clear();
-    // Return a fresh state instead of mutating the existing one
     return productReducer(undefined, action);
   }
   return productReducer(state, action);

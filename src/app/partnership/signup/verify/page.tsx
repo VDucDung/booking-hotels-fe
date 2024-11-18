@@ -1,9 +1,20 @@
 "use client"
+import Loading from "@/components/loading";
 import { useClientTranslation } from "@/i18n/client";
+import { useEffect, useState } from "react";
 
 const AccountVerification = () => {
   const { t } = useClientTranslation("Common");
-  const email = JSON.stringify(sessionStorage.getItem("userEmail"));
+  const [email, setEmail] = useState<string | null>(null);
+  
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem("loginEmail");
+    setEmail(storedEmail);
+  }, []);
+
+  if (!email) {
+    return <Loading className="container mx-auto"></Loading>; 
+  }
 
 
   return (

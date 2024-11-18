@@ -11,41 +11,10 @@ import { useAppDispatch, useAppSelector } from "@/redux";
 import { getHotels } from "@/api/hotelService";
 import { getCategories } from "@/api/categoryService";
 import ProductFilterTopBar from "@/components/productFilterTopBar";
-// import HotelCards from "@/components/hotelCards";
 import HotelCard from "@/components/hotelCard";
+import { FetchHotelParams, FormValues, SearchParams } from "@/interfaces/search";
 
-interface SearchParams {
-  keyword: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  totalRoom: string;
-  capacity: string;
-  address: string;
-}
 
-interface FormValues {
-  rating: number;
-  displayOption: string;
-  maxPrice: string;
-  minPrice: string;
-  displayOptions: Record<string, unknown>;
-  price: string;
-  search: string;
-  address: string;
-}
-
-interface FetchHotelParams {
-  page: number;
-  limit: number;
-  sortBy: string;
-  keyword: string;
-  startDate: string;
-  endDate: string;
-  totalRoom: string;
-  capacity: string;
-  address: string;
-}
 
 function Search() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -90,11 +59,11 @@ function Search() {
     };
     
     loadInitialData();
-  }, []);
+  }, [dispatch, fetchParams]);
 
   const fetchHotels = useCallback(() => {
     dispatch(getHotels(fetchParams));
-  }, [dispatch]);
+  }, [dispatch, fetchParams]);
   
   useEffect(() => {
     fetchHotels();
@@ -184,10 +153,6 @@ function Search() {
                           onLikeSuccess={fetchHotels}
                         />
                       ))
-                    //   <HotelCards
-                    //   hotels={hotels}
-                    //   onLikeSuccess={fetchHotels}
-                    // />
                     ) : (
                       <div className="col-span-3 mt-3">
                         <Image 

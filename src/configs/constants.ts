@@ -64,6 +64,7 @@ export const PATH = {
   FORGOT_PASSWORD_OTP: "/auth/forgotPasswordOTP",
   RESET_PASSWORD: "/auth/resetPassword",
   SEARCH: "/search",
+  TOPUP: "/profile/topUp",
 };
 
 export const PAGE_TITLE = {

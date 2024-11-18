@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
 import { useEffect, useMemo, useState } from "react";
 import Link from 'next/link';
 import { useDispatch } from "react-redux";
@@ -29,7 +30,9 @@ function ForgotPassword() {
         setButton(t("button.btn07"));
 
         if (result.payload.statusCode === 200) {
-          sessionStorage.setItem("tokenForgot", JSON.stringify(result.payload.data));
+          if (typeof window !== "undefined") {
+            sessionStorage.setItem("tokenForgot", JSON.stringify(result.payload.data));
+          }
 
           router.push(PATH.FORGOT_PASSWORD_OTP);
         } else if (result.payload.statusCode === 400) {

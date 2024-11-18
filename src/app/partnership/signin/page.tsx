@@ -1,9 +1,9 @@
 "use client";
 
-import { useClientTranslation } from "@/i18n/client";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useClientTranslation } from "@/i18n/client";
 
 const SigninForm = () => {
   const { t } = useClientTranslation("Common");
@@ -24,7 +24,9 @@ const SigninForm = () => {
     e.preventDefault();
     if (validateEmail()) {
       setIsValidEmail(true);
-      sessionStorage.setItem('loginEmail', email);
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem('loginEmail', email);
+      }
 
       router.push("signin/password",);
     } else {

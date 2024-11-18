@@ -141,13 +141,11 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // Handle unauthorized errors
     if (
       error.response?.data?.statusCode === 401 &&
       !originalRequest._retry &&
       !originalRequest.url?.includes('auth/refresh-tokens')
     ) {
-      // Check if error is related to invalid token
       if (isTokenError(error)) {
         const refreshToken = getLocalStorageItem('refreshToken');
         
@@ -224,7 +222,6 @@ axiosInstance.interceptors.response.use(
           isRefreshing = false;
         }
       } else {
-        // Other 401 errors that are not token-related
         clearAuthData();
         handleLogout();
         return Promise.reject({
@@ -236,7 +233,6 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    // Handle other errors
     if (error.response?.data) {
       const { statusCode, message, errors } = error.response.data;
       return Promise.reject({

@@ -25,7 +25,7 @@ function SideBar() {
   const transactionLinks = [
     { name: t("account.title03"), path: PATH.ORDER, icon: "order" },
     { name: t("account.title04"), path: PATH.FAVORITE, icon: "heart" },
-    { name: t("account.title05"), path: PATH.FAVORITE, icon: "coin" },
+    { name: t("account.title05"), path: PATH.TOPUP, icon: "coin" },
   ];
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -64,7 +64,9 @@ const ForgotPasswordOTP: React.FC = () => {
     const code = inputs.join('');
     dispatch(verifyOtpForgotPassword({ token, otp: code })).then((result: any) => {
       if (result.payload.statusCode === 200) {
-        sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data));
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem('tokenVerifyOTP', JSON.stringify(result.payload.data));
+        }
         router.push(PATH.RESET_PASSWORD);
       } else {
         toast.error(result.payload.message);

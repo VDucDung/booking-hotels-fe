@@ -50,7 +50,9 @@ const ContactForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      sessionStorage.setItem("contactFormData", JSON.stringify(formData));
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("contactFormData", JSON.stringify(formData));
+      }
       router.push("password"); 
     }
   };

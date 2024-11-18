@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React, { useState, useEffect, useRef, useId, memo } from "react";
+import React, { useState, useEffect, useRef, useId, memo, useCallback } from "react";
 import clsx from "clsx";
 import { useFormikContext } from "formik";
 import useDebounce from "@/hooks/useDebouce";
@@ -101,15 +101,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     }
   }, [options]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (!asyncRequest) return;
-
+  
     setLoading(true);
     const result = await asyncRequest(inputValue);
     const transformedData = asyncRequestHelper(result);
     setOptions(transformedData);
     setLoading(false);
-  };
+  }, [asyncRequest, asyncRequestHelper, inputValue, setLoading, setOptions]);
 
   useEffect(() => {
     if (autoFetch) {
@@ -119,14 +119,14 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
         fetchData();
       }
     }
-  }, [autoFetch, values[asyncRequestDeps]]);
+  }, [asyncRequestDeps, autoFetch, fetchData, values]);
 
   useEffect(() => {
     if (filterActive) return;
     if (debouncedInputValue?.trim() && isUserInput) {
       fetchData();
     }
-  }, [debouncedInputValue]);
+  }, [debouncedInputValue, fetchData, filterActive, isUserInput]);
 
   const handleFocus = () => {
     setShowOptions(true);
@@ -152,12 +152,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     };
 
     filterOptions();
-  }, [inputValue, optionsState]);
+  }, [asyncRequest, getOptionsLabel, inputValue, optionsState]);
 
   useEffect(() => {
     setSelectedValues(value);
     setInputValue(getOptionsLabel(value) || "");
-  }, [value]);
+  }, [getOptionsLabel, value]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;

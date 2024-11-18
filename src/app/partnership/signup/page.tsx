@@ -24,8 +24,9 @@ const SignupForm = () => {
     e.preventDefault();
     if (validateEmail()) {
       setIsValidEmail(true);
-      sessionStorage.setItem('userEmail', email);
-
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem('userEmail', email);
+      }
       router.push("signup/contact");
     } else {
       setIsValidEmail(false);

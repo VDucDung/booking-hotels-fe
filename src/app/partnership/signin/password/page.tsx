@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { useClientTranslation } from "@/i18n/client";
@@ -9,16 +9,27 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux";
 import { toast } from "react-toastify";
 import { loginUser } from "@/api/authService";
+import Loading from "@/components/loading";
 
 const PasswordForm = () => {
   const { t } = useClientTranslation("Common");
-  const email = sessionStorage.getItem("loginEmail") || "";
+  const [email, setEmail] = useState<string | null>(null);
+  
 
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ password?: string }>({});
   const router = useRouter();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const storedEmail = sessionStorage.getItem("loginEmail");
+    setEmail(storedEmail);
+  }, []);
+
+  if (!email) {
+    return <Loading className="container mx-auto"></Loading>; 
+  }
 
   const validateForm = (): boolean => {
     const newErrors: { password?: string } = {};

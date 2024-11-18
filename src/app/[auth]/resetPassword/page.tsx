@@ -91,7 +91,8 @@ const ResetPassword: React.FC = () => {
   }, []);
 
   const handleResetPassword = useCallback(() => {
-    const token = JSON.parse(sessionStorage.getItem("tokenVerifyOTP") || "null");
+    if (typeof window !== "undefined") {
+      const token = JSON.parse(sessionStorage.getItem("tokenVerifyOTP") || "null");
     if (!token) {
       toast.error(t("errors.errInvalidToken"));
       return;
@@ -110,6 +111,7 @@ const ResetPassword: React.FC = () => {
         toast.error(result.payload.message);
       }
     });
+    }
   }, [dispatch, newPassword, router, t]);
 
   useEffect(() => {
