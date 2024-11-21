@@ -85,6 +85,11 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
         break;
     }
   };
+
+  const scrollToRoom = () => {
+    section2Ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
   if(hotel === null) return <div className="text-red-500 text-center mt-5">No Data</div>
 
   if (loading) {
@@ -106,7 +111,7 @@ const HotelDetails = ({ params }: { params: { id: number } }) => {
 
       <section className='container mx-auto mt-[190px]'>
         <div ref={section1Ref}>
-          <Overview hotel={hotel}/>
+          <Overview hotel={hotel} scrollToRoom={scrollToRoom}/>
         </div>
         <Divider color="emerald-500" height="2px" />
 

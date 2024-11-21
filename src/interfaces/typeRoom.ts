@@ -5,7 +5,7 @@ export interface Room {
   roomName: string;
   description: string;
   capacity: number;
-  images: [string];
+  images: string[];
   options: [];
   price: number;
   bookingDate: Date;
@@ -25,8 +25,14 @@ export interface GettypeRoomsResponse{
   data: TypeRoom[];
 }
 
+export interface GettypeRoomResponse{
+  statusCode: number;
+  message: string;
+  data: TypeRoom[];
+}
 export interface TypeRoomState {
   typeRooms: TypeRoom[] | [];
+  typeRoom: TypeRoom | null;
   loading: boolean;
   statusCode: number | null;
   error: string | null;

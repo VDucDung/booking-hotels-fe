@@ -110,7 +110,6 @@ const ReviewCard = ({ review }: {review: Reviews}) => (
                 height={300}
                 src={image}
                 alt={`Review image ${index + 1}`}
-                fill
                 className="object-cover"
               />
             </div>

@@ -11,7 +11,7 @@ import CustomButton from '@/components/button/CustomButton';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { createFavorite, removeFavorite } from '@/api/favoriteService';
 import { toast } from 'react-toastify';
-const Overview: React.FC<HotelCredentials> = ({ hotel }) => {
+const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ hotel, scrollToRoom }) => {
   const dispatch = useAppDispatch();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -81,7 +81,7 @@ const Overview: React.FC<HotelCredentials> = ({ hotel }) => {
                     />
                 </div>
                 <div className='col-start-4'>
-                  <CustomButton className='w-[140px] h-[50px]'>
+                  <CustomButton className='w-[140px] h-[50px]'  onClick={scrollToRoom}>
                     Select room
                   </CustomButton>
                 </div>
