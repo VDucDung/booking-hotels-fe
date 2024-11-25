@@ -25,12 +25,13 @@ const CreateStripeAccountPage: React.FC = () => {
       );
       console.log(res);
       const { onboardingUrl } = res.data;
-
-      if (onboardingUrl) {
-        if (typeof window !== "undefined") {
-          window.location.href = onboardingUrl;
-        }
-      }
+      console.log(res.data)
+      console.log(onboardingUrl)
+      // if (onboardingUrl) {
+      //   if (typeof window !== "undefined") {
+      //     window.location.href = onboardingUrl;
+      //   }
+      // }
     } catch (err: any) {
       setError(err.message);
     } finally {
