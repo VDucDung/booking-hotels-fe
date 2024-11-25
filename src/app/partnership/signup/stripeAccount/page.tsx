@@ -5,10 +5,11 @@ import { StripeService } from '@/api/stripeService';
 import { loadStripe } from '@stripe/stripe-js';
 import React, { useState } from 'react';
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
+
 const CreateStripeAccountPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 
   const handleCreateStripeAccount = async (): Promise<void> => {
