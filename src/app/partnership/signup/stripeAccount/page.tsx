@@ -23,10 +23,13 @@ const CreateStripeAccountPage: React.FC = () => {
         { },
         customHeaders
       );
+      console.log(res);
       const { onboardingUrl } = res.data;
 
       if (onboardingUrl) {
-        window.location.href = onboardingUrl;
+        if (typeof window !== "undefined") {
+          window.location.href = onboardingUrl;
+        }
       }
     } catch (err: any) {
       setError(err.message);
