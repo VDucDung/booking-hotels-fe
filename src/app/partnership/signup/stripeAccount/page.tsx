@@ -4,10 +4,13 @@
 import { callApi } from '@/api/apiUtils';
 import React, { useState } from 'react';
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const CreateStripeAccountPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const router = useRouter();
+
 
   const handleCreateStripeAccount = async () => {
     setIsLoading(true);
@@ -23,16 +26,23 @@ const CreateStripeAccountPage: React.FC = () => {
         { },
         customHeaders
       );
-      console.log(res);
-      console.log(res.data)
+
+      if(res?.data?.accountStatus){
+        const result = await callApi(
+          "POST",
+          "/stripe/account-link",
+          null,
+          { },
+          customHeaders
+        );
+        const {url} = result.data;
+        if(url){
+          router.push(url);
+        }
+      }
       const { onboardingUrl } = await res.data;
       if (onboardingUrl) {
-        setIsLoading(true);
-        setTimeout(() => {
-          if (typeof window !== "undefined") {
-            window.location.href = `${onboardingUrl}`;
-          }
-        }, 1000);
+        router.push(onboardingUrl);
       }
 
     } catch (err: any) {
