@@ -14,55 +14,6 @@ function HotelBookingCard() {
   const isEmpty = false;
   const ditpatch = useAppDispatch();
   const { tickets, loading } = useAppSelector((state) => state.ticket)
-  // const bookings = [
-  //   {
-  //     id: 1,
-  //     hotelName: "Aparthotel Stare Miasto",
-  //     location: "Old Town, Kraków",
-  //     roomType: "Suite Junior",
-  //     rating: 8.8,
-  //     reviews: 3022,
-  //     locationScore: 9.8,
-  //     details: {
-  //       beds: "1 giường đôi lớn",
-  //       roomSize: "33m²",
-  //       amenities: ["1 phòng ngủ", "1 phòng khách", "1 phòng tắm"]
-  //     },
-  //     dates: {
-  //       checkIn: "T6, 11 tháng 10",
-  //       checkOut: "T7, 12 tháng 10"
-  //     },
-  //     guests: "1 đêm, 2 người lớn",
-  //     price: "6,267,987",
-  //     image: "/api/placeholder/400/300",
-  //     distance: "Cách trung tâm 300m",
-  //     paymentStatus: "pending",
-  //     paymentDue: "17/11/2024"
-  //   },
-  //   {
-  //     id: 2,
-  //     hotelName: "Stradom House, Autograph Collection",
-  //     location: "Old Town, Kraków",
-  //     roomType: "Phòng Hiện đại có 2 Giường Đơn",
-  //     rating: 9.4,
-  //     reviews: 569,
-  //     locationScore: 9.6,
-  //     details: {
-  //       beds: "2 giường đơn",
-  //       amenities: ["2 phòng ngủ", "1 phòng tắm"]
-  //     },
-  //     dates: {
-  //       checkIn: "T6, 11 tháng 10",
-  //       checkOut: "T7, 12 tháng 10"
-  //     },
-  //     guests: "1 đêm, 2 người lớn",
-  //     price: "5,869,115",
-  //     image: "/api/placeholder/400/300",
-  //     distance: "Cách trung tâm 1.1km",
-  //     paymentStatus: "paid",
-  //     paidDate: "15/11/2024"
-  //   }
-  // ];
 
   useEffect(() => {
     ditpatch(getTickets())

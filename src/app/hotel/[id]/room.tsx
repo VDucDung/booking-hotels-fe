@@ -166,6 +166,8 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
               if (dateRange[0] && dateRange[1]) {
                 const startDate = `${dateRange[0]?.$d.getFullYear()}-${dateRange[0]?.$d.getMonth() + 1}-${dateRange[0]?.$d.getDate()}`
                 const endDate = `${dateRange[1]?.$d.getFullYear()}-${dateRange[1]?.$d.getMonth() + 1}-${dateRange[1]?.$d.getDate()}`
+                sessionStorage.setItem("startDate", startDate);
+                sessionStorage.setItem("endDate", endDate);
                 dispatch(searchTypeRoom({ hotelId: hotel?.id, startDate, endDate, capacity, numberOfRooms: rooms }))
               } else {
                 toast.warning('Vui lòng điền đầy đủ thông tin.');

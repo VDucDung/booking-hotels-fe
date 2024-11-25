@@ -34,7 +34,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-[155px] p-6">
+    <div className="max-w-md mx-auto mt-[155px] p-6 ">
       <h1 className="text-2xl font-semibold mb-2">{t("partnership.signup.title01")}</h1>
       <p className="text-gray-600 mb-6">{t("partnership.signup.title02")}</p>
 

@@ -17,10 +17,10 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(res.data.user));
       }
-      return res; 
+      return res;
     } catch (error) {
       if (error) {
-        return rejectWithValue({ ...error }); 
+        return rejectWithValue({ ...error });
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -41,17 +41,16 @@ export const loginGoogle = createAsyncThunk<ApiResponse, LoginGoogleCredentials>
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
         localStorage.setItem('user', JSON.stringify(res.data.user));
       }
-      return res; 
+      return res;
     } catch (error) {
       if (error) {
-        return rejectWithValue({ ...error }); 
+        return rejectWithValue({ ...error });
       } else {
         throw new Error('An unknown error occurred');
       }
     }
   }
 );
-
 
 export const registerUser = createAsyncThunk<any, UserCredentials>(
   'auth/register',
@@ -63,24 +62,48 @@ export const registerUser = createAsyncThunk<any, UserCredentials>(
       const res = await callApi('POST', `/auth/register`, null, userCredentials, customHeaders);
       return res;
     } catch (error) {
-      if(error) {
+      if (error) {
         return rejectWithValue({ ...error });
       }
     }
   }
 );
 
+export const registerPartner = createAsyncThunk<any, UserCredentials>(
+  'auth/registerPartner',
+  async (userCredentials, { rejectWithValue }) => {
+    try {
+      const customHeaders = {
+        'accept-language': `${Cookies.get('lang')}`,
+      };
+      const res = await callApi('POST', `/auth/register-partner`, null, userCredentials, customHeaders);
+      return res;
+    } catch (error) {
+      if (error) {
+        return rejectWithValue({ ...error });
+      }
+    }
+  }
+);
+
+export const connectStripeAccount = async () => {
+    const customHeaders = {
+      'accept-language': `${Cookies.get('lang')}`,
+    };
+    const res = await callApi('POST', `/stripe/create-stripe-account`, null, customHeaders);
+    return res;
+  }
 
 export const forgotPassword = createAsyncThunk<
-  any, 
-  string,             
-  { rejectValue: ApiError } 
+  any,
+  string,
+  { rejectValue: ApiError }
 >(
   'auth/forgot-password',
   async (email: string, { rejectWithValue }) => {
     try {
       const customHeaders = {
-        'accept-language': `${Cookies.get('lang')}`, 
+        'accept-language': `${Cookies.get('lang')}`,
       };
 
       const response = await callApi('POST', `/auth/forgot-password`, null, { email }, customHeaders);
@@ -125,4 +148,4 @@ export const resetPassword = createAsyncThunk<
     return rejectWithValue({ code: error.code as number, message: error.message as string } as ApiError);
   }
 });
-export const clearError = createAsyncThunk('auth/clearError', async () => {});
+export const clearError = createAsyncThunk('auth/clearError', async () => { });

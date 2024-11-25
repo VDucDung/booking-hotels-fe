@@ -77,7 +77,7 @@ const HotelRequestForm = () => {
             Check-in Time
           </label>
           {showCheckInInput && (
-            <input type="text" placeholder="Check-in Time" className="border rounded px-3 py-2 w-full mt-2" />
+            <input type="text" placeholder="15:00" className="border rounded px-3 py-2 w-full mt-2" />
           )}
         </div>
         <div>
@@ -86,7 +86,7 @@ const HotelRequestForm = () => {
             Check-out Time
           </label>
           {showCheckOutInput && (
-            <input type="text" placeholder="Check-out Time" className="border rounded px-3 py-2 w-full mt-2" />
+            <input type="text" placeholder="12:00" className="border rounded px-3 py-2 w-full mt-2" />
           )}
         </div>
       </div>

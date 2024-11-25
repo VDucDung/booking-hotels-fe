@@ -8,7 +8,7 @@ const AccountVerification = () => {
   const [email, setEmail] = useState<string | null>(null);
   
   useEffect(() => {
-    const storedEmail = sessionStorage.getItem("loginEmail");
+    const storedEmail = sessionStorage.getItem("userEmail");
     setEmail(storedEmail);
   }, []);
 
@@ -18,7 +18,7 @@ const AccountVerification = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-gray-50 z-50">
       <div className="container mx-auto">
       <div className="max-w-2xl pt-[165px]">
         <h1 className="text-2xl font-semibold mb-8">{t("partnership.verify.title01")}</h1>

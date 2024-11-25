@@ -6,3 +6,13 @@ export function formatDate(date: Date): string {
   
   return `${day}/${month}/${year}`;
 }
+
+export const formatDateBooking = (dateString: string): string => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("vi-VN", {
+    weekday: "long", 
+    day: "2-digit",  
+    month: "2-digit", 
+    year: "numeric",  
+  }).format(date);
+};

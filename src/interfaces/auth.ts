@@ -2,13 +2,12 @@
 
 import { User } from "./user";
 
-
 export interface UserCredentials {
   fullname?: string;
   email: string;
   phone?: string;
   password: string;
-  Role?: string;
+  role?: string;
 }
 
 export interface LoginGoogleCredentials {
@@ -33,13 +32,13 @@ export interface GoogleLoginResponse {
 export interface UserInfoResponse {
   status: number;
   accessToken: string;
-  data: any; 
+  data: any;
 }
 
 
-export  interface LoginWithGoogleState {
+export interface LoginWithGoogleState {
   loading: boolean;
-  user: any | null; 
+  user: any | null;
   error: string | null;
   isLogin: boolean | null;
 }
@@ -49,7 +48,7 @@ export interface LoginForm {
   password: string;
 }
 
-export interface OtpForgotPasswordData{
+export interface OtpForgotPasswordData {
   token: string;
   otp: string;
 }
@@ -59,7 +58,7 @@ export interface ApiError {
   status?: number;
 }
 
-export interface ResendPassworDTO{
+export interface ResendPassworDTO {
   token: string;
   newPassword: string;
 }

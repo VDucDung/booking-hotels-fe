@@ -6,9 +6,31 @@ import { useQuery } from "@tanstack/react-query";
 import { getRoom } from "@/api/roomService";
 import { Room } from "@/interfaces/typeRoom";
 import { useAppSelector } from "@/redux";
+import {  formatDateBooking } from "@/utils/formatDate";
 
 const BookingSummary: React.FC<{ roomId: number }> = ({ roomId }) => {
   const { hotel } = useAppSelector((state) => state.hotels);
+  const currentDate = new Date();
+  const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+
+  const futureDate = new Date(currentDate);
+  futureDate.setDate(futureDate.getDate() + 2);
+  const check_out = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+  const startDate = sessionStorage.getItem("startDate") ?? check_in;
+  const endDate = sessionStorage.getItem("endDate") ?? check_out;
+
+  const nights =
+    startDate && endDate
+      ? Math.max(
+          (new Date(endDate).getTime() - new Date(startDate).getTime()) /
+            (1000 * 60 * 60 * 24),
+          0
+        )
+      : 0;
 
   const {
     refetch: refetchRoom,
@@ -53,16 +75,16 @@ const BookingSummary: React.FC<{ roomId: number }> = ({ roomId }) => {
       <div className="flex justify-between items-center mb-4">
         <div className="text-center">
           <p className="text-sm text-gray-500">Check-in</p>
-          <p className="font-medium">Mon, 18 Nov 2024</p>
+          <p className="font-medium text-[14px]">{formatDateBooking(startDate as string)}</p>
           <p className="text-sm text-gray-500">From 15:00</p>
         </div>
         <div className="text-center">
-          <p className="text-sm text-gray-500">2 nights</p>
+          <p className="text-sm text-gray-500">{nights} nights</p>
           <hr />
         </div>
         <div className="text-center">
           <p className="text-sm text-gray-500">Check-out</p>
-          <p className="font-medium">Wed, 20 Nov 2024</p>
+          <p className="font-medium text-[14px]">{formatDateBooking(endDate as string)}</p>
           <p className="text-sm text-gray-500">Before 12:00</p>
         </div>
       </div>

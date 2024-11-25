@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useClientTranslation } from '@/i18n/client';
-import { registerUser } from '@/api/authService';
+import { registerPartner } from '@/api/authService';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/redux';
 
@@ -47,11 +47,10 @@ const PasswordForm = () => {
     if (validateForm()) {
       const email = sessionStorage.getItem("userEmail");
       const contactForm = sessionStorage.getItem("contactFormData");
-      const Role = "PARTNER";
       if(contactForm && email){
         const {fullname, phone} = JSON.parse(contactForm);
 
-        dispatch(registerUser({ fullname, phone,  email, Role, password }) as any).then((result: any) => {
+        dispatch(registerPartner({ fullname, phone,  email, password }) as any).then((result: any) => {
           if (result.payload.statusCode === 201) {
             setTimeout(() => {
               router.push('verify'); 
