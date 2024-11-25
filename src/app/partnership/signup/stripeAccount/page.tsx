@@ -23,15 +23,16 @@ const CreateStripeAccountPage: React.FC = () => {
         { },
         customHeaders
       );
-      console.log(res);
-      const { onboardingUrl } = res.data;
-      console.log(res.data)
-      console.log(onboardingUrl)
-      // if (onboardingUrl) {
-      //   if (typeof window !== "undefined") {
-      //     window.location.href = onboardingUrl;
-      //   }
-      // }
+      const { onboardingUrl } = await res.data;
+      if (onboardingUrl) {
+        setIsLoading(true);
+        setTimeout(() => {
+          if (typeof window !== "undefined") {
+            window.location.href = onboardingUrl;
+          }
+        }, 1000);
+      }
+
     } catch (err: any) {
       setError(err.message);
     } finally {
