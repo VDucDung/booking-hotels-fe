@@ -1,46 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/pages/stripe-connect.tsx
 "use client";
-import { StripeService } from '@/api/stripeService';
-import { loadStripe } from '@stripe/stripe-js';
+import { callApi } from '@/api/apiUtils';
 import React, { useState } from 'react';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
+import Cookies from "js-cookie";
 
 const CreateStripeAccountPage: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-
-  const handleCreateStripeAccount = async (): Promise<void> => {
+  const handleCreateStripeAccount = async () => {
+    setIsLoading(true);
     try {
-      setLoading(true);
-      setError(null);
+      const customHeaders = {
+        "accept-language": `${Cookies.get("lang") || "vi"}`,
+      };
 
+      const res = await callApi(
+        "POST",
+        "/stripe/create-stripe-account",
+        null,
+        { },
+        customHeaders
+      );
+      const { onboardingUrl } = res.data;
 
-      const stripe = await stripePromise;
-      if (!stripe) {
-        throw new Error("Stripe initialization failed");
+      if (onboardingUrl) {
+        window.location.href = onboardingUrl;
       }
-
-      const accountLink = await StripeService.createStripeAccount();
-      
-      window.location.href = accountLink;
-
-    } catch (error: any) {
-      console.error('Error creating Stripe account:', error);
-      
-      if (error.message === 'Failed to fetch') {
-        setError('Lỗi kết nối mạng. Vui lòng kiểm tra kết nối của bạn.');
-      } else if (error.message.includes('HTTP error')) {
-        setError('Lỗi từ server. Vui lòng thử lại sau.');
-      } else if (error.message === 'Invalid response structure') {
-        setError('Lỗi dữ liệu từ server. Vui lòng thử lại sau.');
-      } else {
-        setError('Không thể kết nối tới Stripe. Vui lòng thử lại sau!');
-      }
+    } catch (err: any) {
+      setError(err.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -56,13 +47,13 @@ const CreateStripeAccountPage: React.FC = () => {
         </p>
         <button
           onClick={handleCreateStripeAccount}
-          disabled={loading}
+          disabled={isLoading}
           className={`w-full py-2 px-4 text-white font-medium rounded-lg 
-            ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}
+            ${isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}
             transition-colors duration-200
           `}
         >
-          {loading ? (
+          {isLoading ? (
             <span className="flex items-center justify-center">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
