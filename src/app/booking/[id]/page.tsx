@@ -7,7 +7,7 @@ import HotelRequestForm from "@/components/hotelRequestForm";
 import { Input, Radio } from "antd";
 import { useState } from "react";
 
-const BookingPage = ({ params }: { params: { id: number } }) => {
+const BookingPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   const [bookingFor, setBookingFor] = useState('guest');

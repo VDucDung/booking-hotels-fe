@@ -6,7 +6,7 @@ import { Room } from '@/interfaces/typeRoom';
 
 const { Title, Text } = Typography;
 
-const HotelBookingPriceBreakdown: React.FC<{ roomId: number }> = ({ roomId }) => {
+const HotelBookingPriceBreakdown: React.FC<{ roomId: string }> = ({ roomId }) => {
   const {
     refetch: refetchRoom,
     data: room,

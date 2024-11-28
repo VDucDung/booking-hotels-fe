@@ -8,7 +8,7 @@ import { Room } from "@/interfaces/typeRoom";
 import { useAppSelector } from "@/redux";
 import {  formatDateBooking } from "@/utils/formatDate";
 
-const BookingSummary: React.FC<{ roomId: number }> = ({ roomId }) => {
+const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const { hotel } = useAppSelector((state) => state.hotels);
   const currentDate = new Date();
   const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
