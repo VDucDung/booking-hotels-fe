@@ -70,7 +70,6 @@ const isTokenError = (error: AxiosError<ApiErrorResponse>): boolean => {
 
   const { statusCode, message } = errorData;
 
-  // Check specific error structure
   if (statusCode === 401) {
     return UNAUTHORIZED_MESSAGES.some(msg => 
       message?.toLowerCase().includes(msg.toLowerCase())

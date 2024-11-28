@@ -15,8 +15,8 @@ export const useCreateBooking = () => {
       
       message.success('Booking created successfully!');
       
-      if (data.statusCode === 201) {
-        router.push(`/bookings`);
+      if (data) {
+        router.push(`/booking/paymentMethods?id=${data?.data?.roomId}`)
       }
     },
     onError: (error) => {

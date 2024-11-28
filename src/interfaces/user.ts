@@ -8,6 +8,7 @@ export interface User {
   password?: string;
   avatar?: string;
   dateOfBirth?: Date;
+  balance?: number;
 }
 export interface UserState {
   users: User[];
