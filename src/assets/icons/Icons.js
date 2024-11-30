@@ -1055,21 +1055,29 @@ export const ReloadIcon = ({ width = '2rem', height = '2rem', className }) => (
   </svg>
 );
 
-export const HertIcon = ({ width = '2rem', height = '2rem', className }) =>(
-<svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" width={width} height={height} className={className}>
-  <path fill="#fff" fillOpacity="1" strokeWidth="0.2" strokeLinejoin="round" d="M 52.2716,27.8072C 48.9356,24.164 42.0671,25.7204 38.0992,31.3618C 33.0737,25.3024 27.0713,24.164 23.7257,27.8072C 14.4142,37.9485 34.3451,52.5246 37.9599,54.1634L 38.0438,54.2109L 38.0438,54.1634C 41.6554,52.5246 61.5832,37.9485 52.2716,27.8072 Z "/>
-</svg>
+export const HertIcon = ({ width = '2rem', height = '2rem', className }) => (
+  <svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg" width={width} height={height} className={className}>
+    <path fill="#fff" fillOpacity="1" strokeWidth="0.2" strokeLinejoin="round" d="M 52.2716,27.8072C 48.9356,24.164 42.0671,25.7204 38.0992,31.3618C 33.0737,25.3024 27.0713,24.164 23.7257,27.8072C 14.4142,37.9485 34.3451,52.5246 37.9599,54.1634L 38.0438,54.2109L 38.0438,54.1634C 41.6554,52.5246 61.5832,37.9485 52.2716,27.8072 Z " />
+  </svg>
 
 )
 
 export const LocationIcon = ({ width = '2rem', height = '2rem', className }) => (
-  <svg 
-    width={width} 
-    height={height} 
-    className={className} 
-    xmlns="http://www.w3.org/2000/svg" 
-    viewBox="0 0 64 64" 
+  <svg
+    width={width}
+    height={height}
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
   >
     <path fill="blue" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24 C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24 C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"></path>
   </svg>
 );
+
+export const DashboardIcon = ({ width = '2rem', height = '2rem', className }) => (
+  <svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 8.976C3 4.05476 4.05476 3 8.976 3H15.024C19.9452 3 21 4.05476 21 8.976V15.024C21 19.9452 19.9452 21 15.024 21H8.976C4.05476 21 3 19.9452 3 15.024V8.976Z" stroke="#323232" stroke-width="2" />
+    <path d="M21 9L3 9" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M9 21L9 9" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+)

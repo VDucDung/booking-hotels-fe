@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getLocalStorageItem } from '@/utils/localStorage';
 import { clearError, forgotPassword, loginGoogle, loginUser, registerUser, resetPassword, verifyOtpForgotPassword } from '@/api/authService';
 import { AuthState } from '@/interfaces';
 
 const initialState: AuthState = {
   loading: false,
-  user: (getLocalStorageItem('user') || null),
+  user: null,
   error: null,
   isLogin: false,
   secretKey: '',
@@ -21,6 +20,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setUser(state, action: any) {
+      state.user = action.payload;
+    },
     reFreshStatus: (state) => {
       state.statusCode = null;
       state.secretStatus = null;
@@ -149,6 +151,6 @@ const authSlice = createSlice({
     });
   },
 });
-export const { reFreshStatus, logout } = authSlice.actions;
+export const { reFreshStatus, logout, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

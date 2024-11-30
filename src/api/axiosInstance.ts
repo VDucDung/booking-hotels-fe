@@ -52,7 +52,7 @@ const UNAUTHORIZED_MESSAGES = [
 
 const handleLogout = (): void => {
   if (typeof window !== "undefined") {
-    localStorage.removeItem('user');
+    // localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     

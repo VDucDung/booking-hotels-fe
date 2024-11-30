@@ -302,7 +302,8 @@
   "user-options": {
     "op01": "Trang cá nhân",
     "op02": "Vé của tôi",
-    "op03": "Đăng xuất"
+    "op03": "Đăng xuất",
+    "op04": "Bảng điều khiển"
   },
   "profile": {
     "registered": "Đăng ký: ",

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -19,15 +20,14 @@ import Loading from '../loading';
 
 const ProfileEdit = () => {
   const dispatch = useAppDispatch();
+  const {user} = useAppSelector((state) => state.auth);
   const { users, loading, error } = useAppSelector((state) => state.users);
   const isLargerThanSm = useBreakpoint("sm");
   const { t } = useClientTranslation('Common');
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+    if (user) {
       try {
-        const user: GetUserResponse = JSON.parse(storedUser);
         dispatch(setSelectedUser(user as any));
       } catch (error) {
         console.error("Error parsing user from localStorage:", error);
@@ -36,7 +36,7 @@ const ProfileEdit = () => {
     } else {
       dispatch(getUser());
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   if (loading && !users) {
     return <div className="text-center mt-10">{t('loading')}</div>;
@@ -56,9 +56,8 @@ const ProfileEdit = () => {
     { setSubmitting }: FormikHelpers<ProfileFormValues>
   ) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { email, ...profileDataWithoutEmail } = values;
-      await dispatch(updateUser({ profileData: profileDataWithoutEmail, avatar: null })).then(({ payload }) => {
+      await dispatch(updateUser({ profileData: profileDataWithoutEmail })).then(({ payload }) => {
         if (payload) {
           dispatch(setSelectedUser(payload as any));
           toast.success(t("toast.successUpdate"));

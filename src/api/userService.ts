@@ -44,7 +44,7 @@ export const getUser = createAsyncThunk<GetUserResponse, void>(
 
 export const updateUser = createAsyncThunk<
   GetUserResponse, 
-  { profileData: ProfileFormValues; avatar: File | null },
+  { profileData?: ProfileFormValues; avatar?: File },
   { rejectValue: string }
 >(
   'users/updateUser',
@@ -55,22 +55,19 @@ export const updateUser = createAsyncThunk<
         'accept-language': `${Cookies.get('lang')}`,
       };
       const formData = new FormData();
-
-      Object.keys(profileData).forEach((key) => {
-        if (profileData[key] !== undefined && profileData[key] !== null) {
-          formData.append(key, profileData[key] as string);
-        }
-      });
-
+      if(profileData){
+        Object.keys(profileData).forEach((key) => {
+          if (profileData[key] !== undefined && profileData[key] !== null) {
+            formData.append(key, profileData[key] as string);
+          }
+        });
+      }
       if (avatar) {
         formData.append('file', avatar);
       }
 
       const response = await callApi('PUT', `/users/me`, null, formData, customHeaders);
-
-      if (response?.data) {
-        localStorage.setItem('user', JSON.stringify(response.data));
-      }
+ 
       return response.data as GetUserResponse;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to update user profile');

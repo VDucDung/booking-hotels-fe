@@ -1,4 +1,10 @@
+import { ROLE_NAME } from "@/enum";
 import { DetailResult } from "./detailResult";
+
+export interface Role{
+  id: number,
+  name: ROLE_NAME,
+}
 
 export interface User {
   id: number;
@@ -9,6 +15,7 @@ export interface User {
   avatar?: string;
   dateOfBirth?: Date;
   balance?: number;
+  role?: Role;
 }
 export interface UserState {
   users: User[];

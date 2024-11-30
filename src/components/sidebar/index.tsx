@@ -1,22 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import React, { useState } from "react"; 
-import Link from "next/link"; 
-import { usePathname } from "next/navigation"; 
-import Icon from "../icon"; 
-import { IconName } from "@/type/iconName"; 
-import { PATH } from "@/configs"; 
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Icon from "../icon";
+import { IconName } from "@/type/iconName";
+import { PATH } from "@/configs";
 import Image from "next/image";
 import images from "@/assets/images";
 import { Tooltip } from "antd";
 import { useClientTranslation } from "@/i18n/client";
+import {  setUser, useAppDispatch, useAppSelector } from "@/redux";
+import { updateUser } from "@/api/userService";
+import { toast } from "react-toastify";
 function SideBar() {
   const pathname = usePathname();
+  const { user } = useAppSelector((state) => state.auth);
   const { t } = useClientTranslation('Common');
-  const [selectedAvatar, setSelectedAvatar] = useState(images.avatarDefault); 
-  const [avatarFile, setAvatarFile] = useState<File | null>(null); 
-  const [isHovering, setIsHovering] = useState(false); 
+  const [isHovering, setIsHovering] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState(user?.avatar ?? images.avatarDefault);
 
+  const dispatch = useAppDispatch();
   const accountLinks = [
     { name: t("account.title01"), path: PATH.PROFILE_EDIT, icon: "edit" },
     { name: t("account.title02"), path: PATH.CHANGE_PASSWORD, icon: "key" },
@@ -28,9 +33,17 @@ function SideBar() {
     { name: t("account.title05"), path: PATH.TOPUP, icon: "coin" },
   ];
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      await dispatch(updateUser({ avatar: file })).then(({ payload }) => {
+        if (payload) {
+          toast.success(t("toast.successUpdate"));
+          dispatch(setUser(payload as any));
+        }
+      }).catch(() => {
+        toast.error('Error updating');
+      });
       const reader = new FileReader();
       reader.onloadend = () => {
         const imageUrl = reader.result as string;
@@ -40,9 +53,8 @@ function SideBar() {
           width: 80,
         };
         setSelectedAvatar(imageData);
-        setAvatarFile(file);
       };
-      reader.readAsDataURL(file); 
+      reader.readAsDataURL(file);
     }
   };
 
@@ -50,34 +62,34 @@ function SideBar() {
     <nav className="p-4 sm:pb-[200px] pb-[100px] bg-white-100 border-r border-gray-200">
       <div className="mb-4">
         <div className="text-black text-xl font-semibold">
-            <Tooltip title="Thay đổi avatar">
-                <div className="flex justify-center relative">
-                <Image 
-                  src={selectedAvatar} 
-                  alt="avatar" 
-                  width={80} 
-                  height={80} 
-                  className={`rounded-full transition-opacity duration-300 ${isHovering ? 'opacity-70' : 'opacity-100'}`} 
-                  onMouseEnter={() => setIsHovering(true)} 
-                  onMouseLeave={() => setIsHovering(false)} 
-                />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="hidden" 
-                  id="file-input"
-                />
-                <label 
-                  htmlFor="file-input" 
-                  className={`absolute inset-0 flex items-center justify-center cursor-pointer ${isHovering ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => setIsHovering(false)}
-                >
-                  <Icon name="edit" size="1.5em" className="text-gray-700" />
-                </label>
-              </div>
-            </Tooltip>
+          <Tooltip title="Thay đổi avatar">
+            <div className="flex justify-center relative">
+              <Image
+                src={selectedAvatar}
+                alt="avatar"
+                width={100}
+                height={100}
+                className={`w-24 h-24 rounded-full transition-opacity duration-300 ${isHovering ? 'opacity-70' : 'opacity-100'}`}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="hidden"
+                id="file-input"
+              />
+              <label
+                htmlFor="file-input"
+                className={`absolute inset-0 flex items-center justify-center cursor-pointer ${isHovering ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+              >
+                <Icon name="edit" size="1.5em" className="text-gray-700" />
+              </label>
+            </div>
+          </Tooltip>
           <div className="text-center mt-2"> VŨ ĐỨC DŨNG</div>
         </div>
         <div className="text-gray-400 text-lg text-center">Chỉnh sửa tài khoản</div>

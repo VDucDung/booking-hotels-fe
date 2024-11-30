@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { User } from "./user";
+import { Role, User } from "./user";
 
 export interface UserCredentials {
   fullname?: string;
   email: string;
   phone?: string;
   password: string;
-  role?: string;
+  role?: Role;
 }
 
 export interface LoginGoogleCredentials {

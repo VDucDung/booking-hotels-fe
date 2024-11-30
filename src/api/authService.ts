@@ -15,7 +15,7 @@ export const loginUser = createAsyncThunk<ApiResponse, UserCredentials>(
       if (res.statusCode === 200) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
-        localStorage.setItem('user', JSON.stringify(res.data.user));
+        // localStorage.setItem('user', JSON.stringify(res.data.user));
       }
       return res;
     } catch (error) {
@@ -39,7 +39,7 @@ export const loginGoogle = createAsyncThunk<ApiResponse, LoginGoogleCredentials>
       if (res.statusCode === 200) {
         localStorage.setItem('accessToken', JSON.stringify(res.data.accessToken));
         localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
-        localStorage.setItem('user', JSON.stringify(res.data.user));
+        // localStorage.setItem('user', JSON.stringify(res.data.user));
       }
       return res;
     } catch (error) {

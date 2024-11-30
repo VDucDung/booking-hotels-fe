@@ -317,7 +317,8 @@
   "user-options": {
     "op01": "Profile page",
     "op02": "My booking",
-    "op03": "Log Out"
+    "op03": "Log Out",
+    "op04": "Dashboard"
   },
   "profile": {
     "registered": "Registration:",
