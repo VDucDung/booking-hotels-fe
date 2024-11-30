@@ -1,4 +1,5 @@
 import { Hotel } from "./hotel";
+import { User } from "./user";
 
 export interface Room {
   id: number;
@@ -10,6 +11,7 @@ export interface Room {
   price: number;
   bookingDate: Date;
   typeRoomId: TypeRoom;
+  partner: User;
 }
 export interface TypeRoom {
   id: number;

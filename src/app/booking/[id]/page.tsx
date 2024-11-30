@@ -12,9 +12,25 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
 
   const [bookingFor, setBookingFor] = useState('guest');
   const [guestName, setGuestName] = useState('');
+  const [contactDetails, setContactDetails] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+  const [checkInDetails, setCheckInDetails] = useState({
+    checkInDate: new Date().toISOString().split('T')[0], // Today's date
+    checkOutDate: new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow's date
+    checkInTime: '15:00',
+    checkOutTime: '12:00'
+  });
+  const [options, setOptions] = useState<string[]>([]);
 
   const handleRadioChange = (e: any) => {
     setBookingFor(e.target.value);
+  };
+
+  const handleOptionsChange = (newOptions: string[]) => {
+    setOptions(newOptions);
   };
 
   return (
@@ -28,16 +44,29 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
           <div className="grid grid-cols-1 gap-6">
             <div>
               <label className="block text-gray-700 mb-1">{`Contact's name`}</label>
-              <Input placeholder="Enter your name" />
+              <Input 
+                placeholder="Enter your name" 
+                value={contactDetails.name}
+                onChange={(e) => setContactDetails({...contactDetails, name: e.target.value})}
+              />
             </div>
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <label className="block text-gray-700 mb-1">{`Contact's email`}</label>
-                <Input type="email" placeholder="Enter email" />
+                <Input 
+                  type="email" 
+                  placeholder="Enter email"
+                  value={contactDetails.email}
+                  onChange={(e) => setContactDetails({...contactDetails, email: e.target.value})}
+                />
               </div>
               <div>
                 <label className="block text-gray-700 mb-1">Phone Number</label>
-                <Input placeholder="Enter phone number" />
+                <Input 
+                  placeholder="Enter phone number"
+                  value={contactDetails.phone}
+                  onChange={(e) => setContactDetails({...contactDetails, phone: e.target.value})}
+                />
               </div>
             </div>
           </div>
@@ -64,10 +93,27 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
         </div>
 
         <div className="border-b pb-4 mb-6">
-          <HotelRequestForm />
+        <HotelRequestForm 
+            onCheckInDetailsChange={(details) => setCheckInDetails(prevDetails => ({
+              ...prevDetails,
+              ...details
+            }))}
+            onOptionsChange={handleOptionsChange}
+          />
         </div>
         <div className="">
-          <HotelBookingPriceBreakdown roomId={id}/>
+          <HotelBookingPriceBreakdown 
+            roomId={id}
+            contactName={contactDetails.name}
+            contactEmail={contactDetails.email}
+            contactPhone={contactDetails.phone}
+            guestFullName={bookingFor === 'other' ? guestName : undefined}
+            checkInDate={checkInDetails.checkInDate}
+            checkOutDate={checkInDetails.checkOutDate}
+            checkInTime={checkInDetails.checkInTime}
+            checkOutTime={checkInDetails.checkOutTime}
+            options={options}
+          />
         </div>
       </div>
       <div>

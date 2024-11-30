@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRoom } from "@/api/roomService";
 import { Room } from "@/interfaces/typeRoom";
 import { useAppSelector } from "@/redux";
-import {  formatDateBooking } from "@/utils/formatDate";
+import { formatDateBooking } from "@/utils/formatDate";
 
 const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const { hotel } = useAppSelector((state) => state.hotels);
@@ -23,14 +23,13 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const startDate = sessionStorage.getItem("startDate") ?? check_in;
   const endDate = sessionStorage.getItem("endDate") ?? check_out;
 
-  const nights =
-    startDate && endDate
-      ? Math.max(
-          (new Date(endDate).getTime() - new Date(startDate).getTime()) /
-            (1000 * 60 * 60 * 24),
-          0
-        )
-      : 0;
+  const nights = startDate && endDate
+  ? Math.max(
+      (new Date(endDate).setHours(0, 0, 0, 0) - new Date(startDate).setHours(0, 0, 0, 0)) / 
+      (1000 * 60 * 60 * 24),
+      0
+    )
+  : 0;
 
   const {
     refetch: refetchRoom,
@@ -40,11 +39,11 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   } = useQuery<Room>({
     queryKey: ["rooms", roomId],
     queryFn: () => getRoom(roomId),
-    enabled: false, 
+    enabled: false,
   });
 
   useEffect(() => {
-    refetchRoom(); 
+    refetchRoom();
   }, [refetchRoom, roomId]);
 
   if (isLoading) {
@@ -106,8 +105,14 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
       <div className="flex justify-between mb-4">
         <p className="text-gray-600">Total Room Price</p>
         <div className="text-right">
-          <p className="line-through text-sm text-gray-400">{room.price.toLocaleString()} VND</p>
-          <p className="text-lg font-bold text-red-600">{(Number(room.price) - (Number(room.price) * 10 / 100)).toLocaleString()} VND</p>
+          <p className="line-through text-sm text-gray-400">{new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          }).format(room.price * nights || 0)}</p>
+          <p className="text-lg font-bold text-red-600">{new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          }).format((Number(room.price) - (Number(room.price) * 10 / 100)) * nights || 0)}</p>
         </div>
       </div>
       <Divider />

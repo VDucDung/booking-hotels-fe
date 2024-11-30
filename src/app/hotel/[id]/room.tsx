@@ -327,11 +327,19 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
                         </td>
                         <td className="px-4 py-4 text-center">{room.capacity}</td>
                         <td className="px-4 py-4 text-center">
-                          <span className="line-through text-gray-500">{room.price} VND</span>
-                          <p className="text-green-500 font-bold">{Number(room.price) - (Number(room.price) * 10 / 100)} VND</p>
+                          <span className="line-through text-gray-500">{
+                            new Intl.NumberFormat('vi-VN', {
+                              style: 'currency',
+                              currency: 'VND',
+                            }).format(room.price || 0)
+                          }</span>
+                          <p className="text-green-500 font-bold">{new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                          }).format(Number(room.price) - (Number(room.price) * 10 / 100))}</p>
                         </td>
                         <Link href={`/booking/${room?.id}`}>
-                          <td className="px-4 py-4 text-center">
+                          <td className="px-4 text-center pt-14">
                             <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Reserve</button>
                           </td>
                         </Link>
