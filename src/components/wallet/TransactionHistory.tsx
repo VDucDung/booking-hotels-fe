@@ -46,14 +46,14 @@ export default function TransactionHistory() {
       <h2 className="text-xl font-semibold mb-4">Lịch sử giao dịch</h2>
       <Table
         columns={columns}
-        dataSource={transactions?.data.data}
+        dataSource={transactions?.data}
         rowKey="id"
         pagination={false}
         loading={isLoading}
       />
       <div className="mt-4">
         <Pagination
-          total={transactions?.data.total || 0}
+          total={transactions?.data.length || 0}
           current={page}
           pageSize={limit}
           onChange={setPage}

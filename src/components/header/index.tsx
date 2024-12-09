@@ -166,7 +166,7 @@ const AppHeader = () => {
                       ref={userOptionsRef}
                       className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-[#00BA00] z-[999]"
                     >
-                      {userInfo?.role?.name === ROLE_NAME.ADMIN && (
+                      {userInfo?.role?.name === ROLE_NAME.PARTNER && (
                         <li
                           className="flex items-center p-2 text-[#000] hover:bg-gray-100  cursor-pointer hover:rounded-t-lg"
                           onClick={() => {

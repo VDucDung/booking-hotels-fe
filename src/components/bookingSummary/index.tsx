@@ -4,9 +4,9 @@ import { Divider } from "antd";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getRoom } from "@/api/roomService";
-import { Room } from "@/interfaces/typeRoom";
 import { useAppSelector } from "@/redux";
 import { formatDateBooking } from "@/utils/formatDate";
+import { Room } from "@/type/room";
 
 const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const { hotel } = useAppSelector((state) => state.hotels);
@@ -24,12 +24,12 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const endDate = sessionStorage.getItem("endDate") ?? check_out;
 
   const nights = startDate && endDate
-  ? Math.max(
-      (new Date(endDate).setHours(0, 0, 0, 0) - new Date(startDate).setHours(0, 0, 0, 0)) / 
+    ? Math.max(
+      (new Date(endDate).setHours(0, 0, 0, 0) - new Date(startDate).setHours(0, 0, 0, 0)) /
       (1000 * 60 * 60 * 24),
       0
     )
-  : 0;
+    : 0;
 
   const {
     refetch: refetchRoom,
@@ -95,7 +95,7 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
         <div className="text-gray-600 text-sm flex items-center mt-2 space-x-2">
           <p>👤 {room?.capacity} Guest</p>
           {
-            room?.options.map((opt: any, idx) => {
+            room?.options.map((opt: any, idx: number) => {
               return <p key={idx}>✅ {opt?.feature}</p>
             })
           }

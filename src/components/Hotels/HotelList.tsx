@@ -1,90 +1,148 @@
-"use client";
-
-import React, { useState } from 'react';
-import { Plus, Hotel } from 'lucide-react';
-import HotelCreateModal from './HotelCreateModal';
-import HotelCard from './HotelCard';
-import { HotelType } from '@/type/hotel';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Plus } from "lucide-react";
+import HotelCreateModal from "./HotelCreateModal";
+import HotelEditModal from "./HotelEditModal";
+import { createHotel, updateHotel, findHotelByPartnerId, deleteHotel } from "@/api/dashboarService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Hotel, HotelDto } from "@/interfaces";
+import HotelCard from "./HotelCard";
+import { toast } from "react-toastify";
+import HotelDeleteModal from "./HotelDeleteModal";
 
 const HotelList: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [hotels, setHotels] = useState<HotelType[]>([
-    {
-      id: 'HTL001',
-      name: 'Luxury Oceanview Resort',
-      address: '123 Bãi Biển, Nha Trang, Khánh Hòa',
-      phoneNumber: '0258 3838 999',
-      email: 'info@oceanviewresort.com',
-      description: 'Khách sạn 5 sao với tầm nhìn ra biển tuyệt đẹp, dịch vụ đẳng cấp quốc tế.',
-      rating: 4.5,
-      amenities: ['Bể bơi vô cực', 'Spa', 'Nhà hàng', 'Phòng tập gym', 'WiFi miễn phí'],
-      createdAt: new Date('2022-03-15'),
-      updatedAt: new Date()
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  const queryClient = useQueryClient();
+
+  const { data: hotels, error } = useQuery({
+    queryKey: ["hotels"],
+    queryFn: () => findHotelByPartnerId(),
+  });
+
+  const createHotelMutation = useMutation({
+    mutationFn: ({ hotelData }: { hotelData: HotelDto }) => createHotel(hotelData),
+    onSuccess: () => {
+      toast.success('Created hotel successfully!');
+      queryClient.invalidateQueries({ queryKey: ['hotels'] });
     },
-    {
-      id: 'HTL002',
-      name: 'Mountain Retreat Hotel',
-      address: '456 Đèo Tình Yêu, Đà Lạt, Lâm Đồng',
-      phoneNumber: '0263 3666 222',
-      email: 'reservations@mountainretreat.com',
-      description: 'Khách sạn nghỉ dưỡng sang trọng giữa không gian núi non hùng vĩ.',
-      rating: 4.2,
-      amenities: ['View núi', 'Nhà hàng Âu Á', 'Dịch vụ đưa đón', 'Xe đạp miễn phí', 'Lửa trại'],
-      createdAt: new Date('2021-11-20'),
-      updatedAt: new Date()
+    onError: (error) => {
+      console.error('Create failed:', error);
+      toast.error('Failed to create hotel.');
     },
-    {
-      id: 'HTL003',
-      name: 'Urban Comfort Inn',
-      address: '789 Phố Trung Tâm, Hồ Chí Minh',
-      phoneNumber: '0283 9999 111',
-      email: 'contact@urbancomfortinn.com',
-      description: 'Khách sạn hiện đại tọa lạc tại trung tâm thành phố, thuận tiện cho du khách.',
-      rating: 4.0,
-      amenities: ['Miễn phí ăn sáng', 'Quầy bar', 'Dịch vụ phòng 24/7', 'Nhà hàng', 'Xe đưa đón sân bay'],
-      createdAt: new Date('2023-01-10'),
-      updatedAt: new Date()
+  });
+
+  const updateHotelMutation = useMutation({
+    mutationFn: ({ hotelId, hotelData }: { hotelId: number, hotelData: HotelDto }) => updateHotel(hotelId, hotelData),
+    onSuccess: () => {
+      toast.success('Hotel updated successfully!');
+      queryClient.invalidateQueries({ queryKey: ['hotels'] });
+    },
+    onError: (error) => {
+      console.error('Update failed:', error);
+      toast.error('Failed to update hotel.');
+    },
+  });
+
+  const deleteHotelMutation = useMutation({
+    mutationFn: ({ hotelId }: { hotelId: number }) => deleteHotel(hotelId),
+    onSuccess: () => {
+      toast.success('Hotel updated successfully!');
+      queryClient.invalidateQueries({ queryKey: ['hotels'] });
+    },
+    onError: (error) => {
+      console.error('Update failed:', error);
+      toast.error('Failed to update hotel.');
+    },
+  });
+
+  const handleEditHotel = (hotel: Hotel) => {
+    setSelectedHotel(hotel);
+    setShowEditModal(true);
+  };
+
+  const handleCreateHotel = (hotelData: HotelDto) => {
+    createHotelMutation.mutate({ hotelData });
+    setShowCreateModal(false);
+  };
+
+  const handleUpdateHotel = (hotelId: number, updatedHotel: HotelDto) => {
+    updateHotelMutation.mutate({ hotelId, hotelData: updatedHotel });
+    setShowEditModal(false);
+  };
+
+  const handleDeleteHotel = (hotelId: number) => {
+    setSelectedHotel(hotels?.find((hotel) => hotel.id === hotelId) || null);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteHotel = () => {
+    if (selectedHotel) {
+      deleteHotelMutation.mutate({ hotelId: selectedHotel.id });
+      setShowDeleteModal(false);
     }
-  ]);
-
-  const handleCreateHotel = (newHotel: HotelType) => {
-    setHotels([...hotels, newHotel]);
-    setShowModal(false);
   };
 
-  const handleDeleteHotel = (hotelId: string) => {
-    setHotels(hotels.filter(hotel => hotel.id !== hotelId));
-  };
+  if (error) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        No hotel data.
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center">
-          <Hotel className="mr-2 text-blue-500" size={24} />
-          <h2 className="text-2xl font-semibold text-gray-800">Khách Sạn</h2>
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Hotel</h1>
         <button
-          onClick={() => setShowModal(true)}
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+          onClick={() => setShowCreateModal(true)}
+          className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
         >
-          <Plus className="mr-2" /> Thêm Khách Sạn
+          <Plus size={20} />
+          <span>Add hotel</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {hotels.map(hotel => (
-          <HotelCard 
-            key={hotel.id} 
-            hotel={hotel}
-            onDelete={() => handleDeleteHotel(hotel.id)}
-          />
-        ))}
-      </div>
+      {hotels && hotels.length > 0 ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {hotels.map((hotel: any, idx: number) => (
+            <HotelCard
+              key={idx}
+              hotel={hotel}
+              onEdit={() => handleEditHotel(hotel)}
+              onDelete={() => handleDeleteHotel(hotel.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-10 text-gray-500">
+          No other hotels have been added
+        </div>
+      )}
 
-      {showModal && (
-        <HotelCreateModal 
-          onClose={() => setShowModal(false)}
+      {showCreateModal && (
+        <HotelCreateModal
+          onClose={() => setShowCreateModal(false)}
           onCreate={handleCreateHotel}
+        />
+      )}
+
+      {showEditModal && selectedHotel && (
+        <HotelEditModal
+          hotel={selectedHotel}
+          onClose={() => setShowEditModal(false)}
+          onEdit={handleUpdateHotel}
+        />
+      )}
+
+      {showDeleteModal && (
+        <HotelDeleteModal
+          isOpen={showDeleteModal}
+          onClose={() => setShowDeleteModal(false)}
+          onConfirm={confirmDeleteHotel}
         />
       )}
     </div>

@@ -1,24 +1,20 @@
+import { Room } from "@/type/room";
 import { Hotel } from "./hotel";
-import { User } from "./user";
 
-export interface Room {
-  id: number;
-  roomName: string;
-  description: string;
-  capacity: number;
-  images: string[];
-  options: [];
-  price: number;
-  bookingDate: Date;
-  typeRoomId: TypeRoom;
-  partner: User;
-}
 export interface TypeRoom {
   id: number;
   name: string;
   description: string;
   rooms: Room[];
   hotel: Hotel;
+  hotelId?: number;
+}
+
+export interface TypeRoomDto {
+  id?: number;
+  name: string;
+  description: string;
+  hotelId?: number;
 }
 
 export interface GettypeRoomsResponse{
@@ -39,4 +35,27 @@ export interface TypeRoomState {
   statusCode: number | null;
   error: string | null;
   message: string;
+}
+
+export interface TypeRoom {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: string;
+}
+
+export interface HotelData {
+  hotelName: string;
+  typeRooms: TypeRoom[];
+}
+
+export interface GroupedRoomTypes {
+  hotelName: string;
+  roomTypes: TypeRoom[];
+}
+export interface RoomTypesData {
+  [hotelId: string]: {
+    hotelName: string;
+    typeRooms: TypeRoom[];
+  };
 }

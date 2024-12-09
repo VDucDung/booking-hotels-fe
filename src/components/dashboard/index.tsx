@@ -1,37 +1,72 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer 
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer
 } from 'recharts';
-import { 
-  Calendar, 
-  Users, 
-  CreditCard, 
-  Hotel, 
-  ChevronDown 
+import {
+  Calendar,
+  Users,
+  CreditCard,
+  ChevronDown
 } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { getMonthlyStats, getNewBooking, getToatlBookings, getToatlRevenue } from '@/api/dashboarService';
+import { useState } from 'react';
+import { formatDate } from '@/utils/formatDate';
 
-const bookingData = [
-  { month: 'Jan', bookings: 42, revenue: 15000 },
-  { month: 'Feb', bookings: 55, revenue: 19500 },
-  { month: 'Mar', bookings: 38, revenue: 13200 },
-  { month: 'Apr', bookings: 64, revenue: 22400 },
-  { month: 'May', bookings: 52, revenue: 18000 },
-];
-
-const recentBookings = [
-  { id: 'B001', guest: 'John Doe', room: 'Deluxe Suite', date: '2024-04-15', status: 'Confirmed' },
-  { id: 'B002', guest: 'Jane Smith', room: 'Standard Room', date: '2024-04-16', status: 'Pending' },
-  { id: 'B003', guest: 'Mike Johnson', room: 'Family Room', date: '2024-04-17', status: 'Confirmed' },
-];
 
 const Dashboard = () => {
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const { data: totalBookings } = useQuery({
+    queryKey: ["totalBookings"],
+    queryFn: () => getToatlBookings(),
+  });
+
+  const { data: toatlRevenue } = useQuery({
+    queryKey: ["totalRevenue"],
+    queryFn: () => getToatlRevenue(),
+  });
+
+  const { data: monthlyStats } = useQuery({
+    queryKey: ["monthlyStats"],
+    queryFn: () => getMonthlyStats(),
+  });
+
+  const { data: newBooking } = useQuery({
+    queryKey: ["newBooking"],
+    queryFn: () => getNewBooking(),
+  });
+
+  const defaultMonthlyStats = [
+    { month: 'Jan', bookings: 0, revenue: 0 },
+    { month: 'Feb', bookings: 0, revenue: 0 },
+    { month: 'Mar', bookings: 0, revenue: 0 },
+    { month: 'Apr', bookings: 0, revenue: 0 },
+    { month: 'May', bookings: 0, revenue: 0 },
+    { month: 'Jun', bookings: 0, revenue: 0 },
+    { month: 'Jul', bookings: 0, revenue: 0 },
+    { month: 'Aug', bookings: 0, revenue: 0 },
+    { month: 'Sep', bookings: 0, revenue: 0 },
+    { month: 'Oct', bookings: 0, revenue: 0 },
+    { month: 'Nov', bookings: 0, revenue: 0 },
+    { month: 'Dec', bookings: 0, revenue: 0 },
+  ];
+
+  const mergedData = defaultMonthlyStats.map((defaultStat, index) => {
+    const apiStat = monthlyStats?.find((stat: any) => stat.month === index + 1);
+    return {
+      ...defaultStat,
+      bookings: apiStat ? apiStat.totalBookings : defaultStat.bookings,
+      revenue: apiStat ? apiStat.totalRevenue : defaultStat.revenue,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -53,7 +88,7 @@ const Dashboard = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-gray-500 mb-2">Total Bookings</h3>
-                <p className="text-2xl font-bold">240</p>
+                <p className="text-2xl font-bold">{totalBookings}</p>
               </div>
               <Calendar className="text-blue-500" size={36} />
             </div>
@@ -62,12 +97,15 @@ const Dashboard = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-gray-500 mb-2">Total Revenue</h3>
-                <p className="text-2xl font-bold">$86,500</p>
+                <p className="text-2xl font-bold">{new Intl.NumberFormat('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                }).format(toatlRevenue || 0)}</p>
               </div>
               <CreditCard className="text-green-500" size={36} />
             </div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
+          {/* <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-gray-500 mb-2">Occupancy Rate</h3>
@@ -75,14 +113,23 @@ const Dashboard = () => {
               </div>
               <Hotel className="text-purple-500" size={36} />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-md">
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="p-2 border rounded mb-4"
+            >
+              <option value={monthlyStats && monthlyStats.length > 0 && monthlyStats[0]?.year}>
+                {monthlyStats && monthlyStats.length > 0 && monthlyStats[0]?.year}
+              </option>
+            </select>
             <h3 className="text-lg font-semibold mb-4">Monthly Bookings</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={bookingData}>
+              <BarChart data={mergedData}>
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
@@ -105,21 +152,21 @@ const Dashboard = () => {
                 <tr>
                   <th className="p-2 text-left">Booking ID</th>
                   <th className="p-2 text-left">Guest</th>
-                  <th className="p-2 text-left">Room</th>
+                  <th className="p-2 text-left">Date</th>
                   <th className="p-2 text-left">Status</th>
                 </tr>
               </thead>
               <tbody>
-                {recentBookings.map((booking) => (
+                {newBooking && newBooking.length > 0 && newBooking.map((booking: any) => (
                   <tr key={booking.id} className="border-b">
                     <td className="p-2">{booking.id}</td>
-                    <td className="p-2">{booking.guest}</td>
-                    <td className="p-2">{booking.room}</td>
+                    <td className="p-2">{booking.contactName}</td>
+                    <td className="p-2">{formatDate(booking.createdAt)}</td>
                     <td className="p-2">
                       <span className={`
                         px-2 py-1 rounded-full text-xs
-                        ${booking.status === 'Confirmed' 
-                          ? 'bg-green-100 text-green-800' 
+                        ${booking.status === 'paid'
+                          ? 'bg-green-100 text-green-800'
                           : 'bg-yellow-100 text-yellow-800'}
                       `}>
                         {booking.status}

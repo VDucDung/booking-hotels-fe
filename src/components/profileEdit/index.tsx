@@ -12,7 +12,6 @@ import CustomButton from "../button/CustomButton";
 import validationSchema from "./schema";
 import { useClientTranslation } from "@/i18n/client";
 import { ProfileFormValues } from "@/interfaces/profile";
-import { GetUserResponse } from "@/interfaces";
 import { setSelectedUser, useAppDispatch, useAppSelector } from "@/redux";
 import { getUser, updateUser } from "@/api/userService";
 import Loading from '../loading';
@@ -20,7 +19,7 @@ import Loading from '../loading';
 
 const ProfileEdit = () => {
   const dispatch = useAppDispatch();
-  const {user} = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const { users, loading, error } = useAppSelector((state) => state.users);
   const isLargerThanSm = useBreakpoint("sm");
   const { t } = useClientTranslation('Common');
@@ -65,12 +64,12 @@ const ProfileEdit = () => {
       });
     } catch (error) {
       console.error("Lỗi khi cập nhật người dùng:", error);
-      toast.error(t("toast.errorUpdate")); 
+      toast.error(t("toast.errorUpdate"));
     } finally {
       setSubmitting(false);
     }
   };
-  
+
   return (
     <div className="xl:p-4">
       <h2 className="text-2xl font-semibold text-black shadow-md p-4">
@@ -122,7 +121,7 @@ const ProfileEdit = () => {
                   {t('button.btn18')}
                 </CustomButton>
                 <CustomButton type="submit" disabled={loading}>
-                  {loading ? <Loading/> : t('button.btn17')}
+                  {loading ? <Loading /> : t('button.btn17')}
                 </CustomButton>
               </div>
             </div>

@@ -14,7 +14,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 
 const PaymentInterface = () => {
   const [loading, setLoading] = useState(false);
-  const [amount, setAmount] = useState<number | ''>(''); 
+  const [amount, setAmount] = useState<number | ''>('');
 
   const handleStripeCheckout = async () => {
     if (!amount || isNaN(amount) || amount <= 0) {
@@ -73,7 +73,7 @@ const PaymentInterface = () => {
         <div className="text-center">
           <h3 className="text-gray-500 text-sm mb-1">Số dư hiện tại</h3>
           <div className="text-3xl font-bold text-green-600">
-            {balance?.data?.data?.balance?.toLocaleString("vi-VN") || 0} coin
+            {balance?.data?.balance?.toLocaleString("vi-VN") || 0} coin
           </div>
         </div>
       </div>
@@ -96,9 +96,8 @@ const PaymentInterface = () => {
 
       <button
         onClick={handleStripeCheckout}
-        className={`w-full py-2 px-4 text-white rounded-lg ${
-          loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
-        } transition duration-200`}
+        className={`w-full py-2 px-4 text-white rounded-lg ${loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+          } transition duration-200`}
         disabled={loading}
       >
         {loading ? "Đang xử lý..." : "Nạp tiền"}

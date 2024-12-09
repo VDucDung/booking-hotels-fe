@@ -15,12 +15,18 @@ export const callApi = async (
   customHeaders: CustomHeaders = {}
 ): Promise<ApiResponse> => {
   try {
-    const response: ApiResponse = await axiosInstance(url, {
+    const config: Record<string, any> = {
       method,
+      url,
       params,
-      data,
       headers: { ...customHeaders },
-    });
+    };
+
+    if (data !== null) {
+      config.data = data;
+    }
+
+    const response: ApiResponse = await axiosInstance(config);
     return response;
   } catch (error: any) {
     return Promise.reject({ ...error });

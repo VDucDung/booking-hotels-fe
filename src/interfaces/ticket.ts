@@ -1,4 +1,5 @@
-import { Room } from "./typeRoom";
+import { Room } from "@/type/room";
+
 
 export interface Ticket {
   id?: number;
@@ -18,6 +19,22 @@ export interface Ticket {
   stripePaymentIntentId?: string | null;
   stripeTransferId?: string | null;
   partnerId?: number;
+  createdAt?: Date;
+}
+export interface TicketParam{
+  id?: number;
+  checkInDate?: Date;
+  checkOutDate: Date;
+  paymentMethods?: string;
+  status?: string;
+  contactName?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  option?: string[];
+  checkInTime?: string;
+  checkOutTime?: string;
+  amount?: number;
+  guestFullName?: string;
 }
 export interface TicketState {
   tickets: Ticket[];
@@ -55,3 +72,10 @@ export enum TransactionType {
   BANK_CARD = 'bank card',
   WALLET = 'wallet',
 }
+
+export interface EditBookingModalProps{
+  booking: TicketParam;
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (updatedBooking: TicketParam) => void;
+};

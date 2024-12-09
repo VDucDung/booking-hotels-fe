@@ -7,10 +7,10 @@ export default function PaymentCancelPage() {
   const router = useRouter();
 
   useEffect(() => {
-      const timeout = setTimeout(() => {
-        router.push('porfile/topUp'); 
-      }, 5000); 
-      return () => clearTimeout(timeout);
+    const timeout = setTimeout(() => {
+      router.push('/porfile/topUp');
+    }, 5000);
+    return () => clearTimeout(timeout);
   }, [router]);
 
   return (

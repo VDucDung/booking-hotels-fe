@@ -6,7 +6,7 @@ import images from '@/assets/images';
 
 interface HotelCardListProps {
   hotels: Hotel[];
-  onLikeSuccess: () => void; 
+  onLikeSuccess: () => void;
 }
 
 const HotelCards: React.FC<HotelCardListProps> = React.memo(({ hotels, onLikeSuccess }) => {
@@ -21,7 +21,7 @@ const HotelCards: React.FC<HotelCardListProps> = React.memo(({ hotels, onLikeSuc
             id={item.id}
             hotelName={item.hotelName}
             address={item.address}
-            totalReviews={item.totalReviews}
+            totalReviews={item.totalReviews ?? 0}
             images={item.images[0]}
             favorites={item.favorites.length > 0}
             onLikeSuccess={onLikeSuccess}
@@ -29,7 +29,7 @@ const HotelCards: React.FC<HotelCardListProps> = React.memo(({ hotels, onLikeSuc
         ))
       ) : (
         <div className="col-span-3 mt-3">
-          <Image 
+          <Image
             src={images.empty}
             alt="empty"
             width={300}

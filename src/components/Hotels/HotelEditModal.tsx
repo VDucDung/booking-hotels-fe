@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hotel as HotelIcon, X } from 'lucide-react';
-import { HotelDto } from '@/interfaces';
+import { Hotel, HotelDto } from '@/interfaces';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
-interface HotelCreateModalProps {
+interface HotelEditModalProps {
+  hotel: Hotel;
   onClose: () => void;
-  onCreate: (hotel: HotelDto) => void;
+  onEdit: (hotelId: number, hotel: HotelDto) => void;
 }
 
-const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }) => {
-  const [hotelName, sethotelName] = useState('');
-  const [address, setAddress] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [description, setDescription] = useState('');
+const HotelEditModal: React.FC<HotelEditModalProps> = ({ hotel, onClose, onEdit }) => {
+  const [hotelName, setHotelName] = useState(hotel.hotelName);
+  const [address, setAddress] = useState(hotel.address);
+  const [contactPhone, setContactPhone] = useState(hotel.contactPhone);
+  const [description, setDescription] = useState(hotel.description);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const imagePreviews = selectedFiles.map((file) => URL.createObjectURL(file));
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+  useEffect(() => {
+    setImagePreviews(hotel.images);
+  }, [hotel]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -24,17 +30,29 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
   };
 
   const handleRemoveImage = (index: number) => {
+    const updatedImages = imagePreviews.filter((_, i) => i !== index);
+
+    const updatedHotel: HotelDto = {
+      hotelName,
+      address,
+      contactPhone,
+      description,
+      images: updatedImages,
+    };
+    onEdit(hotel.id, updatedHotel);
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!hotelName || !address || !contactPhone) {
-      alert('Please fill in all required fields');
+      toast.warning('Please fill in all required fields');
       return;
     }
-    const imageUrls = selectedFiles.map((file) => URL.createObjectURL(file));
-    const newHotel: HotelDto = {
+
+    const imageUrls = [...imagePreviews, ...selectedFiles.map((file) => URL.createObjectURL(file))];
+
+    const updatedHotel: HotelDto = {
       hotelName,
       address,
       contactPhone,
@@ -42,7 +60,7 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
       images: imageUrls,
     };
 
-    onCreate(newHotel);
+    onEdit(hotel.id, updatedHotel);
     onClose();
   };
 
@@ -52,7 +70,7 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
         <div className="bg-gray-50 border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <HotelIcon className="text-blue-500" size={24} />
-            <h2 className="text-xl font-bold text-gray-800">Add New Hotel</h2>
+            <h2 className="text-xl font-bold text-gray-800">Edit Hotel</h2>
           </div>
           <button
             onClick={onClose}
@@ -72,7 +90,7 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
                 <input
                   type="text"
                   value={hotelName}
-                  onChange={(e) => sethotelName(e.target.value)}
+                  onChange={(e) => setHotelName(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   placeholder="Enter hotel name"
                   required
@@ -132,11 +150,10 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
                     {imagePreviews.map((src, index) => (
                       <div key={index} className="relative w-20 h-20">
                         <Image
-                          key={index}
                           src={src}
                           alt={`Preview ${index + 1}`}
-                          width={28}
-                          height={28}
+                          width={80}
+                          height={80}
                           className="w-20 h-20 object-cover rounded-md border border-gray-200 shadow-sm"
                         />
                         <button
@@ -150,8 +167,6 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
           <div className="flex justify-end space-x-3 pt-6 mt-4 border-t border-gray-200">
@@ -166,7 +181,7 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
             >
-              Add Hotel
+              Save Changes
             </button>
           </div>
         </form>
@@ -175,4 +190,4 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
   );
 };
 
-export default HotelCreateModal;
+export default HotelEditModal;

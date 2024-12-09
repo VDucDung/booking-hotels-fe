@@ -7,12 +7,21 @@ export interface Hotel {
   address: string;
   description?: string;
   images: [string];
-  totalReviews: number;
+  totalReviews?: number;
   avgRating: number;
   favorites?: any;
   partners?: any;
   typeRooms?: any;
+  contactPhone: string;
   reviews: Reviews[]
+}
+
+export interface HotelDto {
+  hotelName: string;
+  address: string;
+  description?: string;
+  images: string[];
+  contactPhone: string;
 }
 
 export interface HotelState {
@@ -22,7 +31,6 @@ export interface HotelState {
   error: string | null;
   detailResult: any; 
 }
-
 
 export interface HotelCardProps {
   id: number;

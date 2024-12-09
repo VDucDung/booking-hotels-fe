@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from 'react';
-import { X, Plus, Trash2, Image as ImageIcon } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Plus, Trash2 } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { RoomDto } from '@/type/room';
+import { Room, RoomDto } from '@/type/room';
 import { useQuery } from '@tanstack/react-query';
 import { findTypeRoomByPartnerId } from '@/api/dashboarService';
 import Image from 'next/image';
@@ -14,20 +14,26 @@ interface OptionDto {
   availability: boolean;
 }
 
-interface RoomCreateModalProps {
+interface RoomEditModalProps {
+  room: Room;
   onClose: () => void;
-  onCreate: (roomData: RoomDto) => void;
+  onEdit: (roomId: number, roomData: RoomDto) => void;
 }
 
-const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) => {
-  const [description, setDescription] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [options, setOptions] = useState<OptionDto[]>([]);
-  const [price, setPrice] = useState('');
-  const [typeRoomId, setTypeRoomId] = useState('');
-  const [roomName, setRoomName] = useState('');
+const RoomEditModal: React.FC<RoomEditModalProps> = ({ room, onClose, onEdit }) => {
+  const [description, setDescription] = useState(room.description);
+  const [capacity, setCapacity] = useState(room.capacity.toString());
+  const [options, setOptions] = useState<OptionDto[]>((typeof room?.options === 'string') ? JSON.parse(room?.options) : room?.options);
+  const [price, setPrice] = useState(room.price.toString());
+  const [typeRoomId, setTypeRoomId] = useState<string>(`${room?.typeRoomId.id}`);
+  const [roomName, setRoomName] = useState(room.roomName);
+  const [oldImages, setOldImages] = useState(room?.images)
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const imagePreviews = selectedFiles.map((file) => URL.createObjectURL(file));
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
+  useEffect(() => {
+    setImagePreviews(room?.images as [string] || []);
+  }, [room]);
 
   const { data: roomTypes } = useQuery({
     queryKey: ["room"],
@@ -36,17 +42,36 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
       return Object.values(response)
         .flatMap((room: any) => room.typeRooms || [])
     }
-  })
+  });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
-      setSelectedFiles((prev) => [...prev, ...filesArray]);
+
+      const newImagePreviews = filesArray.map(file => URL.createObjectURL(file));
+
+      setImagePreviews(prev => [...prev, ...newImagePreviews]);
+
+      setSelectedFiles(prev => [...prev, ...filesArray]);
     }
   };
-
   const handleRemoveImage = (index: number) => {
-    setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
+    const updatedImages = imagePreviews.filter((_, i) => i !== index);
+    setOldImages(room?.images.filter((_, i) => i !== index))
+    const updatedRoom: RoomDto = {
+      roomName,
+      description,
+      capacity: parseInt(capacity),
+      options,
+      price: parseFloat(price),
+      typeRoomId,
+      images: selectedFiles,
+      oldImages: room?.images.filter((_, i) => i !== index)
+    };
+
+    onEdit(room.id as number, updatedRoom);
+
+    setImagePreviews(updatedImages);
   };
 
   const addOption = () => {
@@ -70,7 +95,7 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
     const requiredFields = [
       description,
       capacity,
-      selectedFiles.length >= 2,
+      imagePreviews.length >= 2,
       options.length > 0,
       price,
       typeRoomId
@@ -87,17 +112,18 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
       return;
     }
 
-
-    onCreate({
+    const updatedRoom: RoomDto = {
       roomName,
       description,
       capacity: parseInt(capacity),
       images: selectedFiles,
       options,
       price: parseFloat(price),
-      typeRoomId
-    });
+      typeRoomId,
+      oldImages
+    };
 
+    onEdit(room.id as number, updatedRoom);
     onClose();
   };
 
@@ -105,7 +131,7 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-2xl w-[700px] p-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Add New Room</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Edit Room</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={24} />
           </button>
@@ -183,42 +209,38 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Room Images</label>
-            <div className="flex items-center">
-              <label className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer">
-                <ImageIcon size={20} className="mr-2" />
-                Upload Images
-                <input
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="hidden"
-                />
-              </label>
-            </div>
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
 
-            {imagePreviews.length > 0 && (
-              <div className="mt-2 grid grid-cols-5 gap-2">
-                {imagePreviews.map((src, index) => (
-                  <div key={index} className="relative">
-                    <Image
-                      width={100}
-                      height={100}
-                      src={src}
-                      alt={`Room image ${index + 1}`}
-                      className="w-full h-20 object-cover rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveImage(index)}
-                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 m-1"
-                    >
-                      <X size={12} />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="mt-4 flex flex-wrap gap-4">
+              {imagePreviews.length > 0 && (
+                <div className="mt-2 grid grid-cols-5 gap-2">
+                  {imagePreviews.map((src, index) => (
+                    <div key={index} className="relative">
+                      <Image
+                        width={100}
+                        height={100}
+                        src={src}
+                        alt={`Room image ${index + 1}`}
+                        className="w-full h-20 object-cover rounded-md"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveImage(index)}
+                        className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 m-1"
+                      >
+                        <X size={12} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
             <p className='font-semibold text-black mt-4'>Please upload at least 2 images</p>
           </div>
 
@@ -276,7 +298,7 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
               type="submit"
               className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Add Room
+              Update Room
             </button>
           </div>
         </form>
@@ -285,4 +307,4 @@ const RoomCreateModal: React.FC<RoomCreateModalProps> = ({ onClose, onCreate }) 
   );
 };
 
-export default RoomCreateModal;
+export default RoomEditModal;

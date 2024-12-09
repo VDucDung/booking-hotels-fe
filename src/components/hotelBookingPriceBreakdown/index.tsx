@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Card, Typography, Button, message } from 'antd';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getRoom } from '@/api/roomService';
-import { Room } from '@/interfaces/typeRoom';
 import { createTicket } from '@/api/ticketService';
 import { TicketData } from '@/interfaces/ticket';
+import { Room } from '@/type/room';
 
 const { Title, Text } = Typography;
 
@@ -31,26 +31,26 @@ const HotelBookingPriceBreakdown: React.FC<{
   checkOutTime,
   options,
 }) => {
-  const currentDate = new Date();
-  const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+    const currentDate = new Date();
+    const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
 
-  const futureDate = new Date(currentDate);
-  futureDate.setDate(futureDate.getDate() + 2);
-  const check_out = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-  const startDate = sessionStorage.getItem("startDate") ?? check_in;
-  const endDate = sessionStorage.getItem("endDate") ?? check_out;
+    const futureDate = new Date(currentDate);
+    futureDate.setDate(futureDate.getDate() + 2);
+    const check_out = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+    const startDate = sessionStorage.getItem("startDate") ?? check_in;
+    const endDate = sessionStorage.getItem("endDate") ?? check_out;
 
-  const nights = startDate && endDate
-  ? Math.max(
-      (new Date(endDate).setHours(0, 0, 0, 0) - new Date(startDate).setHours(0, 0, 0, 0)) / 
-      (1000 * 60 * 60 * 24),
-      0
-    )
-  : 0;
+    const nights = startDate && endDate
+      ? Math.max(
+        (new Date(endDate).setHours(0, 0, 0, 0) - new Date(startDate).setHours(0, 0, 0, 0)) /
+        (1000 * 60 * 60 * 24),
+        0
+      )
+      : 0;
     const {
       refetch: refetchRoom,
       data: room,

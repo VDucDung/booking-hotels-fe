@@ -20,7 +20,7 @@ function Search() {
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-  
+
   const params = useMemo((): SearchParams => ({
     keyword: searchParams.get('keyword') || '',
     location: searchParams.get('location') || '',
@@ -57,31 +57,31 @@ function Search() {
       await dispatch(getCategories());
       dispatch(getHotels(fetchParams));
     };
-    
+
     loadInitialData();
   }, [dispatch, fetchParams]);
 
   const fetchHotels = useCallback(() => {
     dispatch(getHotels(fetchParams));
   }, [dispatch, fetchParams]);
-  
+
   useEffect(() => {
     fetchHotels();
   }, [fetchParams, fetchHotels]);
 
-  const addressList = useMemo(() => 
+  const addressList = useMemo(() =>
     categories.map(item => ({
       name: item.name as string,
       code: item.id as string
-    })), 
+    })),
     [categories]
   );
 
-  const categoryList = useMemo(() => 
+  const categoryList = useMemo(() =>
     hotels.map(item => ({
       label: item.hotelName,
       image: item.images[0],
-    })), 
+    })),
     [hotels]
   );
 
@@ -147,7 +147,7 @@ function Search() {
                           id={item?.id}
                           hotelName={item?.hotelName}
                           address={item.address}
-                          totalReviews={item.totalReviews}
+                          totalReviews={item.totalReviews ?? 0}
                           images={item?.images[0]}
                           favorites={item.favorites.length > 0}
                           onLikeSuccess={fetchHotels}
@@ -155,7 +155,7 @@ function Search() {
                       ))
                     ) : (
                       <div className="col-span-3 mt-3">
-                        <Image 
+                        <Image
                           src={images.empty}
                           alt="empty"
                           width={300}

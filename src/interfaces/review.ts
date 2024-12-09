@@ -20,6 +20,15 @@ export interface Reviews {
   createdAt: Date;
 }
 
+export interface ReviewDto {
+  id?: number;
+  comment: string;
+  images: File[] | string[];
+  hotelId?: number;
+  rating: number;
+  guest?: string
+}
+
 export interface Statistics {
   averageRating: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

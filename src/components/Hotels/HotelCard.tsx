@@ -1,61 +1,93 @@
-import React from 'react';
-import { Building, Phone, Star, MapPin } from 'lucide-react';
-import { HotelType } from '@/type/hotel';
+import React, { useState } from 'react';
+import { Building, Star, MapPin, Edit, Trash2 } from 'lucide-react';
+import { Hotel } from '@/interfaces';
+import Image from 'next/image';
 
 interface HotelCardProps {
-  hotel: HotelType;
+  hotel: Hotel;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
 const HotelCard: React.FC<HotelCardProps> = ({ hotel, onEdit, onDelete }) => {
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center">
-          <Building className="mr-2 text-blue-500" size={24} />
-          <h2 className="text-xl font-bold text-gray-800">{hotel.name}</h2>
+    <div className="bg-white shadow-md rounded-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+      {hotel?.images && (
+        <div className="relative w-full h-48">
+          <Image 
+            src={hotel.images[0]} 
+            alt={hotel.hotelName || 'Hotel Image'} 
+            layout="fill" 
+            objectFit="cover" 
+            className="w-full h-48 object-cover"
+          />
         </div>
-        {hotel.rating && (
-          <div className="flex items-center text-yellow-500">
-            <Star size={20} fill="currentColor" />
-            <span className="ml-1 font-semibold">{hotel.rating}/5</span>
+      )}
+      
+      <div className="p-3 h-[280px] flex flex-col">
+        <div className="flex justify-between mb-2">
+          <h2 className="text-lg font-semibold text-gray-800 flex w-[85%]">
+            <Building className="mr-1 text-blue-500 w-[24px]" size={24} />
+            {hotel?.hotelName}
+          </h2>
+          
+          {hotel?.avgRating && (
+            <div className="flex text-yellow-500">
+              <Star className="mr-1" size={20} />
+              <span className="font-semibold">{hotel.avgRating}/5</span>
+            </div>
+          )}
+        </div>
+        
+        <div className="flex items-center text-gray-600 mb-2 w-full h-auto">
+          <div className='flex'>
+          <MapPin className="mr-2 text-red-500" size={20} />
+          <p>{hotel.address}</p>
+          </div>
+        </div>
+        
+        {hotel.description && (
+          <div className="mt-2">
+            <p 
+              className={`text-gray-700 ${isDescriptionExpanded ? 'line-clamp-none' : 'line-clamp-2'}`}
+              onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+            >
+              {hotel.description}
+            </p>
+            {hotel.description.length > 100 && (
+              <button 
+                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                className="text-blue-500 hover:underline mt-1 text-sm"
+              >
+                {isDescriptionExpanded ? 'Collapse' : 'Read more'}
+              </button>
+            )}
           </div>
         )}
-      </div>
-
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center text-gray-600">
-          <MapPin className="mr-2 text-green-500" size={20} />
-          <span>{hotel.address}</span>
+        
+        <div className="flex justify-end items-end space-x-2 mt-auto">
+          {onEdit && (
+            <button 
+              onClick={onEdit} 
+              className="flex items-center text-blue-500 hover:bg-blue-50 p-2 rounded-md transition-colors"
+            >
+              <Edit className="mr-1" size={18} />
+              Edit
+            </button>
+          )}
+          
+          {onDelete && (
+            <button 
+              onClick={onDelete} 
+              className="flex items-center text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors"
+            >
+              <Trash2 className="mr-1" size={18} />
+              Delete
+            </button>
+          )}
         </div>
-        <div className="flex items-center text-gray-600">
-          <Phone className="mr-2 text-blue-500" size={20} />
-          <span>{hotel.phoneNumber}</span>
-        </div>
-      </div>
-
-      {hotel.description && (
-        <p className="text-gray-500 mb-4 line-clamp-2">{hotel.description}</p>
-      )}
-
-      <div className="flex justify-between">
-        {onEdit && (
-          <button 
-            onClick={onEdit} 
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-          >
-            Chỉnh sửa
-          </button>
-        )}
-        {onDelete && (
-          <button 
-            onClick={onDelete} 
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-          >
-            Xóa
-          </button>
-        )}
       </div>
     </div>
   );
