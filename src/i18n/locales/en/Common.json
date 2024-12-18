@@ -213,15 +213,16 @@
     "na06": "Where are you going?",
     "na07": "Adults",
     "na08": "Children",
-    "na09": "Rooms"
+    "na09": "Rooms",
+    "na10": "Search"
   },
   "errors": {
     "err01": "Please enter email.",
     "err02": "Email is incorrect, please re-enter.",
     "err03": "Please enter password.",
-    "err04": "Password must contain at least 8 characters and 1 special character @-_",
+    "err04": "Password must contain at least 6 characters and 1 special character @-_",
     "err05": "Please enter full name",
-    "err06": "Incorrect password, please re-enter",
+    "err06": "Incorrect confirm password, please re-enter",
     "err07": "Please re-enter password",
     "err08": "The phone number is incorrect, please re-enter",
     "err09": "Please enter the content",
@@ -253,7 +254,8 @@
     "notify01": "Login successful",
     "notify02": "Successfully logged out",
     "notify03": "You are already logged in",
-    "notify04": "Email or password incorrect"
+    "notify04": "Email or password incorrect",
+    "notify05": "Please enter complete information"
   },
   "register": {
     "heading": "Register",
@@ -353,6 +355,55 @@
       "noExactlyPasswords": "Incorrect old password"
     }
   },
+  "hotelDetails": {
+    "overview": {
+      "title01": "Select room"
+    },
+    "room": {
+      "title01": "Reserve",
+      "title02": "See Room Details"
+    }
+  },
+  "dashboard": {
+    "title01": "dashboard",
+    "title02": "Bookings",
+    "title03": "Hotels",
+    "title04": "Room Type",
+    "title05": "Rooms",
+    "title06": "Ratings",
+    "booking": {
+      "title01": "Edit Booking",
+      "title02": "Guest Full Name",
+      "title03": "Options",
+      "title04": "Check-in Time",
+      "title05": "Check-out Time",
+      "title06": "Check-in Date",
+      "title07": "Check-out Date",
+      "title08": "Amount",
+      "title09": "Payment Methods",
+      "title10": "Status",
+      "title11": "Paid",
+      "title12": "Pending",
+      "title13": "Cancel",
+      "title14": "Save",
+      "title15": "Capacity",
+      "title16": "Room",
+      "title17": "Date",
+      "title18": "Check-in",
+      "title19": "Check-out",
+      "title20": "Price"
+    },
+    "hotel": {
+      "title01": "Hotel",
+      "title02": "Add hotel"
+    },
+    "confirmDelete": {
+      "title01": "Confirm Deletion",
+      "title02": "Are you sure you want to delete? This action cannot be undone.",
+      "title03": "Cancel",
+      "title04": "Confirm"
+    }
+  },
   "reqquired": {
     "err01": "Fullname is required.",
     "err02": "Phone is required.",
@@ -360,7 +411,10 @@
   },
   "toast": {
     "successUpdate": "Update successful",
-    "errorUpdate": "Update failed"
+    "errorUpdate": "Update failed",
+    "errorConfirmPassword": "Confirm password incorrect",
+    "errorPassword": "The new password is entering the same current password",
+    "incorrectPassword": "Password is not a valid password"
   },
   "account": {
     "title01": "Account Information",

@@ -17,30 +17,38 @@ const HotelEditModal: React.FC<HotelEditModalProps> = ({ hotel, onClose, onEdit 
   const [description, setDescription] = useState(hotel.description);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-
+  
   useEffect(() => {
     setImagePreviews(hotel.images);
   }, [hotel]);
 
+  const [oldImages, setOldImages] = useState(hotel?.images)
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
+      const newImagePreviews = filesArray.map(file => URL.createObjectURL(file));
       setSelectedFiles((prev) => [...prev, ...filesArray]);
+      setImagePreviews(prev => [...prev, ...newImagePreviews]);
+
     }
   };
 
   const handleRemoveImage = (index: number) => {
     const updatedImages = imagePreviews.filter((_, i) => i !== index);
-
+    setOldImages(hotel?.images.filter((_, i) => i !== index))
     const updatedHotel: HotelDto = {
       hotelName,
       address,
       contactPhone,
       description,
-      images: updatedImages,
+      images: selectedFiles,
+      oldImages: hotel?.images.filter((_, i) => i !== index)
     };
     onEdit(hotel.id, updatedHotel);
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
+    setImagePreviews(updatedImages);
+
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,14 +58,13 @@ const HotelEditModal: React.FC<HotelEditModalProps> = ({ hotel, onClose, onEdit 
       return;
     }
 
-    const imageUrls = [...imagePreviews, ...selectedFiles.map((file) => URL.createObjectURL(file))];
-
     const updatedHotel: HotelDto = {
       hotelName,
       address,
       contactPhone,
       description,
-      images: imageUrls,
+      images: selectedFiles,
+      oldImages
     };
 
     onEdit(hotel.id, updatedHotel);

@@ -14,7 +14,6 @@ import {
   Calendar,
   Users,
   CreditCard,
-  ChevronDown
 } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getMonthlyStats, getNewBooking, getToatlBookings, getToatlRevenue } from '@/api/dashboarService';
@@ -88,7 +87,7 @@ const Dashboard = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h3 className="text-gray-500 mb-2">Total Bookings</h3>
-                <p className="text-2xl font-bold">{totalBookings}</p>
+                <p className="text-2xl font-bold">{totalBookings ?? 0}</p>
               </div>
               <Calendar className="text-blue-500" size={36} />
             </div>
@@ -100,20 +99,11 @@ const Dashboard = () => {
                 <p className="text-2xl font-bold">{new Intl.NumberFormat('vi-VN', {
                   style: 'currency',
                   currency: 'VND',
-                }).format(toatlRevenue || 0)}</p>
+                }).format(toatlRevenue || 0) ?? 0} </p>
               </div>
               <CreditCard className="text-green-500" size={36} />
             </div>
           </div>
-          {/* <div className="bg-white p-6 rounded-lg shadow-md">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="text-gray-500 mb-2">Occupancy Rate</h3>
-                <p className="text-2xl font-bold">65%</p>
-              </div>
-              <Hotel className="text-purple-500" size={36} />
-            </div>
-          </div> */}
         </div>
 
         <div className="grid grid-cols-2 gap-6">
@@ -143,9 +133,6 @@ const Dashboard = () => {
           <div className="bg-white p-6 rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">Recent Bookings</h3>
-              <button className="text-blue-600 flex items-center">
-                View All <ChevronDown size={16} className="ml-1" />
-              </button>
             </div>
             <table className="w-full">
               <thead className="bg-gray-100">

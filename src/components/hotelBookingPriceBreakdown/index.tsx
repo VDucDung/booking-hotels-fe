@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import { Card, Typography, Button, message } from 'antd';
 import { useQuery, useMutation } from '@tanstack/react-query';
@@ -41,8 +43,8 @@ const HotelBookingPriceBreakdown: React.FC<{
     const check_out = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
       .toString()
       .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-    const startDate = sessionStorage.getItem("startDate") ?? check_in;
-    const endDate = sessionStorage.getItem("endDate") ?? check_out;
+    const startDate = typeof window !== 'undefined' ? (sessionStorage.getItem("startDate") ?? check_in) : null;
+    const endDate = typeof window !== 'undefined' ? (sessionStorage.getItem("endDate") ?? check_out) : null;
 
     const nights = startDate && endDate
       ? Math.max(
@@ -51,6 +53,7 @@ const HotelBookingPriceBreakdown: React.FC<{
         0
       )
       : 0;
+
     const {
       refetch: refetchRoom,
       data: room,
@@ -61,6 +64,7 @@ const HotelBookingPriceBreakdown: React.FC<{
       queryFn: () => getRoom(roomId),
       enabled: false,
     });
+
     const createTicketMutation = useMutation({
       mutationFn: (ticketData: TicketData) => {
         if (!ticketData) {
@@ -86,9 +90,44 @@ const HotelBookingPriceBreakdown: React.FC<{
       refetchRoom();
     }, [refetchRoom, roomId]);
 
+    const validateForm = () => {
+      // Validate contact name
+      if (!contactName || contactName.trim() === '') {
+        message.error('Vui lòng nhập tên liên hệ');
+        return false;
+      }
+
+      // Validate email with basic regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!contactEmail || !emailRegex.test(contactEmail)) {
+        message.error('Vui lòng nhập email hợp lệ');
+        return false;
+      }
+
+      // Validate phone number (assumes Vietnamese phone number format)
+      const phoneRegex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
+      if (!contactPhone || !phoneRegex.test(contactPhone)) {
+        message.error('Vui lòng nhập số điện thoại hợp lệ');
+        return false;
+      }
+
+      // Validate guest name if booking for others
+      if (guestFullName === '') {
+        message.error('Vui lòng nhập tên khách');
+        return false;
+      }
+
+      return true;
+    };
+
     const handleContinueToPayment = () => {
+      // Validate form first
+      if (!validateForm()) {
+        return;
+      }
+
       if (!room) {
-        message.error('Room information is not available');
+        message.error('Thông tin phòng không khả dụng');
         return;
       }
 
@@ -109,7 +148,6 @@ const HotelBookingPriceBreakdown: React.FC<{
       createTicketMutation.mutate(ticketData);
     };
 
-
     if (isLoading) {
       return <div className="container mx-auto">Loading...</div>;
     }
@@ -123,9 +161,9 @@ const HotelBookingPriceBreakdown: React.FC<{
         title={<Title level={4} className="text-lg">Price details</Title>}
         className="w-full"
       >
-        <Text className="text-green-500 block mb-4">
+        {/* <Text className="text-green-500 block mb-4">
           Taxes and fees are recovery charges which Traveloka pays to the property.
-        </Text>
+        </Text> */}
 
         <div className="grid grid-cols-1 gap-2 mt-4">
           <div className='flex justify-between'>

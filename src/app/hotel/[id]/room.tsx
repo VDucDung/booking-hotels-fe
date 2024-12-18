@@ -15,6 +15,7 @@ import Modal from 'react-modal';
 import { DatePicker, Space, InputNumber, Popover, Button, Select } from 'antd';
 import { ArrowDownIcon, PersonalInfoIcon, SearchIcon } from '@/assets/icons';
 import { toast } from 'react-toastify';
+import { useClientTranslation } from '@/i18n/client';
 const { Option } = Select;
 
 const Room: React.FC<HotelCredentials> = ({ hotel }) => {
@@ -30,6 +31,7 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [rooms, setRooms] = useState(1);
+ const { t } = useClientTranslation('Common');
 
   const currentDate = new Date();
   const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
@@ -83,6 +85,18 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
     const children = childrenAges.filter(child => child > 5)
     setCapacity(children.length + adults)
     setIsPopoverVisible(false);
+  };
+  
+  const parseJSONSafely = (input: string | any): any => {
+    if (typeof input === 'string') {
+      try {
+        return JSON.parse(input);
+      } catch (error) {
+        console.error('Invalid JSON string:', error);
+        return null;
+      }
+    }
+    return input;
   };
 
   const content = (
@@ -198,7 +212,9 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
                   onClick={openModal}
                   className="bg-green-500 text-white px-4 py-2 rounded-md flex justify-center items-center"
                 >
-                  <span>See Room Details</span>  <PlusIcon className="w-6 h-6 ml-2" />
+                  <span>
+                  {t('hotelDetails.room.title02')}
+                  </span>  <PlusIcon className="w-6 h-6 ml-2" />
                 </button>
 
                 <Modal
@@ -316,12 +332,12 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
                 </thead>
                 <tbody>
                   {
-                    typeRoom.rooms.map((room, index) => (
+                    typeRoom?.rooms.map((room, index) => (
                       <tr key={index}>
                         <td className="px-4 py-4">
                           <p>{room.roomName}</p>
                           <p className="text-sm text-gray-500">{room.description}</p>
-                          {JSON.parse(JSON.stringify(room.options)).map((option: any, index: number) => (
+                          {Array.isArray(parseJSONSafely(room?.options || '[]')) && parseJSONSafely(room?.options || '[]').map((option: any, index: number) => (
                             <p className="text-sm text-gray-500" key={index}>{option.feature}</p>
                           ))}
                         </td>
@@ -340,7 +356,9 @@ const Room: React.FC<HotelCredentials> = ({ hotel }) => {
                         </td>
                         <Link href={`/booking/${room?.id}`}>
                           <td className="px-4 text-center pt-14">
-                            <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Reserve</button>
+                            <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+                            {t('hotelDetails.room.title01')}
+                            </button>
                           </td>
                         </Link>
                       </tr>

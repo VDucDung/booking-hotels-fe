@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { Form, Formik } from "formik";
@@ -20,7 +21,7 @@ function Search() {
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
-
+  const {user, isLogin} = useAppSelector((state) => state.auth);
   const params = useMemo((): SearchParams => ({
     keyword: searchParams.get('keyword') || '',
     location: searchParams.get('location') || '',
@@ -149,7 +150,11 @@ function Search() {
                           address={item.address}
                           totalReviews={item.totalReviews ?? 0}
                           images={item?.images[0]}
-                          favorites={item.favorites.length > 0}
+                          favorites={isLogin && item?.favorites?.length > 0 
+                            ? item.favorites.some((favorite: any) => {
+                                return favorite?.user?.id === user?.id;
+                              })
+                            : false}
                           onLikeSuccess={fetchHotels}
                         />
                       ))

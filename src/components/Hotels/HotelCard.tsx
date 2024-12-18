@@ -26,7 +26,7 @@ const HotelCard: React.FC<HotelCardProps> = ({ hotel, onEdit, onDelete }) => {
         </div>
       )}
       
-      <div className="p-3 h-[280px] flex flex-col">
+      <div className="p-3 flex flex-col">
         <div className="flex justify-between mb-2">
           <h2 className="text-lg font-semibold text-gray-800 flex w-[85%]">
             <Building className="mr-1 text-blue-500 w-[24px]" size={24} />

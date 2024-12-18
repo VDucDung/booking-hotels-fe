@@ -9,12 +9,14 @@ import EditBookingModal from './EditBookingModal';
 import { Ticket, TicketParam } from '@/interfaces/ticket';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import { toast } from 'react-toastify';
+import { useClientTranslation } from '@/i18n/client';
 
 const Bookings: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<TicketParam | null>(null);
   const [selectedBookingId, setSelectedBookingId] = useState<number | null>(null);
+  const { t } = useClientTranslation('Common');
 
   const { data: bookingsData, error, isLoading } = useQuery<Ticket[]>({
     queryKey: ['bookings'],
@@ -119,8 +121,8 @@ const Bookings: React.FC = () => {
           <thead className="bg-gray-100">
             <tr>
               {[
-                'Booking ID', 'Guest', 'Room', 'Capacity', 'Options',
-                'Date', 'Check-in', 'Check-out', 'Price', 'Status', 'Payment Method', 'Actions'
+                'Booking ID', `${t("dashboard.booking.title02")}`, `${t("dashboard.booking.title16")}`, `${t("dashboard.booking.title15")}`, `${t("dashboard.booking.title03")}`,
+                `${t("dashboard.booking.title17")}`, `${t("dashboard.booking.title18")}`, `${t("dashboard.booking.title19")}`, `${t("dashboard.booking.title20")}`, `${t("dashboard.booking.title10")}`, `${t("dashboard.booking.title09")}`, 'Actions'
               ].map((header) => (
                 <th
                   key={header}

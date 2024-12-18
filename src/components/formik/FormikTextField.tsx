@@ -31,8 +31,8 @@ const FormikTextField: React.FC<FormikTextFieldProps> = ({
   const { setValue, setTouched } = helpers;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value); // Cập nhật giá trị vào Formik
-    if (props.onChange) props.onChange(event); // Gọi hàm onChange truyền từ bên ngoài nếu có
+    setValue(event.target.value); 
+    if (props.onChange) props.onChange(event); 
   };
 
   return (

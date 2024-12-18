@@ -9,12 +9,15 @@ import { Hotel, HotelDto } from "@/interfaces";
 import HotelCard from "./HotelCard";
 import { toast } from "react-toastify";
 import HotelDeleteModal from "./HotelDeleteModal";
+import { useClientTranslation } from "@/i18n/client";
 
 const HotelList: React.FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
+  const { t } = useClientTranslation('Common');
+
   const queryClient = useQueryClient();
 
   const { data: hotels, error } = useQuery({
@@ -36,9 +39,11 @@ const HotelList: React.FC = () => {
 
   const updateHotelMutation = useMutation({
     mutationFn: ({ hotelId, hotelData }: { hotelId: number, hotelData: HotelDto }) => updateHotel(hotelId, hotelData),
-    onSuccess: () => {
-      toast.success('Hotel updated successfully!');
-      queryClient.invalidateQueries({ queryKey: ['hotels'] });
+    onSuccess: (response) => {
+      if(response){
+        toast.success('Hotel updated successfully!');
+        queryClient.invalidateQueries({ queryKey: ['hotels'] });
+      }
     },
     onError: (error) => {
       console.error('Update failed:', error);
@@ -48,9 +53,11 @@ const HotelList: React.FC = () => {
 
   const deleteHotelMutation = useMutation({
     mutationFn: ({ hotelId }: { hotelId: number }) => deleteHotel(hotelId),
-    onSuccess: () => {
-      toast.success('Hotel updated successfully!');
-      queryClient.invalidateQueries({ queryKey: ['hotels'] });
+    onSuccess: (response) => {
+      if(response){
+        toast.success('Hotel updated successfully!');
+        queryClient.invalidateQueries({ queryKey: ['hotels'] });
+      }
     },
     onError: (error) => {
       console.error('Update failed:', error);
@@ -96,13 +103,13 @@ const HotelList: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">Hotel</h1>
+        <h1 className="text-3xl font-bold text-gray-800">{t("dashboard.hotel.title01")}</h1>
         <button
           onClick={() => setShowCreateModal(true)}
           className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
         >
           <Plus size={20} />
-          <span>Add hotel</span>
+          <span>{t("dashboard.hotel.title02")}</span>
         </button>
       </div>
 

@@ -27,6 +27,7 @@ interface TextFieldProps {
   onBlur?: () => void;
   required?: boolean;
   orientation?: "vertical" | "horizontal"; 
+  helperText?: string;
 }
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(

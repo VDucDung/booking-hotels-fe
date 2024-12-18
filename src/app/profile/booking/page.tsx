@@ -1,6 +1,5 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
-
 import Image from "next/image";
 import images from "@/assets/images";
 import React, { useEffect } from 'react';
@@ -27,7 +26,17 @@ function HotelBookingCard() {
   if (loading) {
     return <Loading className="mx-auto" />
   }
-
+  const parseJSONSafely = (input: string | any): any => {
+    if (typeof input === 'string') {
+      try {
+        return JSON.parse(input);
+      } catch (error) {
+        console.error('Invalid JSON string:', error);
+        return null;
+      }
+    }
+    return input;
+  };
   const PaymentStatusBadge = ({ status, dueDate, paidDate }: { status: string, dueDate: string, paidDate: string }) => {
     if (status === 'paid') {
       return (
@@ -132,7 +141,7 @@ function HotelBookingCard() {
                   <div className="mt-4">
                     <h3 className="font-semibold">{ticket?.room?.roomName}</h3>
                     <div className="flex gap-2 text-sm text-gray-600 mt-1">
-                      {ticket?.room?.options.map((option: any, index) => (
+                      {  Array.isArray(parseJSONSafely(ticket?.room?.options || '[]')) && parseJSONSafely(ticket?.room?.options || '[]').map((option: any, index: number) => (
                         <span key={index} className="after:content-['•'] after:ml-2 last:after:content-none">
                           {option.feature} - {option.availability ? "available" : "not available"}
                         </span>

@@ -57,9 +57,16 @@ export default function Login() {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if(!loginForm.email || !loginForm.password){
+      toast.warning(t("login.notify05"));
+      return;
+    }
+
     if (!validateFields()) {
       toast.warning(t("login.notify04"));
+      return;
     };
+   
     const token = localStorage.getItem("accessToken");
     
     if (token && isLogin) {
@@ -116,7 +123,7 @@ export default function Login() {
       });
   }, [dispatch]);
   return (
-    <div className="p-5 w-[450px] min-h-[100px] text-center self-center rounded-[12px] bg-white shadow-lg z-10 container mx-auto mt-[200px]">
+    <div className="p-5 w-[450px] min-h-[100px] text-center self-center rounded-[12px] bg-white shadow-lg z-10 container mx-auto my-[200px]">
       <h1 className="text-[2.5rem] font-bold">{t("login.heading")}</h1>
       <p className="mt-2 text-[1.5rem] font-medium text-gray-600">{t("login.desc01")}</p>
       <form className="mt-5" onSubmit={handleSubmit}>

@@ -4,10 +4,12 @@ import { EditBookingModalProps, TicketParam } from "@/interfaces/ticket";
 import { X } from "lucide-react";
 import { DatePicker } from "antd";
 import moment, { Moment } from "moment";
+import { useClientTranslation } from "@/i18n/client";
 
 const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, onClose, onSave }) => {
   const [formData, setFormData] = useState<TicketParam | null>(null);
   const [rawInput, setRawInput] = useState("");
+  const { t } = useClientTranslation('Common');
 
   useEffect(() => {
     if (booking) {
@@ -59,7 +61,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 mt-[115px]">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl">
         <div className="border-b px-6 py-4 flex justify-between items-center">
-          <h3 className="text-lg font-bold">Edit Booking</h3>
+          <h3 className="text-lg font-bold">{t("dashboard.booking.title01")}</h3>
           <button
             className="text-gray-500 hover:text-gray-700 transition-colors rounded-full hover:bg-gray-200 p-2"
             onClick={onClose}
@@ -71,7 +73,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Guest Full Name</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title02")}</label>
                 <input
                   type="text"
                   name="contactName"
@@ -81,7 +83,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Options</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title03")}</label>
                 <input
                   type="text"
                   name="option"
@@ -93,7 +95,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Check-in Time</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title04")}</label>
                 <input
                   type="text"
                   name="checkInTime"
@@ -104,7 +106,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Check-out Time</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title05")}</label>
                 <input
                   type="text"
                   name="checkOutTime"
@@ -115,7 +117,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Check-in Date</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title06")}</label>
                 <DatePicker
                   value={formData?.checkInDate ? moment(formData.checkInDate) : null}
                   onChange={(date) => handleDateChange("checkInDate", date)}
@@ -124,7 +126,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Check-out Date</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title07")}</label>
                 <DatePicker
                   value={formData?.checkOutDate ? moment(formData.checkOutDate) : null}
                   onChange={(date) => handleDateChange("checkOutDate", date)}
@@ -133,7 +135,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Amount</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title08")}</label>
                 <input
                   type="number"
                   name="amount"
@@ -143,7 +145,7 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Payment Methods</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title09")}</label>
                 <input
                   type="text"
                   name="paymentMethods"
@@ -153,15 +155,15 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Status</label>
+                <label className="block text-sm font-medium text-gray-700">{t("dashboard.booking.title10")}</label>
                 <select
                   name="status"
                   value={formData?.status || ""}
                   onChange={handleChange}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
                 >
-                  <option value="paid">Paid</option>
-                  <option value="pending">Pending</option>
+                  <option value="paid">{t("dashboard.booking.title11")}</option>
+                  <option value="pending">{t("dashboard.booking.title12")}</option>
                 </select>
               </div>
             </div>
@@ -172,13 +174,13 @@ const EditBookingModal: React.FC<EditBookingModalProps> = ({ booking, isOpen, on
               className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
               onClick={onClose}
             >
-              Cancel
+              {t("dashboard.booking.title13")}
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             >
-              Save
+              {t("dashboard.booking.title14")}
             </button>
           </div>
         </form>

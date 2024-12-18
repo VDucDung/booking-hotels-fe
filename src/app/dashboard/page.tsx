@@ -17,10 +17,12 @@ import RoomTypeList from '@/components/RoomTypes/RoomTypeList';
 import RoomList from '@/components/Rooms/RoomList';
 import Bookings from '@/components/booking';
 import RatingManagement from '@/components/rating/RatingList';
+import { useClientTranslation } from '@/i18n/client';
 
 
 const HotelDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const { t } = useClientTranslation('Common');
 
   const renderContent = () => {
     switch (activeTab) {
@@ -57,7 +59,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('dashboard')}
             >
-              <BarChart className="mr-3" /> Dashboard
+              <BarChart className="mr-3" />   {t('dashboard.title01')}
             </li>
             <li
               className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'bookings'
@@ -66,7 +68,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('bookings')}
             >
-              <Calendar className="mr-3" /> Bookings
+              <Calendar className="mr-3" /> {t('dashboard.title02')}
             </li>
             <li
               className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'hotels'
@@ -75,7 +77,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('hotels')}
             >
-              <Hotel className="mr-3" /> Hotels
+              <Hotel className="mr-3" /> {t('dashboard.title03')}
             </li>
             <li
               className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'room_type'
@@ -84,7 +86,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('room_type')}
             >
-              <BedDouble className="mr-3" /> Room Type
+              <BedDouble className="mr-3" /> {t('dashboard.title04')}
             </li>
             <li
               className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'rooms'
@@ -93,7 +95,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('rooms')}
             >
-              <BathIcon className="mr-3" /> Rooms
+              <BathIcon className="mr-3" /> {t('dashboard.title05')}
             </li>
 
             <li
@@ -103,7 +105,7 @@ const HotelDashboard = () => {
                 }`}
               onClick={() => setActiveTab('ratings')}
             >
-              <MessageSquareText className="mr-3" /> Ratings
+              <MessageSquareText className="mr-3" /> {t('dashboard.title06')}
             </li>
           </ul>
         </nav>

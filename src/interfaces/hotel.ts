@@ -6,7 +6,7 @@ export interface Hotel {
   hotelName: string;
   address: string;
   description?: string;
-  images: [string];
+  images: [string] | string[];
   totalReviews?: number;
   avgRating: number;
   favorites?: any;
@@ -20,7 +20,8 @@ export interface HotelDto {
   hotelName: string;
   address: string;
   description?: string;
-  images: string[];
+  images: File[] | string[];
+  oldImages?: string[]
   contactPhone: string;
 }
 

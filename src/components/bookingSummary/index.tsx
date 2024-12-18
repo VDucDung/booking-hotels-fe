@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from "react";
 import { Divider } from "antd";
@@ -20,8 +21,8 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
   const check_out = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
     .toString()
     .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-  const startDate = sessionStorage.getItem("startDate") ?? check_in;
-  const endDate = sessionStorage.getItem("endDate") ?? check_out;
+  const startDate = typeof window !== 'undefined' ? (sessionStorage.getItem("startDate") ?? check_in): null;
+  const endDate = typeof window !== 'undefined' ? (sessionStorage.getItem("endDate") ?? check_out): null;
 
   const nights = startDate && endDate
     ? Math.max(
@@ -41,6 +42,18 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
     queryFn: () => getRoom(roomId),
     enabled: false,
   });
+
+  const parseJSONSafely = (input: string | any): any => {
+    if (typeof input === 'string') {
+      try {
+        return JSON.parse(input);
+      } catch (error) {
+        console.error('Invalid JSON string:', error);
+        return null;
+      }
+    }
+    return input;
+  };
 
   useEffect(() => {
     refetchRoom();
@@ -94,9 +107,9 @@ const BookingSummary: React.FC<{ roomId: string }> = ({ roomId }) => {
         <p className="text-red-500 font-medium">Selling out fast!</p>
         <div className="text-gray-600 text-sm flex items-center mt-2 space-x-2">
           <p>👤 {room?.capacity} Guest</p>
-          {
-            room?.options.map((opt: any, idx: number) => {
-              return <p key={idx}>✅ {opt?.feature}</p>
+          {Array.isArray(parseJSONSafely(room?.options || '[]')) && parseJSONSafely(room?.options || '[]').map((option: any, index: number) => {
+
+              return <p key={index}>✅ {option?.feature}</p>
             })
           }
         </div>

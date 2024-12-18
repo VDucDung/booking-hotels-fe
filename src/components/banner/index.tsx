@@ -122,7 +122,7 @@ const Banner = () => {
                 }
               }}
             >
-              Search
+              {t('header.na10')}
             </Button>
 
           </div>

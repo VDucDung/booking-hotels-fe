@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useCallback, useEffect, useRef } from "react";
@@ -12,7 +13,9 @@ import HotelCard from "../hotelCard";
 
 const RelatedProducts: React.FC<HotelCardListProps> = () => {
   const slider = useRef<Slider | null>(null);
+  const {user, isLogin} = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  console.log(user?.id)
   const { hotels, loading, error } = useAppSelector((state) => state.hotels);
 
   const fetchHotels = useCallback(() => {
@@ -107,7 +110,11 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
                   totalReviews={hotel.totalReviews || 0}
                   images={hotel?.images[0]}
                   address={hotel.address}
-                  favorites={hotel.favorites.length > 0 ? true : false}
+                  favorites={isLogin && hotel?.favorites?.length > 0 
+                    ? hotel.favorites.some((favorite: any) => {
+                        return favorite?.user?.id === user?.id;
+                      })
+                    : false}
                   onLikeSuccess={fetchHotels}
                   className="h-[420px]"
                 />

@@ -24,6 +24,11 @@ function ForgotPassword() {
   const [errors, setErrors] = useState({ email: ""});
 
   const handleForgotPassword = () => {
+    if(!email || submit){
+      toast.warning('Vui lòng nhập email');
+      return;
+    }
+    
     dispatch(forgotPassword(email) as any)
       .then((result: any) => {
         setSubmit(false);

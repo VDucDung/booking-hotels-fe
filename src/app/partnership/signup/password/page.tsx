@@ -25,7 +25,7 @@ const PasswordForm = () => {
 
     if (!password.trim()) {
       newErrors.password = `${t("errors.err03")}`;
-    } else if (password.length < 10) {
+    } else if (password.length < 6) {
       newErrors.password = `${t("errors.err04")}`;
     } else if (!/[A-Z]/.test(password) || !/\d/.test(password)) {
       newErrors.password = `${t("errors.err04")}`;

@@ -215,7 +215,8 @@
     "na06": "Bạn muốn đi đâu?",
     "na07": "Người lớn",
     "na08": "Trẻ em",
-    "na09": "Phòng"
+    "na09": "Phòng",
+    "na10": "Tìm kiếm"
   },
   "errors": {
     "err01": "Vui lòng nhập email.",
@@ -223,13 +224,30 @@
     "err03": "Vui lòng nhập mật khẩu.",
     "err04": "Mật khẩu phải chứa ít nhất 8 ký tự và 1 ký tự đặc biệt @-_",
     "err05": "Vui lòng nhập họ tên",
-    "err06": "Mật khẩu sai, vui lòng nhập lại",
+    "err06": "Mật khẩu xác nhận sai, vui lòng nhập lại",
     "err07": "Vui lòng nhập lại mật khẩu",
     "err08": "Số điện thoại không đúng, vui lòng nhập lại",
     "err09": "Vui lòng nhập nội dung",
     "err10": "Nội dung từ 5 đến 500 ký tự",
     "err11": "Vui lòng nhập Email",
-    "err12": "Mật khẩu không khớp"
+    "err12": "Mật khẩu không khớp",
+    "phoneNumber": {
+      "err01": "Vui lòng nhập số điện thoại của bạn.",
+      "err02": "Số điện thoại không hợp lệ."
+    },
+    "fullName": {
+      "err01": "Vui lòng nhập họ và tên của bạn."
+    },
+    "birthDay": {
+      "err01": "Vui lòng nhập ngày sinh của bạn.",
+      "err02": "Ngày sinh không được sau ngày hôm nay.",
+      "err03": "Bạn phải ít nhất 18 tuổi để sử dụng dịch vụ của chúng tôi.",
+      "err04": "Rất tiếc, bạn đã quá tuổi để sử dụng dịch vụ của chúng tôi."
+    },
+    "password": {
+      "err01": "Mật khẩu phải có ít nhất 8 ký tự và chứa ít nhất 1 ký tự đặc biệt.",
+      "err02": "Mật khẩu xác nhận không khớp."
+    }
   },
   "login": {
     "heading": "Đăng nhập",
@@ -238,7 +256,8 @@
     "notify01": "Đăng nhập thành công",
     "notify02": "Đăng xuất thành công",
     "notify03": "Bạn đã đăng nhập rồi",
-    "notify04": "Email or password không đúng"
+    "notify04": "Email or password không đúng",
+    "notify05": "Vui lòng nhập đầy đủ thông tin"
   },
   "register": {
     "heading": "Đăng ký",
@@ -338,6 +357,55 @@
       "noExactlyPasswords": "Mật khẩu cũ không chính xác"
     }
   },
+  "hotelDetails": {
+    "overview": {
+      "title01": "Chọn phòng"
+    },
+    "room": {
+      "title01": "Đặt phòng",
+      "title02": "Xem chi tiết phòng"
+    }
+  },
+  "dashboard": {
+    "title01": "Bảng điều khiển",
+    "title02": "Đơn đặt phòng",
+    "title03": "Khách sạn",
+    "title04": "Loại phòng",
+    "title05": "Phòng",
+    "title06": "Đánh giá",
+    "booking": {
+      "title01": "Cập nhập đơn đặt phòng",
+      "title02": "Tên khách hàng",
+      "title03": "Tiện ích",
+      "title04": "Giờ nhận phòng",
+      "title05": "Giờ trả phòng",
+      "title06": "Ngày nhận phòng",
+      "title07": "Ngày trả phòng",
+      "title08": "Giá",
+      "title09": "Phương thức thanh toán",
+      "title10": "Trang thái thanh toán",
+      "title11": "Đã trả",
+      "title12": "Đang đợi",
+      "title13": "Hủy",
+      "title14": "Lưu",
+      "title15": "Sức chứa",
+      "title16": "Tên phòng",
+      "title17": "Ngày đặt phòng",
+      "title18": "Ngày nhận phòng",
+      "title19": "Ngày trả phòng",
+      "title20": "Giá"
+    },
+    "hotel": {
+      "title01": "Khách sạn",
+      "title02": "Thêm khách sạn"
+    },
+    "confirmDelete": {
+      "title01": "Xác nhận xóa",
+      "title02": "Bạn có chắc chắn muốn xóa? Sau khi xóa, không thể khôi phục đơn đặt phòng.",
+      "title03": "Hủy",
+      "title04": "Xác nhận"
+    }
+  },
   "reqquired": {
     "err01": "Fullname là bắt buộc.",
     "err02": "Email là bắt buộc.",
@@ -345,7 +413,10 @@
   },
   "toast": {
     "successUpdate": "Cập nhập thành công",
-    "errorUpdate": "Cập nhập thất bại"
+    "errorUpdate": "Cập nhập thất bại",
+    "errorConfirmPassword": "Xác nhận mật khẩu không đúng",
+    "errorPassword": "Mật khẩu mới đang nhập trùng mật khẩu hiện tại",
+    "incorrectPassword": "Mật khẩu không đúng"
   },
   "account": {
     "title01": "Thông tin tài khoản",

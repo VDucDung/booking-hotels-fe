@@ -18,8 +18,8 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
     phone: ''
   });
   const [checkInDetails, setCheckInDetails] = useState({
-    checkInDate: new Date().toISOString().split('T')[0], // Today's date
-    checkOutDate: new Date(Date.now() + 86400000).toISOString().split('T')[0], // Tomorrow's date
+    checkInDate: new Date().toISOString().split('T')[0], 
+    checkOutDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
     checkInTime: '15:00',
     checkOutTime: '12:00'
   });

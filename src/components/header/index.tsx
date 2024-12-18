@@ -29,6 +29,7 @@ const AppHeader = () => {
   const dispatch = useDispatch();
   const auth = useAppSelector((state) => state.auth.isLogin);
   const [token, setToken] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
 
   const userData = useAppSelector((state) => state.auth);
   const userOptionsRef = useRef<HTMLUListElement | null>(null);
@@ -124,13 +125,25 @@ const AppHeader = () => {
     };
   }, [handleClickOutsideUserOptions]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <Header className=" bg-[#00ba51] h-[115px] pt-[8px] fixed z-[999] top-0 w-full px-[230px]">
+    <Header className={` bg-[#00ba51] ${scrolled ? 'opacity-75' : ''}  h-[115px] pt-[8px] fixed z-[999] top-0 w-full px-[230px]`}>
       <div className="container mx-auto">
         <div className="container mx-auto flex items-center justify-between">
           <div>
             <Link href={'/'}>
-              <Image src="/images/booking-icon.jpg" alt="logo" width={80} height={80} priority className="rounded-[50px] w-[80px] h-[80px]" />
+              <Image src="/images/logo.svg" alt="logo" width={80} height={80} priority className="w-[100px] h-[100px]" />
             </Link>
           </div>
           <div className="flex text-white gap-2">

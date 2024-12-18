@@ -174,6 +174,7 @@ export const updateHotel = async (hotelId: number, hotelData: Partial<HotelDto>)
     contactPhone,
     description,
     images, 
+    oldImages
   } = hotelData;
 
   const customHeaders = {
@@ -186,10 +187,15 @@ export const updateHotel = async (hotelId: number, hotelData: Partial<HotelDto>)
   if (address) formData.append('address', address);
   if (contactPhone) formData.append('contactPhone', contactPhone);
   if (description) formData.append('description', description);
-
+  
   if (images && images.length > 0) {
     images.forEach((image) => {
-      formData.append(`images`, image); 
+      formData.append('files', image);
+    });
+  }
+  if (oldImages && oldImages.length > 0) {
+    oldImages.forEach((imageUrl) => {
+      formData.append('images', imageUrl);
     });
   }
 

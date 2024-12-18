@@ -56,8 +56,8 @@ const PasswordForm = () => {
             loginUser({ email, password }) as any
           );
           if (result.payload.statusCode === 200) {
-            toast.success(t("register.notify")); 
-            router.push("/partnership");
+            toast.success(t("login.notify01")); 
+            router.push("/dashboard");
           } else {
             toast.error(result.payload.message || t("errors.unknownError"));
           }

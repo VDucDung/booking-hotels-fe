@@ -93,6 +93,7 @@ const ResetPassword: React.FC = () => {
   const handleResetPassword = useCallback(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(sessionStorage.getItem("tokenVerifyOTP") || "null");
+
     if (!token) {
       toast.error(t("errors.errInvalidToken"));
       return;

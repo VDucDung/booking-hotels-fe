@@ -11,10 +11,13 @@ import CustomButton from '@/components/button/CustomButton';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { createFavorite, removeFavorite } from '@/api/favoriteService';
 import { toast } from 'react-toastify';
+import { useClientTranslation } from '@/i18n/client';
+import { Phone } from 'lucide-react';
 const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ hotel, scrollToRoom }) => {
   const dispatch = useAppDispatch();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+ const { t } = useClientTranslation('Common');
 
   useEffect(() => {
     if(hotel){
@@ -52,13 +55,20 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
         <div className="container mx-auto px-4 py-6">
           <ImageGallery images={hotel.images} className="mb-8" />
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h1 className="text-2xl font-bold mb-4">{hotel.hotelName}</h1>
+           <div className='flex mb-4 items-center'>
+           <h1 className="text-2xl font-bold">{hotel.hotelName}</h1>
+           <h2 className="text-xl font-semibold ml-2"><Rate disabled value={hotel.avgRating || 0}/></h2>
+           </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h2 className="text-xl font-semibold mb-3"><Rate disabled value={hotel.avgRating || 0}/></h2>
                 <div className="mt-4">
                   <p className="text-gray-600 flex">
                     {hotel.address} <LocationIcon className="w-4 h-4 ml-1"/>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-gray-600 flex">
+                  <Phone className="w-4 h-4 mr-1"/> {hotel.contactPhone} 
                   </p>
                 </div>
               </div>
@@ -82,7 +92,7 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
                 </div>
                 <div className='col-start-4'>
                   <CustomButton className='w-[140px] h-[50px]'  onClick={scrollToRoom}>
-                    Select room
+                    {t('hotelDetails.overview.title01')}
                   </CustomButton>
                 </div>
               </div>
