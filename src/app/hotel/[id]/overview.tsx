@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'; 
-import { useAppDispatch } from '@/redux';
+import { useAppDispatch, useAppSelector } from '@/redux';
 import {  HotelCredentials } from '@/interfaces';
 import ImageGallery from '@/components/imageGallery';
 import { Button, Rate } from 'antd';
@@ -17,18 +17,24 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
   const dispatch = useAppDispatch();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+    const {user, isLogin} = useAppSelector((state) => state.auth);
+  
  const { t } = useClientTranslation('Common');
 
   useEffect(() => {
     if(hotel){
-      if(hotel.favorites.length > 0){
+      if(isLogin && hotel?.favorites?.length > 0 
+        ? hotel.favorites.some((favorite: any) => {
+            return favorite?.user?.id === user?.id;
+          })
+        : false){
         setIsLiked(true);
       }else{
         setIsLiked(false);
       }
     }
 
-  }, [hotel]);
+  }, [hotel, isLogin, user?.id]);
 
   const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation(); 
