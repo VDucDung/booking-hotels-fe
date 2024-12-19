@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { callApi } from './apiUtils';
-import { ApiResponse, ChangePasswordValues, GetUserResponse, GetUsersResponse, ProfileFormValues } from '@/interfaces';
+import { ApiResponse, ChangePasswordValues, GetUserResponse, GetUsersResponse, ProfileFormValues, User } from '@/interfaces';
 import Cookies from 'js-cookie';
 
 export const getUsers = createAsyncThunk<GetUsersResponse, void>(
@@ -86,3 +86,8 @@ export const changePassword = createAsyncThunk<ApiResponse, ChangePasswordValues
     return rejectWithValue(error.message || 'Failed to update user profile');
   }
 });
+
+export const getMe = async (): Promise<User> => {
+  const response = await callApi('GET', `/users/me`);
+  return response.data;
+};

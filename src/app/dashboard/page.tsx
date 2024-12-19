@@ -9,7 +9,8 @@ import {
   Hotel,
   BedDouble,
   BathIcon,
-  MessageSquareText
+  MessageSquareText,
+  MonitorCog 
 } from 'lucide-react';
 import Dashboard from '@/components/dashboard';
 import HotelList from '@/components/Hotels/HotelList';
@@ -18,11 +19,24 @@ import RoomList from '@/components/Rooms/RoomList';
 import Bookings from '@/components/booking';
 import RatingManagement from '@/components/rating/RatingList';
 import { useClientTranslation } from '@/i18n/client';
+import CreateStripeAccountPage from '../partnership/signup/stripeAccount/page';
+import { useQuery } from '@tanstack/react-query';
+import { getMe } from '@/api/userService';
+import Loading from '@/components/loading';
+import StripeConnect from '../partnership/signup/stripeAccount/stripeDashboard/page';
 
 
 const HotelDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const { t } = useClientTranslation('Common');
+  
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getMe(),
+  });
+  if(isLoading){
+    return <Loading className='mx-auto mt-52'/>
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -30,6 +44,8 @@ const HotelDashboard = () => {
         return <Dashboard />;
       case 'bookings':
         return <Bookings />;
+      case 'stripe':
+          return user?.stripeAccountId ? <StripeConnect /> : <CreateStripeAccountPage />;
       case 'hotels':
         return <HotelList />;
       case 'room_type':
@@ -60,6 +76,15 @@ const HotelDashboard = () => {
               onClick={() => setActiveTab('dashboard')}
             >
               <BarChart className="mr-3" />   {t('dashboard.title01')}
+            </li>
+            <li
+              className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'stripe'
+                ? 'bg-blue-100 text-blue-600'
+                : 'hover:bg-gray-100'
+                }`}
+              onClick={() => setActiveTab('stripe')}
+            >
+              <MonitorCog className="mr-3" /> Stripe
             </li>
             <li
               className={`flex items-center p-3 rounded cursor-pointer ${activeTab === 'bookings'

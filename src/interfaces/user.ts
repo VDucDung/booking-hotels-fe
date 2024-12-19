@@ -16,6 +16,7 @@ export interface User {
   dateOfBirth?: Date;
   balance?: number;
   role?: Role;
+  stripeAccountId?: string;
 }
 export interface UserState {
   users: User[];
