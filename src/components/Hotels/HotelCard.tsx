@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Building, Star, MapPin, Edit, Trash2 } from 'lucide-react';
+import { Building, Star, MapPin, Edit, Trash2, Phone } from 'lucide-react';
 import { Hotel } from '@/interfaces';
 import Image from 'next/image';
 
@@ -45,6 +45,12 @@ const HotelCard: React.FC<HotelCardProps> = ({ hotel, onEdit, onDelete }) => {
           <div className='flex'>
           <MapPin className="mr-2 text-red-500" size={20} />
           <p>{hotel.address}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center text-gray-600 mb-2 w-full h-auto">
+          <div className='flex items-center'>
+          <Phone  className="mr-2 text-blue-500" size={20} /> {hotel.contactPhone} 
           </div>
         </div>
         

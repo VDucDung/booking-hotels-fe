@@ -158,7 +158,7 @@ export const createHotel = async (hotelData: Partial<HotelDto>) => {
 
   if (images && images.length > 0) {
     images.forEach((image) => {
-      formData.append(`images`, image); 
+      formData.append(`files`, image); 
     });
   }
 

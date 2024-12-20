@@ -13,12 +13,13 @@ import { createFavorite, removeFavorite } from '@/api/favoriteService';
 import { toast } from 'react-toastify';
 import { useClientTranslation } from '@/i18n/client';
 import { Phone } from 'lucide-react';
+import Loading from '@/components/loading';
 const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ hotel, scrollToRoom }) => {
   const dispatch = useAppDispatch();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
-    const {user, isLogin} = useAppSelector((state) => state.auth);
-  
+  const {user, isLogin} = useAppSelector((state) => state.auth);
+  const {reviews, loading} = useAppSelector((state) => state.reviews);
  const { t } = useClientTranslation('Common');
 
   useEffect(() => {
@@ -54,6 +55,14 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
       });
     }
   };
+  if(loading){
+    return <Loading className='mx-auto mt-10'/>
+  }
+
+  const averageRating = reviews && reviews.length > 0 && reviews
+  .map((review) => review.rating)  
+  .reduce((total, rating) => total + rating, 0) 
+  / reviews.length;  
 
   return (
     <section className="flex flex-col bg-gray-100">
@@ -63,7 +72,7 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
           <div className="bg-white rounded-lg shadow-lg p-6">
            <div className='flex mb-4 items-center'>
            <h1 className="text-2xl font-bold">{hotel.hotelName}</h1>
-           <h2 className="text-xl font-semibold ml-2"><Rate disabled value={hotel.avgRating || 0}/></h2>
+           <h2 className="text-xl font-semibold ml-2"><Rate disabled value={averageRating || hotel?.avgRating || 0}/></h2>
            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

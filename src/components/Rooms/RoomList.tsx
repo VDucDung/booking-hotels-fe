@@ -122,7 +122,7 @@ const RoomList: React.FC = () => {
     }
   };
 
-
+  console.log(isModalOpen)
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
@@ -139,6 +139,7 @@ const RoomList: React.FC = () => {
               <Plus size={20} />
               <span>Add Room</span>
             </button>
+
           </div>
         </div>
 
@@ -187,12 +188,7 @@ const RoomList: React.FC = () => {
                     <p>Price: ${room?.price}</p>
                     {room?.bookingDate && (<p>Booking Date: {formatDate(room?.bookingDate)}</p>)}
                   </div>
-                  {isModalOpen && (
-                    <RoomCreateModal
-                      onClose={() => setIsModalOpen(false)}
-                      onCreate={handleCreateRoom}
-                    />
-                  )}
+
                   <div className="space-y-1">
                     {
                       Array.isArray(parseJSONSafely(room?.options || '[]')) && parseJSONSafely(room?.options || '[]').map((item: any, idx: number) => (
@@ -242,11 +238,21 @@ const RoomList: React.FC = () => {
                         />
                       )
                     }
+
+
+
                   </div>
                 </div>
               </div>
             </div>
           ))}
+
+          {isModalOpen && (
+            <RoomCreateModal
+              onClose={() => setIsModalOpen(false)}
+              onCreate={handleCreateRoom}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ const RelatedProducts: React.FC<HotelCardListProps> = () => {
   const slider = useRef<Slider | null>(null);
   const {user, isLogin} = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  console.log(user?.id)
   const { hotels, loading, error } = useAppSelector((state) => state.hotels);
 
   const fetchHotels = useCallback(() => {
