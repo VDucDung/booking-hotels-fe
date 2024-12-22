@@ -33,13 +33,12 @@ const HotelCreateModal: React.FC<HotelCreateModalProps> = ({ onClose, onCreate }
       alert('Please fill in all required fields');
       return;
     }
-    const imageUrls = selectedFiles.map((file) => URL.createObjectURL(file));
     const newHotel: HotelDto = {
       hotelName,
       address,
       contactPhone,
       description,
-      images: imageUrls,
+      images: selectedFiles,
     };
 
     onCreate(newHotel);

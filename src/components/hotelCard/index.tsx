@@ -62,7 +62,7 @@ const HotelCard: React.FC<HotelCardProps> = ({id, hotelName, address, totalRevie
             src={images as string}
             width={300}
             height={200}
-            className='rounded-lg hover:rounded-lg'
+            className='rounded-lg hover:rounded-lg object-cover w-[300px] h-[200px]'
           />
           <Button
             type="text"
