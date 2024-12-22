@@ -357,6 +357,27 @@
       "noExactlyPasswords": "Mật khẩu cũ không chính xác"
     }
   },
+  "booking": {
+    "title01": "Thông tin liên hệ",
+    "title02": "Vui lòng điền đầy đủ và chính xác các thông tin.",
+    "title03": "Tên người liên hệ",
+    "title04": "Email người liên hệ",
+    "title05": "Số điện thoại",
+    "title06": "Tôi là khách",
+    "title07": "Tôi đặt phòng cho người khác",
+    "title08": "Họ và tên khách",
+    "RequestForm": {
+      "title01": "Hãy cho chúng tôi biết nếu bạn có yêu cầu gì",
+      "title02": "Bạn sẽ biết tình trạng khả dụng của yêu cầu bổ sung trong quá trình nhận phòng. Có thể sẽ phát sinh thêm phí, nhưng bạn vẫn có thể hủy yêu cầu của mình sau."
+    },
+    "PriceBreakdown": {
+      "title01": "Chi tiết giá",
+      "title02": "Giá phòng",
+      "title03": "Thuế và phí",
+      "title04": "Tổng giá",
+      "title05": "Tiếp tục thanh toán"
+    }
+  },
   "hotelDetails": {
     "overview": {
       "title01": "Chọn phòng"

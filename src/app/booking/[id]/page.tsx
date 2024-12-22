@@ -4,11 +4,13 @@
 import BookingSummary from "@/components/bookingSummary";
 import HotelBookingPriceBreakdown from "@/components/hotelBookingPriceBreakdown";
 import HotelRequestForm from "@/components/hotelRequestForm";
+import { useClientTranslation } from "@/i18n/client";
 import { Input, Radio } from "antd";
 import { useState } from "react";
 
 const BookingPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
+  const { t } = useClientTranslation('Common');
 
   const [bookingFor, setBookingFor] = useState('guest');
   const [guestName, setGuestName] = useState('');
@@ -37,13 +39,13 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
     <div className="bg-gray-100 p-8 flex container mx-auto space-x-6 justify-center mt-[120px]">
       <div className="max-w-7xl bg-white shadow-md rounded-lg p-6">
         <div className="border-b pb-4 mb-6">
-          <h3 className="text-lg font-medium">Contact Details</h3>
+          <h3 className="text-lg font-medium">{t('booking.title01')}</h3>
           <p className="text-gray-500 mb-4">
-            Please fill in all fields correctly to ensure you receive the booking confirmation voucher in your email.
+          {t('booking.title02')}
           </p>
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-gray-700 mb-1">{`Contact's name`}</label>
+              <label className="block text-gray-700 mb-1">  {t('booking.title03')}</label>
               <Input 
                 placeholder="Enter your name" 
                 value={contactDetails.name}
@@ -52,7 +54,7 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
             </div>
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-700 mb-1">{`Contact's email`}</label>
+                <label className="block text-gray-700 mb-1">  {t('booking.title04')}</label>
                 <Input 
                   type="email" 
                   placeholder="Enter email"
@@ -61,7 +63,7 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 mb-1">Phone Number</label>
+                <label className="block text-gray-700 mb-1">  {t('booking.title05')}</label>
                 <Input 
                   placeholder="Enter phone number"
                   value={contactDetails.phone}
@@ -74,14 +76,14 @@ const BookingPage = ({ params }: { params: { id: string } }) => {
         <div>
           <div className="flex items-center space-x-4 mb-6">
             <Radio.Group value={bookingFor} onChange={handleRadioChange}>
-              <Radio value="guest">I am the guest</Radio>
-              <Radio value="other">{`I'm booking for another person`}</Radio>
+              <Radio value="guest">  {t('booking.title06')}</Radio>
+              <Radio value="other">  {t('booking.title07')}</Radio>
             </Radio.Group>
           </div>
 
           {bookingFor === 'other' && (
             <div className="mb-6 space-y-3">
-              <label htmlFor="guest-name">{`Guest's Full Name`}</label>
+              <label htmlFor="guest-name">  {t('booking.title08')}</label>
               <Input
                 id="guest-name"
                 value={guestName}

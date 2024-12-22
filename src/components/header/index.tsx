@@ -14,6 +14,7 @@ import { logout, useAppSelector } from "@/redux";
 import { toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { ROLE_NAME } from "@/enum";
+import { useRouter } from "next/navigation";
 
 const { Header } = Layout;
 
@@ -30,6 +31,8 @@ const AppHeader = () => {
   const auth = useAppSelector((state) => state.auth.isLogin);
   const [token, setToken] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const toastShownRef = useRef(false);
+  const router = useRouter()
 
   const userData = useAppSelector((state) => state.auth);
   const userOptionsRef = useRef<HTMLUListElement | null>(null);
@@ -41,17 +44,26 @@ const AppHeader = () => {
     setShowLanguages(false);
   };
 
-  const handleLogOut = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    setShowUserOptions(false);
-
-    localStorage.setItem('showToast', 'true');
-
-    dispatch(logout());
-
-    window.location.href = '/';
-  };
+  const handleLogOut = useCallback(async () => {
+    try {
+      await dispatch(logout());
+      
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      
+      setShowUserOptions(false);
+      
+      toast.success(t('login.notify02'));
+      
+      setTimeout(() => {
+        router.push('/')
+        window.location.reload();
+      }, 100);
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('Logout failed. Please try again.');
+    }
+  }, [dispatch, router, t]);
 
   const handleClickOutsideUserOptions = useCallback((event: any) => {
     if (
@@ -88,17 +100,6 @@ const AppHeader = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  useEffect(() => {
-    const showToast = localStorage.getItem('showToast');
-    if (showToast === 'true') {
-      toast.success(t('login.notify02'));
-      const deleteToast = setTimeout(() => {
-        localStorage.removeItem('showToast');
-      }, 100);
-      return () => clearTimeout(deleteToast);
-    }
-  }, [t]);
 
   useEffect(() => {
     if (userData.isUpdate) {
@@ -168,7 +169,7 @@ const AppHeader = () => {
                   <Image
                     ref={avatarRef}
                     onClick={() => setShowUserOptions((prev) => !prev)}
-                    className="w-10 h-10 rounded-full cursor-pointer hover:bg-[#00BA00] transition-colors duration-300"
+                    className="w-10 h-10 rounded-full cursor-pointer hover:bg-[#00BA00] transition-colors duration-300 object-cover"
                     src={avatar}
                     width={40}
                     height={40}

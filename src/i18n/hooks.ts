@@ -1,17 +1,19 @@
 'use client';
 
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import {  usePathname, useRouter } from 'next/navigation';
 
-import { Language } from './configs';
+import { I18nCookieName, Language } from './configs';
+import { useCookies } from 'react-cookie';
 
 export const useLanguage = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-  const langParams = params.lang as Language;
+  const [cookies, setCookie] = useCookies([I18nCookieName]);
 
   const onChangeLanguage = (lang: Language) => {
-    const newPath = pathname.replace(langParams, lang);
+    setCookie(I18nCookieName, lang, { path: '/' });
+
+    const newPath = pathname.replace(cookies[I18nCookieName], lang);
     router.replace(newPath);
   };
 

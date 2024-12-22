@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import './globals.css';
 import 'antd/dist/reset.css';
@@ -23,6 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      <meta name="description" content="Website booking hotels" />
+      <link rel="icon" href="/images/logo.svg" type='image/svg+xml'/>
+      {/* <link rel="icon" href="/favicon.ico" /> */}
+      </head>
       <body className={inter.className}>
         <ToastProvider>
           <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>

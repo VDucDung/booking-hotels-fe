@@ -355,6 +355,27 @@
       "noExactlyPasswords": "Incorrect old password"
     }
   },
+  "booking": {
+    "title01": "Contact Details",
+    "title02": "Please fill in all fields correctly.",
+    "title03": "Contact's name",
+    "title04": "Contact's email",
+    "title05": "Phone Number",
+    "title06": "I am the guest",
+    "title07": "I'm booking for another person",
+    "title08": "Guest's Full Name",
+    "RequestForm": {
+      "title01": "Let us know if you have any request",
+      "title02": "You will know the availability of your additional request during check-in. Extra charges may incur but you can still cancel your request later."
+    },
+    "PriceBreakdown": {
+      "title01": "Price details",
+      "title02": "Room Price",
+      "title03": "Taxes and fees",
+      "title04": "Total price",
+      "title05": "Continue to Payment"
+    }
+  },
   "hotelDetails": {
     "overview": {
       "title01": "Select room"

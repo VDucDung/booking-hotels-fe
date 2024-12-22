@@ -101,6 +101,7 @@ const ProfileEdit = () => {
               />
               <FormikTextField
                 name="phone"
+                type="number"
                 label={t('profile.phoneNumber')}
                 orientation={isLargerThanSm ? "horizontal" : "vertical"}
                 labelClassName="font-medium"

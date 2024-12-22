@@ -69,7 +69,7 @@ function SideBar() {
                 alt="avatar"
                 width={100}
                 height={100}
-                className={`w-24 h-24 rounded-full transition-opacity duration-300 ${isHovering ? 'opacity-70' : 'opacity-100'}`}
+                className={`w-24 h-24 rounded-full transition-opacity duration-300 object-cover ${isHovering ? 'opacity-70' : 'opacity-100'}`}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               />
@@ -90,7 +90,7 @@ function SideBar() {
               </label>
             </div>
           </Tooltip>
-          <div className="text-center mt-2"> VŨ ĐỨC DŨNG</div>
+          <div className="text-center mt-2">{user?.fullname}</div>
         </div>
         <div className="text-gray-400 text-lg text-center">Chỉnh sửa tài khoản</div>
       </div>

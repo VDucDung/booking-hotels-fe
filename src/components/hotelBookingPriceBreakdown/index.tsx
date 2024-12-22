@@ -7,6 +7,7 @@ import { getRoom } from '@/api/roomService';
 import { createTicket } from '@/api/ticketService';
 import { TicketData } from '@/interfaces/ticket';
 import { Room } from '@/type/room';
+import { useClientTranslation } from '@/i18n/client';
 
 const { Title, Text } = Typography;
 
@@ -33,6 +34,8 @@ const HotelBookingPriceBreakdown: React.FC<{
   checkOutTime,
   options,
 }) => {
+    const { t } = useClientTranslation('Common');
+  
     const currentDate = new Date();
     const check_in = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
       .toString()
@@ -91,27 +94,23 @@ const HotelBookingPriceBreakdown: React.FC<{
     }, [refetchRoom, roomId]);
 
     const validateForm = () => {
-      // Validate contact name
       if (!contactName || contactName.trim() === '') {
         message.error('Vui lòng nhập tên liên hệ');
         return false;
       }
 
-      // Validate email with basic regex
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!contactEmail || !emailRegex.test(contactEmail)) {
         message.error('Vui lòng nhập email hợp lệ');
         return false;
       }
 
-      // Validate phone number (assumes Vietnamese phone number format)
       const phoneRegex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
       if (!contactPhone || !phoneRegex.test(contactPhone)) {
         message.error('Vui lòng nhập số điện thoại hợp lệ');
         return false;
       }
 
-      // Validate guest name if booking for others
       if (guestFullName === '') {
         message.error('Vui lòng nhập tên khách');
         return false;
@@ -121,7 +120,6 @@ const HotelBookingPriceBreakdown: React.FC<{
     };
 
     const handleContinueToPayment = () => {
-      // Validate form first
       if (!validateForm()) {
         return;
       }
@@ -158,16 +156,12 @@ const HotelBookingPriceBreakdown: React.FC<{
 
     return (
       <Card
-        title={<Title level={4} className="text-lg">Price details</Title>}
+        title={<Title level={4} className="text-lg">{t('booking.PriceBreakdown.title01')}</Title>}
         className="w-full"
       >
-        {/* <Text className="text-green-500 block mb-4">
-          Taxes and fees are recovery charges which Traveloka pays to the property.
-        </Text> */}
-
         <div className="grid grid-cols-1 gap-2 mt-4">
           <div className='flex justify-between'>
-            <Text className="font-medium text-gray-700">Room Price</Text>
+            <Text className="font-medium text-gray-700">{t('booking.PriceBreakdown.title02')}</Text>
             <Text className="font-medium text-lg text-gray-900">
               {new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
@@ -176,7 +170,7 @@ const HotelBookingPriceBreakdown: React.FC<{
             </Text>
           </div>
           <div className='flex justify-between'>
-            <Text className="font-medium text-gray-700">Taxes and fees</Text>
+            <Text className="font-medium text-gray-700">{t('booking.PriceBreakdown.title03')}</Text>
             <Text className="font-medium text-lg text-gray-900">
               {new Intl.NumberFormat('vi-VN', {
                 style: 'currency',
@@ -189,7 +183,7 @@ const HotelBookingPriceBreakdown: React.FC<{
         <div className="border-b pb-4 mb-6"></div>
 
         <div className='flex justify-between mt-4'>
-          <Title level={4} className="text-gray-900 font-bold">Total price</Title>
+          <Title level={4} className="text-gray-900 font-bold">{t('booking.PriceBreakdown.title04')}</Title>
           <Text className="font-bold text-2xl text-gray-900">
             {new Intl.NumberFormat('vi-VN', {
               style: 'currency',
@@ -207,7 +201,7 @@ const HotelBookingPriceBreakdown: React.FC<{
             onClick={handleContinueToPayment}
             loading={createTicketMutation.isPending}
           >
-            Continue to Payment
+            {t('booking.PriceBreakdown.title05')}
           </Button>
         </div>
       </Card>

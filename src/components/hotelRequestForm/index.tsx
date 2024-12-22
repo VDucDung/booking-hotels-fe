@@ -1,5 +1,6 @@
 "use client";
 
+import { useClientTranslation } from '@/i18n/client';
 import React, { useState, useEffect } from 'react';
 
 interface HotelRequestFormProps {
@@ -16,6 +17,8 @@ const HotelRequestForm: React.FC<HotelRequestFormProps> = ({
   onCheckInDetailsChange, 
   onOptionsChange 
 }) => {
+      const { t } = useClientTranslation('Common');
+  
   const [showBedOptions, setShowBedOptions] = useState(false);
   const [showOthersInput, setShowOthersInput] = useState(false);
   const [showCheckInInput, setShowCheckInInput] = useState(false);
@@ -77,9 +80,9 @@ const HotelRequestForm: React.FC<HotelRequestFormProps> = ({
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Let us know if you have any request</h2>
+      <h2 className="text-2xl font-bold mb-4">{t('booking.RequestForm.title01')}</h2>
       <p className="text-gray-500 mb-4">
-        You will know the availability of your additional request during check-in. Extra charges may incur but you can still cancel your request later.
+      {t('booking.RequestForm.title02')}
       </p>
       
       <div className="grid grid-cols-2 gap-4">

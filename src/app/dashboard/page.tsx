@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BarChart,
 } from 'recharts';
@@ -24,19 +24,29 @@ import { useQuery } from '@tanstack/react-query';
 import { getMe } from '@/api/userService';
 import Loading from '@/components/loading';
 import StripeConnect from '../partnership/signup/stripeAccount/stripeDashboard/page';
-
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const HotelDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const { t } = useClientTranslation('Common');
-  
+  const router = useRouter();
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: () => getMe(),
   });
+
+  useEffect(() => {
+    if (!isLoading && user?.role?.name === 'USER'){
+      toast.error('You are not authorized to access this page');
+      router.push('/');
+    }
+  }, [isLoading, router, user])
+
   if(isLoading){
     return <Loading className='mx-auto mt-52'/>
   }
+
 
   const renderContent = () => {
     switch (activeTab) {

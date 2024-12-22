@@ -23,8 +23,7 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
  const { t } = useClientTranslation('Common');
 
   useEffect(() => {
-    if(hotel){
-      if(isLogin && hotel?.favorites?.length > 0 
+      if(isLogin && hotel && hotel?.favorites?.length > 0 
         ? hotel.favorites.some((favorite: any) => {
             return favorite?.user?.id === user?.id;
           })
@@ -33,7 +32,6 @@ const Overview: React.FC<HotelCredentials & { scrollToRoom: () => void }> = ({ h
       }else{
         setIsLiked(false);
       }
-    }
 
   }, [hotel, isLogin, user?.id]);
 

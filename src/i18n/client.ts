@@ -184,19 +184,21 @@ i18next
 
 export function useClientTranslation(ns?: string | string[], options?: any) {
   const params = useParams();
-  const lang = params.lang as Language;
   const [cookies, setCookie] = useCookies([I18nCookieName]);
   const ret = useTranslationOrg(ns, options);
   const { i18n } = ret;
-  if (runsOnServerSide && lang) {
-    i18n.changeLanguage(lang);
-  } else {
-    useEffect(() => {
-      i18n.changeLanguage(lang);
-    }, [i18n, lang]);
-    useEffect(() => {
-      setCookie(I18nCookieName, lang, { path: '/' });
-    }, [lang, setCookie]);
-  }
-  return ret;
+  const langFromCookie = cookies[I18nCookieName];
+  useEffect(() => {
+    if (langFromCookie) {
+      i18n.changeLanguage(langFromCookie);
+    }
+  }, [i18n, langFromCookie]);
+
+  useEffect(() => {
+    if (i18n.language) {
+      setCookie(I18nCookieName, i18n.language, { path: '/' });
+    }
+  }, [i18n.language, setCookie]);
+
+  return useTranslationOrg(ns, options);
 }

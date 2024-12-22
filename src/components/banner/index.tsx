@@ -79,7 +79,7 @@ const Banner = () => {
           <h3 className='text-6xl font-bold'>{t('header.na04')}</h3>
           <h5 className='text-2xl font-medium'>{t('header.na05')}</h5>
         </div>
-        <div className='mx-[40px] flex justify-center border-gray-300 bg-gray-300 border-[3px] rounded relative top-[25px] z-50 w-full'>
+        <div className='mx-[40px] flex justify-center border-gray-300 bg-gray-300 border-[3px] rounded relative top-[25px] z-50 w-auto'>
           <div className='w-[35%] '>
             <Input placeholder={t('header.na06')} className='w-[100%] h-[50px] px-2 hover:border-none' prefix={<LocationIcon className={'w-6 h-6 '} />}
               value={location as string}
@@ -109,9 +109,9 @@ const Banner = () => {
               </Button>
             </Popover>
           </div>
-          <div className='w-[10%]'>
+          <div className='w-auto'>
             <Button
-              className="h-[50px] px-[22%] hover:border-none text-[16px] font-bold"
+              className="h-[50px] hover:border-none text-[16px] font-bold"
               type="primary"
               icon={<SearchIcon className={'w-6 h-6 '} />}
               onClick={() => {

@@ -42,6 +42,8 @@ function Trendingdestinations(): JSX.Element {
               backgroundImage: `url(${trendingCategories[0]?.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              imageRendering: "auto",
             }}
           />
           <div className="absolute p-4 md:p-6 text-left">
@@ -74,6 +76,8 @@ function Trendingdestinations(): JSX.Element {
             backgroundImage: `url(${trendingCategories[1]?.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            imageRendering: "auto",
           }}
         />
         <div className="absolute p-4 md:p-6">
@@ -101,6 +105,8 @@ function Trendingdestinations(): JSX.Element {
             backgroundImage: `url(${trendingCategories[2]?.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            imageRendering: "auto",
           }}
         />
         <div className="absolute p-4 md:p-6">
